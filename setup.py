@@ -23,7 +23,7 @@ setup(
     # Versions should comply with PEP440.  For a discussion on single-sourcing
     # the version across setup.py and the project code, see
     # https://packaging.python.org/en/latest/single_source_version.html
-    version='0.0.4',
+    version='0.0.5',
 
     description='awskit is a collection of utilities to help interact with aws',
     long_description='this is the long description of awskit',
@@ -65,7 +65,7 @@ setup(
 
     # You can just specify the packages manually here if your project is
     # simple. Or you can use find_packages().
-    packages=find_packages(),
+    packages=find_packages('src'),
 
     # Alternatively, if you want to distribute just a my_module.py, uncomment
     # this:
