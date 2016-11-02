@@ -71,31 +71,32 @@ def update_machine():
         run(['yum','update'])
         run(['yum','upgrade'])
 
-
-check_root()
-detect_os()
-update_machine()
-
-####### fix the code from here #######
-
 # install neccessary package per platform
+def install_packages():
+    list_of_packages={
+        OSType.ubuntu: [
+            'python-pip',
+            'python-dev',
+            'python3-pip',
+            'python3-dev',
+            'git',
+            'parallel',
+            'jq',
+            'tree',
+            'zip',
+        ],
+        OSType.aml: [
+        ],
+    }
+    # install the packages
+    #subprocess.check_call([
+    #])
 
-list_of_packages={
-    OSType.ubuntu: [
-        'python-pip',
-        'python-dev',
-        'python3-pip',
-        'python3-dev',
-        'git',
-        'parallel',
-        'jq',
-        'tree',
-        'zip',
-    ],
-    OSType.aml: [
-    ],
-}
+def main():
+    check_root()
+    detect_os()
+    update_machine()
+    install_packages()
 
-# install the packages
-#subprocess.check_call([
-#])
+if __name__=='__main__':
+    main()

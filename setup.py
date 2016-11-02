@@ -14,29 +14,29 @@ from os import path
 here = path.abspath(path.dirname(__file__))
 
 # Get the long description from the README file
-with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
-    long_description = f.read()
+#with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
+#    long_description = f.read()
 
 setup(
-    name='twiggle-utils',
+    name='awskit',
 
     # Versions should comply with PEP440.  For a discussion on single-sourcing
     # the version across setup.py and the project code, see
     # https://packaging.python.org/en/latest/single_source_version.html
     version='0.0.1',
 
-    description='Utils project at twiggle',
-    long_description=long_description,
+    description='awskit is a collection of utilities to help interact with aws',
+    long_description='this is the long description of awskit',
 
     # The project's main homepage.
-    url='git@bitbucket.org:mark_veltzer/utils.git',
+    url='git@github.com:veltzer/awskit.git',
 
     # Author details
-    author='Twiggle',
-    author_email='dev@twiggle.com',
+    author='Mark Veltzer',
+    author_email='mark.veltzer@gmail.com',
 
     # Choose your license
-    license='Proprietary',
+    license='GPL3',
 
     # See https://pypi.python.org/pypi?%3Aaction=list_classifiers
     classifiers=[
@@ -60,7 +60,7 @@ setup(
     ],
 
     # What does your project relate to?
-    keywords='utils twiggle',
+    keywords='aws utils',
 
     # You can just specify the packages manually here if your project is
     # simple. Or you can use find_packages().
@@ -75,15 +75,8 @@ setup(
     # requirements files see:
     # https://packaging.python.org/en/latest/requirements.html
     install_requires=[
-        'elasticsearch',
-        'Scrapy',
-        'luigi',
-        'requests',
-        'graphviz',
-        'yapsy',
-        'pyyaml',
-        'pluginbase',
-        'logging_tree',
+        'boto',
+        'boto3',
     ],
 
     # List additional groups of dependencies here (e.g. development
@@ -113,7 +106,7 @@ setup(
     # pip to create the appropriate form of executable for the target platform.
     entry_points={
         'console_scripts': [
-            'pipeline_all=pipeline.all:main',
+            'boot=boot:main',
         ],
     },
 )
