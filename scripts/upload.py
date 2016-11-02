@@ -22,7 +22,9 @@ References:
 
 import subprocess # for check_call
 import os # for listdir
-import os.path # for join
+import os.path # for join, expanduser
+
+config_file=os.path.expanduser('~/.pypirc')
 
 def git_clean_full():
     subprocess.check_call([
@@ -46,4 +48,7 @@ subprocess.check_call([
     'twine',
     'upload',
     full_filename,
-], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    '--config-file',
+    config_file,
+])
+#], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
