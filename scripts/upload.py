@@ -18,6 +18,7 @@ On ubuntu twine(1) is from the 'twine' official ubuntu package.
 References:
 - https://pypi.python.org/pypi/twine
 - https://python-packaging-user-guide.readthedocs.org/en/latest/index.html
+- http://peterdowns.com/posts/first-time-with-pypi.html
 '''
 
 import subprocess # for check_call
@@ -27,6 +28,18 @@ import common # for git_clean_full, config_file
 
 
 common.git_clean_full()
+subprocess.check_call([
+    'python',
+    'setup.py',
+    'sdist',
+    'upload',
+    '-r',
+    'pypi',
+], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+common.git_clean_full()
+
+'''
+This code does not work
 subprocess.check_call([
     'python3',
     'setup.py',
@@ -47,3 +60,4 @@ subprocess.check_call([
 #], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
 common.git_clean_full()
+'''
