@@ -20,25 +20,30 @@ References:
 - https://python-packaging-user-guide.readthedocs.org/en/latest/index.html
 '''
 
-import subprocess
+import subprocess # for check_call
+import os # for listdir
+import os.path # for join
 
 def git_clean_full():
     subprocess.check_call([
         'git',
         'clean',
         '-qffxd',
-    ])
+    ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
 git_clean_full()
 subprocess.check_call([
     'python3',
     'setup.py',
     'sdist',
-])
-'''
+], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+# at this point there should be only one file in the 'dist' folder
+file_list = list(os.listdir('dist'))
+assert len(file_list) == 1
+filename = file_list[0]
+full_filename = os.path.join('dist', filename)
 subprocess.check_call([
     'twine',
     'upload',
-    'dist/*',
-])
-'''
+    full_filename,
+], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
