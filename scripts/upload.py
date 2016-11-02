@@ -35,7 +35,8 @@ subprocess.check_call([
     'upload',
     '-r',
     'pypi',
-], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+#], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+])
 common.git_clean_full()
 
 '''
