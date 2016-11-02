@@ -23,15 +23,8 @@ References:
 import subprocess # for check_call
 import os # for listdir
 import os.path # for join, expanduser
+import common # for git_clean_full, config_file
 
-config_file=os.path.expanduser('~/.pypirc')
-
-def git_clean_full():
-    subprocess.check_call([
-        'git',
-        'clean',
-        '-qffxd',
-    ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
 git_clean_full()
 subprocess.check_call([
