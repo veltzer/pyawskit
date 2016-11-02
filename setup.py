@@ -107,7 +107,7 @@ setup(
     # pip to create the appropriate form of executable for the target platform.
     entry_points={
         'console_scripts': [
-            'boot=boot:main',
+            'prep_machine=awskit.prep_machine.py:main',
         ],
     },
 )
