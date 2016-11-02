@@ -29,7 +29,8 @@ setup(
     long_description='this is the long description of awskit',
 
     # The project's main homepage.
-    url='git@github.com:veltzer/awskit.git',
+    #url='git@github.com:veltzer/awskit.git',
+    url='https://veltzer.github.io/awskit',
 
     # Author details
     author='Mark Veltzer',

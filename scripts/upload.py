@@ -26,7 +26,7 @@ import os.path # for join, expanduser
 import common # for git_clean_full, config_file
 
 
-git_clean_full()
+common.git_clean_full()
 subprocess.check_call([
     'python3',
     'setup.py',
@@ -41,7 +41,9 @@ subprocess.check_call([
     'twine',
     'upload',
     full_filename,
-    '--config-file',
-    config_file,
+#    '--config-file',
+#    common.config_file,
 ])
 #], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+
+common.git_clean_full()
