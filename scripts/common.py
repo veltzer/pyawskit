@@ -12,6 +12,8 @@ def check_call_no_output(args):
     )
     (res_stdout, res_stderr) = p.communicate()
     if p.returncode:
+        res_stdout = res_stdout.decode()
+        res_stderr = res_stderr.decode()
         print(res_stdout, end='')
         print(res_stderr, end='')
         sys.exit(p.returncode)
