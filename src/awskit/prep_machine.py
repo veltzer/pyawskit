@@ -6,6 +6,7 @@ A python version of the script here:
 
 - apt-get update
 - apt-get dist-upgrade
+- a reboot may be necessary if a new kernel was installed
 - install a list of packages on the system:
 - format and mount all disks
     use madm
@@ -14,6 +15,8 @@ A python version of the script here:
 - copy ~/.gitconfig to it.
 - set the hostname of the machine (it's usualy hostname is ip-XXX-XXX-XXX-XXX).
 - configure vim to do correct python editing and save editing positions.
+- install fancy propmt on it.
+- put the git repositories you want on it.
 '''
 
 import subprocess # for check_output, check_call
@@ -84,6 +87,8 @@ def install_packages():
             'jq',
             'tree',
             'zip',
+            'apt-file',
+            'mdadm', # is already installed on ubuntu on aws
         ],
         OSType.aml: [
         ],
