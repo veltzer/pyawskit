@@ -32,9 +32,7 @@ import os # for listdir
 do_use_setup = False
 do_use_twine = True
     
-common.git_clean_full()
-
-if do_use_setup:
+def register_by_setup():
     common.check_call_no_output([
         'python',
         'setup.py',
@@ -43,7 +41,7 @@ if do_use_setup:
         'pypi',
     ])
 
-if do_use_twine:
+def register_by_twine():
     common.check_call_no_output([
         'python3',
         'setup.py',
@@ -62,3 +60,10 @@ if do_use_twine:
     ])
 
 common.git_clean_full()
+try:
+    if do_use_setup:
+        register_by_setup()
+    if do_use_twine:
+        register_by_twine()
+finally:
+    common.git_clean_full()
