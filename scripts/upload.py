@@ -26,39 +26,38 @@ import os # for listdir
 import os.path # for join, expanduser
 import common # for git_clean_full, config_file
 
-
-common.git_clean_full()
-subprocess.check_call([
-    'python',
-    'setup.py',
-    'sdist',
-    'upload',
-    '-r',
-    'pypi',
-], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-#])
+do_use_setup = True
+do_use_twine = False
+    
 common.git_clean_full()
 
-'''
-This code does not work
-subprocess.check_call([
-    'python3',
-    'setup.py',
-    'sdist',
-], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-# at this point there should be only one file in the 'dist' folder
-file_list = list(os.listdir('dist'))
-assert len(file_list) == 1
-filename = file_list[0]
-full_filename = os.path.join('dist', filename)
-subprocess.check_call([
-    'twine',
-    'upload',
-    full_filename,
-#    '--config-file',
-#    common.config_file,
-])
-#], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+if do_use_setup:
+    common.check_call_no_output([
+        'python',
+        'setup.py',
+        'sdist',
+        'upload',
+        '-r',
+        'pypi',
+    ])
+
+if do_use_twine:
+    common.check_call_no_output([
+        'python3',
+        'setup.py',
+        'sdist',
+    ])
+    # at this point there should be only one file in the 'dist' folder
+    file_list = list(os.listdir('dist'))
+    assert len(file_list) == 1
+    filename = file_list[0]
+    full_filename = os.path.join('dist', filename)
+    common.check_call_no_output([
+        'twine',
+        'upload',
+        full_filename,
+    #    '--config-file',
+    #    common.config_file,
+    ])
 
 common.git_clean_full()
-'''
