@@ -1,6 +1,5 @@
 import subprocess # for check_call
 import os.path # for expanduser
-import sys # for exit
 
 config_file=os.path.expanduser('~/.pypirc')
 
@@ -16,7 +15,7 @@ def check_call_no_output(args):
         res_stderr = res_stderr.decode()
         print(res_stdout, end='')
         print(res_stderr, end='')
-        sys.exit(p.returncode)
+        raise ValueError(p.returncode)
 
 def git_clean_full():
     check_call_no_output([

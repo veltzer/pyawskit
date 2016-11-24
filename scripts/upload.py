@@ -29,9 +29,7 @@ import common # for git_clean_full, config_file
 do_use_setup = True
 do_use_twine = False
     
-common.git_clean_full()
-
-if do_use_setup:
+def upload_by_setup(): 
     common.check_call_no_output([
         'python',
         'setup.py',
@@ -40,8 +38,9 @@ if do_use_setup:
         '-r',
         'pypi',
     ])
+    common.git_clean_full()
 
-if do_use_twine:
+def upload_by_twine():
     common.check_call_no_output([
         'python3',
         'setup.py',
@@ -61,3 +60,10 @@ if do_use_twine:
     ])
 
 common.git_clean_full()
+try:
+    if do_use_setup:
+        upload_by_setup()
+    if do_use_twine:
+        upload_by_twine()
+finally:
+    common.git_clean_full()
