@@ -1,5 +1,6 @@
 #!/bin/sh
 
-sudo -H pip3 install --quiet --upgrade awskit
-#sudo -H pip install --quiet --upgrade awskit
-pip3 show awskit | grep -e "^Version"
+PIP=pip
+PIP=pip3
+sudo -H $PIP install --quiet --upgrade awskit
+$PIP show awskit | grep -e "^Version"
