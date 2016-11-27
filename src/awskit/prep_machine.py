@@ -89,6 +89,7 @@ def install_packages():
             'zip',
             'apt-file',
             'awscli',
+            's3cmd',
             'mdadm', # is already installed on ubuntu on aws
             'lrzip', # for lrzip(1), lrunzip(1)
         ],
