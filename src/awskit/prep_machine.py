@@ -10,9 +10,7 @@ A python version of the script here:
 - install a list of packages on the system:
 - format and mount all disks
     use madm
-- copy ~/.aws to it
-- copy keys from ~/.ssh to it
-- copy ~/.gitconfig to it.
+- copy ~/.aws ~/.ssh ~/.s3cfg ~/.gitconfig to it
 - set the hostname of the machine (it's usualy hostname is ip-XXX-XXX-XXX-XXX).
 - configure vim to do correct python editing and save editing positions.
 - install fancy propmt on it.
