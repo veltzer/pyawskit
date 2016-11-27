@@ -90,6 +90,7 @@ def install_packages():
             'apt-file',
             'awscli',
             'mdadm', # is already installed on ubuntu on aws
+            'lrzip', # for lrzip(1), lrunzip(1)
         ],
         OSType.aml: [
         ],
