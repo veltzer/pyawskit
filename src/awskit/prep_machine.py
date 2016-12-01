@@ -90,6 +90,7 @@ def install_packages():
             's3cmd',
             'mdadm', # is already installed on ubuntu on aws
             'lrzip', # for lrzip(1), lrunzip(1)
+            'bc', # nice to have tool
         ],
         OSType.aml: [
         ],
