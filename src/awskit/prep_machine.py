@@ -91,6 +91,7 @@ def install_packages():
             'mdadm', # is already installed on ubuntu on aws
             'lrzip', # for lrzip(1), lrunzip(1)
             'bc', # nice to have tool
+            's3fs', # s3 file system
         ],
         OSType.aml: [
         ],
