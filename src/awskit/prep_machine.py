@@ -1,8 +1,8 @@
 #!/usr/bin/python3
 
 '''
-A python version of the script here:
--https://gist.github.com/joemiller/6049831
+A python version of the bash script here:
+https://gist.github.com/joemiller/6049831
 
 - apt-get update
 - apt-get dist-upgrade
@@ -10,7 +10,7 @@ A python version of the script here:
 - install a list of packages on the system:
 - format and mount all disks
     use madm
-- copy ~/.aws ~/.ssh ~/.s3cfg ~/.gitconfig to it
+- copy ~/.aws ~/.ssh ~/.s3cfg ~/.gitconfig ~/.passwd-s3fs to it
 - set the hostname of the machine (it's usualy hostname is ip-XXX-XXX-XXX-XXX).
 - configure vim to do correct python editing and save editing positions.
 - install fancy propmt on it.
