@@ -92,6 +92,7 @@ def install_packages():
             'lrzip', # for lrzip(1), lrunzip(1)
             'bc', # nice to have tool
             's3fs', # s3 file system
+            'apt-file', # for finding package names by files
         ],
         OSType.aml: [
         ],
