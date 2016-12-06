@@ -85,7 +85,6 @@ def install_packages():
             'jq',
             'tree',
             'zip',
-            'apt-file',
             'awscli',
             's3cmd',
             'mdadm', # is already installed on ubuntu on aws
