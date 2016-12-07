@@ -1,5 +1,3 @@
-#!/usr/bin/python3
-
 """
 This script will update ~/.aws/config file with the names of your machines.
 Notice that you must hold all of your .pem files in ~/.aws/keys

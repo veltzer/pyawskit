@@ -1,5 +1,3 @@
-#!/usr/bin/python3
-
 '''
 A python version of the bash script here:
 https://gist.github.com/joemiller/6049831
