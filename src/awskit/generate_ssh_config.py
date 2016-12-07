@@ -1,43 +1,71 @@
+#!/usr/bin/python3
+
 """
 This script will update ~/.aws/config file with the names of your machines.
 Notice that you must hold all of your .pem files in ~/.aws/keys
 """
+
 import os.path
+import boto3
+import boto3.resources
+import ujson
+import sys
+from typing import List
 
-import boto.ec2
-from boto.ec2.instance import Instance
+pattern = """Host {host}
+\tHostName {public_ip}
+\tIdentityFile ~/.aws/keys/{key_name}.pem
+\tIdentitiesOnly yes
+\tUser ubuntu"""
 
-comment_line = "# DO NOT EDIT BEYOND THIS LINE - LEAVE THIS LINE AS IS\n"
-config_file = os.path.expanduser("~/.ssh/config")
-filter_file = os.path.expanduser("~/.ssh/aws_filter")
-pem_pattern = os.path.expanduser("~/.awk/keys/{pem_name}.pem")
 
-filters={}
-with open(filter_file) as file_handle:
-    content = file_handle.read()
-    filters=eval(content)
+def main():
+    comment_line = "# DO NOT EDIT BEYOND THIS LINE - LEAVE THIS LINE AS IS\n"
+    config_file = os.path.expanduser("~/.ssh/config")
+    filter_file = os.path.expanduser("~/.ssh/aws_filter")
+    # no need to expand this as ~/.ssh/config can work with ~...
+    pem_pattern = "~/.awk/keys/{key_name}.pem"
 
-with open(config_file) as file_handle:
-    lines = file_handle.readlines()
+    with open(filter_file) as file_handle:
+        filters = ujson.loads(file_handle.read())
+    # print(filters)
 
-location_of_comment_line = lines.find(comment_line)
-if location_of_comment_line != -1:
-    lines
+    with open(config_file) as file_handle:
+        lines = file_handle.readlines()
 
-instance_name = argv[-1]
-stderr.write('Wildcard: {}\n'.format(instance_name))
-client = boto.ec2.connect_to_region('us-west-2')
+    # cut down auto generated lines if they exist...
+    try:
+        location_of_comment_line = lines.index(comment_line)
+        lines = lines[:location_of_comment_line]
+    except ValueError:
+        pass
+    # print("lines is {}".format(lines), file=sys.stderr)
 
-pattern = """
-Host {host}
-       User ubuntu
-       HostName {public_ip}
-       IdentityFile ~/.ssh/{pem_file}.pem
-"""
-response = client.get_only_instances(filters={
-    'tag:Name': instance_name,
-})
+    ec2 = boto3.resource('ec2')
+    instances = list(ec2.instances.filter(Filters=filters))  # type: List[boto3.resources.collection.ec2.instancesCollection]
+    num_of_instances = len(instances)
+    print("Found {} instances".format(num_of_instances), file=sys.stderr)
+    assert num_of_instances > 0
 
-stderr.write('Found {} instances\n'.format(len(response)))
-for instance in response:  # type Instance
-    print pattern.format(host=instance.tags['Name'], public_ip=instance.public_dns_name, pem_file=instance.key_name)
+    lines.append(comment_line)
+
+    # add bunch of lines for each server
+    for instance in instances:  # type: boto3.resources.factory.ec2.Instance
+        tags_dict = {}
+        for tag in instance.tags:
+            tags_dict[tag["Key"]] = tag["Value"]
+        pattern_to_add = pattern.format(
+            host=tags_dict["Name"],
+            public_ip=instance.public_dns_name,
+            key_name=instance.key_name,
+        )
+        lines.extend(pattern_to_add)
+    # print("lines is {}".format(lines), file=sys.stderr)
+
+    # print the final lines to the config file
+    with open(config_file, "wt") as file_handle:
+        file_handle.writelines(lines)
+    print("written {}".format(config_file))
+
+if __name__ == "__main__":
+    main()
