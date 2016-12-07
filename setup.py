@@ -28,12 +28,12 @@ setuptools.setup(
     package_dir={'':'src'},
     packages=setuptools.find_packages('src'),
     install_requires=[
-        'boto',
-        'boto3',
+        'boto3', # used by generate_ssh_config
     ],
     entry_points={
         'console_scripts': [
             'prep_machine=awskit.prep_machine:main',
+            'generate_ssh_config=awskit.generate_ssh_config:main',
         ],
     },
 )
