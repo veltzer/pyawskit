@@ -69,7 +69,6 @@ def main():
 
     logger.info("checking if any of the disks are mounted [%s]", ','.join(disks))
     manager = mount.mgr.Manager()
-    found_mounted = False
     for disk in disks:
         if manager.is_mounted(disk):
             mount_point = manager.get_mount_point(disk)
@@ -121,7 +120,11 @@ def main():
     ])
 
     logger.info("creating the new md device...")
-    subprocess.check_call(["/sbin/udevadm", "control", "--stop-exec-queue",])
+    subprocess.check_call([
+        "/sbin/udevadm",
+        "control",
+        "--stop-exec-queue",
+    ])
     args = [
         mdadm_binary,
         "--create",

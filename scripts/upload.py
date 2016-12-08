@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-'''
+"""
 this script uploads your module to pypi
 
 It does the following:
@@ -19,17 +19,17 @@ References:
 - https://pypi.python.org/pypi/twine
 - https://python-packaging-user-guide.readthedocs.org/en/latest/index.html
 - http://peterdowns.com/posts/first-time-with-pypi.html
-'''
+"""
 
-import subprocess # for check_call
-import os # for listdir
-import os.path # for join, expanduser
-import common # for git_clean_full, config_file
+import os
+import os.path
+import common
 
 do_use_setup = True
 do_use_twine = False
     
-def upload_by_setup(): 
+
+def upload_by_setup():
     common.check_call_no_output([
         'python',
         'setup.py',
@@ -39,6 +39,7 @@ def upload_by_setup():
         'pypi',
     ])
     common.git_clean_full()
+
 
 def upload_by_twine():
     common.check_call_no_output([
@@ -55,8 +56,8 @@ def upload_by_twine():
         'twine',
         'upload',
         full_filename,
-    #    '--config-file',
-    #    common.config_file,
+        # '--config-file',
+        # common.config_file,
     ])
 
 common.git_clean_full()

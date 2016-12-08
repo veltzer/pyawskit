@@ -2,7 +2,6 @@
 
 import shutil
 import subprocess
-import os.path
 import os
 
 dist_folder = 'dist'

@@ -2,10 +2,12 @@
   <dictionary name="mark">
     <words>
       <w>awscli</w>
+      <w>awskit</w>
       <w>gitconfig</w>
       <w>lrunzip</w>
       <w>lrzip</w>
       <w>passwd</w>
+      <w>pypi</w>
     </words>
   </dictionary>
 </component>

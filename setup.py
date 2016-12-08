@@ -6,7 +6,7 @@ https://packaging.python.org/en/latest/distributing.html
 https://github.com/pypa/sampleproject
 """
 
-import setuptools # for setup, find_packages
+import setuptools
 
 setuptools.setup(
     name='awskit',
@@ -25,11 +25,11 @@ setuptools.setup(
         'Programming Language :: Python :: 3.5',
     ],
     keywords='aws utils',
-    package_dir={'':'src'},
+    package_dir={'': 'src'},
     packages=setuptools.find_packages('src'),
     install_requires=[
-        'boto3', # used by ak_generate_ssh_config
-        'mount', # used by ak_unify_disks
+        'boto3',  # used by ak_generate_ssh_config
+        'mount',  # used by ak_unify_disks
     ],
     entry_points={
         'console_scripts': [

@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-'''
+"""
 This script registers your project in pypi.
 
 when registering via twine(1) you need to:
@@ -23,15 +23,15 @@ References:
 
 TODO:
 - check if I'm already registered and don't register if that is the case.
-'''
+"""
 
-import common # for git_clean_full
-import subprocess # for check_call, DEVNULL
-import os # for listdir
+import common
+import os
 
 do_use_setup = False
 do_use_twine = True
     
+
 def register_by_setup():
     common.check_call_no_output([
         'python',
@@ -40,6 +40,7 @@ def register_by_setup():
         '-r',
         'pypi',
     ])
+
 
 def register_by_twine():
     common.check_call_no_output([

@@ -20,7 +20,7 @@ folders_to_copy = [
     "~/.passwd-s3fs",
 ]
 
-assert len(sys.argv)==2
+assert len(sys.argv) == 2
 machine_name = sys.argv[1]
 args = [
     "scp",
