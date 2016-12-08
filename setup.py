@@ -10,7 +10,7 @@ import setuptools # for setup, find_packages
 
 setuptools.setup(
     name='awskit',
-    version='0.1.1',
+    version='0.1.2',
     description='awskit is a collection of utilities to help interact with aws',
     long_description='awskit helps you with various aws tasks',
     url='https://veltzer.github.io/awskit',
