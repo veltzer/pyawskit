@@ -2,9 +2,16 @@
 A python version of the bash script here:
 https://gist.github.com/joemiller/6049831
 
+bash
 - apt-get update
 - apt-get dist-upgrade
+- install python3-pip python3-dev python-pip python-dev
+- upgrade pip using
+    $ sudo -H pip install pip --upgrade
+    $ sudo -H pip3 install pip --upgrade
 - a reboot may be necessary if a new kernel was installed
+
+- remove old kernels
 - install a list of packages on the system:
 - format and mount all disks
     use mdadm
