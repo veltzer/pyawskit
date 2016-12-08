@@ -10,9 +10,9 @@ import setuptools # for setup, find_packages
 
 setuptools.setup(
     name='awskit',
-    version='0.1.0',
+    version='0.1.1',
     description='awskit is a collection of utilities to help interact with aws',
-    long_description='this is the long description of awskit',
+    long_description='awskit helps you with various aws tasks',
     url='https://veltzer.github.io/awskit',
     author='Mark Veltzer',
     author_email='mark.veltzer@gmail.com',
@@ -32,8 +32,9 @@ setuptools.setup(
     ],
     entry_points={
         'console_scripts': [
-            'prep_machine=awskit.prep_machine:main',
-            'generate_ssh_config=awskit.generate_ssh_config:main',
+            'ak_prep_machine=awskit.ak_prep_machine:main',
+            'ak_generate_ssh_config=awskit.ak_generate_ssh_config:main',
+            'ak_unify_disks=awskit.ak_unify_disks:main',
         ],
     },
 )
