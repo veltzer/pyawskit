@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5ca2fdd7-586d-4554-a06b-a16a06ce6242" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/setup.py" afterPath="$PROJECT_DIR$/setup.py" />
-    </list>
+    <list default="true" id="5ca2fdd7-586d-4554-a06b-a16a06ce6242" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -17,11 +14,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="setup.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/setup.py">
+      <file leaf-file-name="ak_generate_ssh_config.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/awskit/ak_generate_ssh_config.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="336">
-              <caret line="12" column="18" lean-forward="false" selection-start-line="12" selection-start-column="18" selection-end-line="12" selection-end-column="18" />
+            <state relative-caret-position="693">
+              <caret line="72" column="0" lean-forward="false" selection-start-line="72" selection-start-column="0" selection-end-line="72" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -45,6 +42,7 @@
         <option value="$PROJECT_DIR$/scripts/install_from_pypi.sh" />
         <option value="$PROJECT_DIR$/src/awskit/ak_prep_machine.py" />
         <option value="$PROJECT_DIR$/setup.py" />
+        <option value="$PROJECT_DIR$/src/awskit/ak_generate_ssh_config.py" />
       </list>
     </option>
   </component>
@@ -87,6 +85,20 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="awskit" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="awskit" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="awskit" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -391,7 +403,14 @@
       <option name="project" value="LOCAL" />
       <updated>1481198069156</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="make it more flexible">
+      <created>1481198276534</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1481198276534</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -429,7 +448,8 @@
     <MESSAGE value="fix problems with the code" />
     <MESSAGE value="fixed up code inspection problems" />
     <MESSAGE value="more notes" />
-    <option name="LAST_COMMIT_MESSAGE" value="more notes" />
+    <MESSAGE value="make it more flexible" />
+    <option name="LAST_COMMIT_MESSAGE" value="make it more flexible" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -1823,6 +1843,20 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="336">
           <caret line="12" column="18" lean-forward="false" selection-start-line="12" selection-start-column="18" selection-end-line="12" selection-end-column="18" />
+          <folding>
+            <marker date="1481198115025" expanded="true" signature="0:141" ph="&quot;&quot;&quot;A setuptools based setup module....&quot;&quot;&quot;" />
+            <marker date="1481198115025" expanded="true" signature="516:759" ph="..." />
+            <marker date="1481198115025" expanded="true" signature="885:1035" ph="..." />
+            <marker date="1481198115025" expanded="true" signature="1056:1290" ph="..." />
+            <marker date="1481198115025" expanded="true" signature="1085:1283" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/awskit/ak_generate_ssh_config.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="693">
+          <caret line="72" column="0" lean-forward="false" selection-start-line="72" selection-start-column="0" selection-end-line="72" selection-end-column="0" />
           <folding />
         </state>
       </provider>
