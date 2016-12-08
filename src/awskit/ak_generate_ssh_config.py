@@ -22,11 +22,17 @@ def main():
     config_file = os.path.expanduser("~/.ssh/config")
     filter_file = os.path.expanduser("~/.ssh/aws_filter")
 
-    with open(filter_file) as file_handle:
-        filters = ujson.loads(file_handle.read())
+    if os.path.isfile(filter_file):
+        with open(filter_file) as file_handle:
+            filters = ujson.loads(file_handle.read())
+    else:
+        filters = {}
 
-    with open(config_file) as file_handle:
-        lines = file_handle.readlines()
+    if os.path.isfile(config_file):
+        with open(config_file) as file_handle:
+            lines = file_handle.readlines()
+    else:
+        lines = []
 
     # cut down auto generated lines if they exist...
     try:
