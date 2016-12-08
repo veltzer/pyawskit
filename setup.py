@@ -28,7 +28,8 @@ setuptools.setup(
     package_dir={'':'src'},
     packages=setuptools.find_packages('src'),
     install_requires=[
-        'boto3', # used by generate_ssh_config
+        'boto3', # used by ak_generate_ssh_config
+        'mount', # used by ak_unify_disks
     ],
     entry_points={
         'console_scripts': [
