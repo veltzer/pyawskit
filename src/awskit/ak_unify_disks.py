@@ -26,6 +26,7 @@ References:
 - http://stackoverflow.com/questions/1667257/how-do-i-mount-a-filesystem-using-python
 
 References:
+- http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/raid-config.html
 - http://www.tecmint.com/create-raid0-in-linux/
 - http://dev.bizo.com/2012/07/mdadm-device-or-resource-busy.html
 
