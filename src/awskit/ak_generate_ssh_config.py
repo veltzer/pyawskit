@@ -53,16 +53,19 @@ def main():
 
     # add bunch of lines for each server
     for instance in instances:
+        if instance.tags is None:
+            continue
         tags_dict = {}
         for tag in instance.tags:
             tags_dict[tag["Key"]] = tag["Value"]
-        if "Name" in tags_dict:
-            pattern_to_add = pattern.format(
-                host=tags_dict["Name"],
-                public_ip=instance.public_dns_name,
-                key_name=instance.key_name,
-            )
-            lines.extend(pattern_to_add)
+        if "Name" not in tags_dict:
+            continue
+        pattern_to_add = pattern.format(
+            host=tags_dict["Name"],
+            public_ip=instance.public_dns_name,
+            key_name=instance.key_name,
+        )
+        lines.extend(pattern_to_add)
 
     # print the final lines to the config file
     with open(config_file, "wt") as file_handle:
