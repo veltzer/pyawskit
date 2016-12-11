@@ -56,12 +56,13 @@ def main():
         tags_dict = {}
         for tag in instance.tags:
             tags_dict[tag["Key"]] = tag["Value"]
-        pattern_to_add = pattern.format(
-            host=tags_dict["Name"],
-            public_ip=instance.public_dns_name,
-            key_name=instance.key_name,
-        )
-        lines.extend(pattern_to_add)
+        if "Name" in tags_dict:
+            pattern_to_add = pattern.format(
+                host=tags_dict["Name"],
+                public_ip=instance.public_dns_name,
+                key_name=instance.key_name,
+            )
+            lines.extend(pattern_to_add)
 
     # print the final lines to the config file
     with open(config_file, "wt") as file_handle:
