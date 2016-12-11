@@ -65,9 +65,12 @@ def main():
         host = tags_dict["Name"]
         if host == "":
             continue
+        public_ip = instance.public_dns_name
+        if public_ip == "":
+            continue
         pattern_to_add = pattern.format(
             host=host,
-            public_ip=instance.public_dns_name,
+            public_ip=public_ip,
             key_name=instance.key_name,
         )
         lines.extend(pattern_to_add)
