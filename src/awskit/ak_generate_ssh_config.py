@@ -26,7 +26,7 @@ def main():
         with open(filter_file) as file_handle:
             filters = ujson.loads(file_handle.read())
     else:
-        filters = {}
+        filters = []
 
     if os.path.isfile(config_file):
         with open(config_file) as file_handle:
