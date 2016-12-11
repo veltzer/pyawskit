@@ -61,8 +61,11 @@ def main():
             tags_dict[tag["Key"]] = tag["Value"]
         if "Name" not in tags_dict:
             continue
+        host = tags_dict["Name"]
+        if host == "":
+            continue
         pattern_to_add = pattern.format(
-            host=tags_dict["Name"],
+            host=host,
             public_ip=instance.public_dns_name,
             key_name=instance.key_name,
         )
