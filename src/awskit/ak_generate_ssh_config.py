@@ -53,6 +53,7 @@ def main():
     lines.append(comment_line)
 
     # add bunch of lines for each server
+    added = 0
     for instance in instances:
         if instance.tags is None:
             continue
@@ -70,10 +71,12 @@ def main():
             key_name=instance.key_name,
         )
         lines.extend(pattern_to_add)
+        added += 1
 
     # print the final lines to the config file
     with open(config_file, "wt") as file_handle:
         file_handle.writelines(lines)
+    print("Added {} instances".format(added), file=sys.stderr)
     print("written {}".format(config_file))
 
 if __name__ == "__main__":
