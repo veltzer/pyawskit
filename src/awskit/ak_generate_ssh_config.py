@@ -14,7 +14,8 @@ pattern = """Host {host}
 \tHostName {public_ip}
 \tIdentityFile ~/.aws/keys/{key_name}.pem
 \tIdentitiesOnly yes
-\tUser ubuntu"""
+\tUser ubuntu
+"""
 
 
 def main():
