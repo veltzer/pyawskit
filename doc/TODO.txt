@@ -1,0 +1,2 @@
+make ak_remove_ssh_config_entries.py which removes the entries
+that were automatically added to ~/.ssh/config.

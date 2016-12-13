@@ -14,7 +14,8 @@ pattern = """Host {host}
 \tHostName {public_ip}
 \tIdentityFile ~/.aws/keys/{key_name}.pem
 \tIdentitiesOnly yes
-\tUser ubuntu"""
+\tUser ubuntu
+"""
 
 
 def main():
@@ -26,7 +27,7 @@ def main():
         with open(filter_file) as file_handle:
             filters = ujson.loads(file_handle.read())
     else:
-        filters = {}
+        filters = []
 
     if os.path.isfile(config_file):
         with open(config_file) as file_handle:
@@ -52,20 +53,33 @@ def main():
     lines.append(comment_line)
 
     # add bunch of lines for each server
+    added = 0
     for instance in instances:
+        if instance.tags is None:
+            continue
         tags_dict = {}
         for tag in instance.tags:
             tags_dict[tag["Key"]] = tag["Value"]
+        if "Name" not in tags_dict:
+            continue
+        host = tags_dict["Name"]
+        if host == "":
+            continue
+        public_ip = instance.public_dns_name
+        if public_ip == "":
+            continue
         pattern_to_add = pattern.format(
-            host=tags_dict["Name"],
-            public_ip=instance.public_dns_name,
+            host=host,
+            public_ip=public_ip,
             key_name=instance.key_name,
         )
         lines.extend(pattern_to_add)
+        added += 1
 
     # print the final lines to the config file
     with open(config_file, "wt") as file_handle:
         file_handle.writelines(lines)
+    print("Added {} instances".format(added), file=sys.stderr)
     print("written {}".format(config_file))
 
 if __name__ == "__main__":
