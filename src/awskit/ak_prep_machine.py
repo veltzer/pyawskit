@@ -99,7 +99,7 @@ def install_packages():
             'git',
             'parallel',
             'jq',
-            'tree',
+            'tree',  # for tree(1)
             'zip',
             'awscli',
             's3cmd',
