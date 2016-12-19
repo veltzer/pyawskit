@@ -23,8 +23,6 @@ import os.path
 import shutil
 
 
-
-
 def copyfileobj(source, destination, buffer_size=1024 * 1024):
     """
     Copy a file from source to destination. source and destination
