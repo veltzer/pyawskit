@@ -37,6 +37,7 @@ setuptools.setup(
             'ak_prep_machine=awskit.ak_prep_machine:main',
             'ak_generate_ssh_config=awskit.ak_generate_ssh_config:main',
             'ak_unify_disks=awskit.ak_unify_disks:main',
+            'ak_compress_s3_folder=awskit.ak_compress_s3_folder:main',
         ],
     },
 )
