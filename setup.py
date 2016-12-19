@@ -10,7 +10,7 @@ import setuptools
 
 setuptools.setup(
     name='awskit',
-    version='0.1.6',
+    version='0.1.7',
     description='awskit is a collection of utilities to help interact with aws',
     long_description='awskit helps you with various aws tasks',
     url='https://veltzer.github.io/awskit',
@@ -38,6 +38,7 @@ setuptools.setup(
             'ak_generate_ssh_config=awskit.ak_generate_ssh_config:main',
             'ak_unify_disks=awskit.ak_unify_disks:main',
             'ak_compress_s3_folder=awskit.ak_compress_s3_folder:main',
+            'ak_launch_machine=awskit.ak_launch_machine:main',
         ],
     },
 )
