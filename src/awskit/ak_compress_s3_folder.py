@@ -18,7 +18,7 @@ import multiprocessing
 
 import sys
 import tqdm
-import pipegzip
+import awskit.pipegzip
 import os.path
 import shutil
 
@@ -38,7 +38,7 @@ def copyfileobj(source, destination, buffer_size=1024 * 1024):
 
 def gzip_file(file_in: str, file_out: str) -> None:
     f_in = open(file_in, 'rb')
-    f_out = pipegzip.open(file_out, 'wb')
+    f_out = awskit.pipegzip.open(file_out, 'wb')
     shutil.copyfileobj(f_in, f_out)
     f_out.close()
     f_in.close()
