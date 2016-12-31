@@ -9,11 +9,11 @@ https://github.com/pypa/sampleproject
 import setuptools
 
 setuptools.setup(
-    name='awskit',
+    name='pyawskit',
     version='0.1.10',
-    description='awskit is a collection of utilities to help interact with aws',
-    long_description='awskit helps you with various aws tasks',
-    url='https://veltzer.github.io/awskit',
+    description='pyawskit is a collection of utilities to help interact with aws',
+    long_description='pyawskit helps you with various aws tasks',
+    url='https://veltzer.github.io/pyawskit',
     author='Mark Veltzer',
     author_email='mark.veltzer@gmail.com',
     license='GPL3',
@@ -35,11 +35,11 @@ setuptools.setup(
     ],
     entry_points={
         'console_scripts': [
-            'ak_prep_machine=awskit.ak_prep_machine:main',
-            'ak_generate_ssh_config=awskit.ak_generate_ssh_config:main',
-            'ak_unify_disks=awskit.ak_unify_disks:main',
-            'ak_compress_s3_folder=awskit.ak_compress_s3_folder:main',
-            'ak_launch_machine=awskit.ak_launch_machine:main',
+            'ak_prep_machine=pyawskit.ak_prep_machine:main',
+            'ak_generate_ssh_config=pyawskit.ak_generate_ssh_config:main',
+            'ak_unify_disks=pyawskit.ak_unify_disks:main',
+            'ak_compress_s3_folder=pyawskit.ak_compress_s3_folder:main',
+            'ak_launch_machine=pyawskit.ak_launch_machine:main',
         ],
     },
 )

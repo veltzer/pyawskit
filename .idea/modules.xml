@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/awskit.iml" filepath="$PROJECT_DIR$/.idea/awskit.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/pyawskit.iml" filepath="$PROJECT_DIR$/.idea/pyawskit.iml" />
     </modules>
   </component>
 </project>
