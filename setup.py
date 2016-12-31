@@ -31,7 +31,7 @@ setuptools.setup(
         'boto3',  # used by ak_generate_ssh_config
         'pymount',  # used by ak_unify_disks
         'ujson',  # used by ak_generate_ssh_config
-        'pipegzip',  # used by ak_compress_s3_folder
+        'pypipegzip',  # used by ak_compress_s3_folder
     ],
     entry_points={
         'console_scripts': [
