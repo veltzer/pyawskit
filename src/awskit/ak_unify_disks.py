@@ -2,7 +2,7 @@
 
 import subprocess
 
-import mount.mgr
+import pymount.mgr
 import requests
 import os.path
 import stat
@@ -69,7 +69,7 @@ def main():
     logger.info("got %d disks", len(disks))
 
     logger.info("checking if any of the disks are mounted [%s]", ','.join(disks))
-    manager = mount.mgr.Manager()
+    manager = pymount.mgr.Manager()
     for disk in disks:
         if manager.is_mounted(disk):
             mount_point = manager.get_mount_point(disk)
