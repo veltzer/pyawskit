@@ -29,7 +29,7 @@ setuptools.setup(
     packages=setuptools.find_packages('src'),
     install_requires=[
         'boto3',  # used by ak_generate_ssh_config
-        'mount',  # used by ak_unify_disks
+        'pymount',  # used by ak_unify_disks
         'ujson',  # used by ak_generate_ssh_config
         'pipegzip',  # used by ak_compress_s3_folder
     ],
