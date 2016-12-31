@@ -19,9 +19,9 @@ This script is derived from the following bash script:
 https://gist.github.com/joemiller/6049831
 
 NOTES:
-- python has no support for 'mount' and 'unmount' system
+- python has no support for 'mount' and 'umount' system
 calls. the result is that we use the command line tools
-to do mounting and unmounting.
+to do mounting and un mounting.
 References:
 - http://stackoverflow.com/questions/1667257/how-do-i-mount-a-filesystem-using-python
 

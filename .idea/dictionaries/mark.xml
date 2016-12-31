@@ -3,22 +3,34 @@
     <words>
       <w>affero</w>
       <w>awscli</w>
-      <w>pyawskit</w>
+      <w>fstab</w>
       <w>gitconfig</w>
       <w>gitignore</w>
       <w>lgpl</w>
       <w>licensors</w>
       <w>lrunzip</w>
       <w>lrzip</w>
+      <w>mdadm</w>
+      <w>mkfs</w>
       <w>noncommercially</w>
+      <w>partprobe</w>
       <w>passwd</w>
-      <w>pypipegzip</w>
+      <w>pyawskit</w>
+      <w>pymount</w>
       <w>pypi</w>
+      <w>pypipegzip</w>
       <w>qffxd</w>
       <w>relicensing</w>
+      <w>sbin</w>
       <w>sublicenses</w>
       <w>sublicensing</w>
+      <w>udevadm</w>
+      <w>ujson</w>
+      <w>umount</w>
+      <w>unmount</w>
+      <w>unmounting</w>
       <w>wipo</w>
+      <w>xlarge</w>
     </words>
   </dictionary>
 </component>
