@@ -70,7 +70,7 @@ def main():
         # public_ip = instance.public_dns_name
         # if public_ip == "":
         #    continue
-        private_ip = instance.private_dns_name
+        private_ip = instance.private_ip
         if private_ip == "":
             continue
         pattern_to_add = pattern.format(
