@@ -21,12 +21,14 @@ pattern = """Host {host}
 def main():
     comment_line = "# DO NOT EDIT BEYOND THIS LINE - LEAVE THIS LINE AS IS\n"
     config_file = os.path.expanduser("~/.ssh/config")
-    filter_file = os.path.expanduser("~/.ssh/aws_filter")
+    filter_file = os.path.expanduser("~/.aws/aws_filter")
 
     if os.path.isfile(filter_file):
+        print('reading [{0}]...'.format(filter_file))
         with open(filter_file) as file_handle:
             filters = ujson.loads(file_handle.read())
     else:
+        print('no filter file [{0}] exists...'.format(filter_file))
         filters = []
 
     if os.path.isfile(config_file):
