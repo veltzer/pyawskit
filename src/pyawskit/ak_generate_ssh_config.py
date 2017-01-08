@@ -49,7 +49,7 @@ def main():
     instances = list(ec2.instances.filter(Filters=filters))
     num_of_instances = len(instances)
     print("Found {} instances".format(num_of_instances), file=sys.stderr)
-    assert num_of_instances > 0
+    # assert num_of_instances > 0
 
     # add the comment line
     lines.append(comment_line)
@@ -67,10 +67,15 @@ def main():
         host = tags_dict["Name"]
         if host == "":
             continue
+        new_host = host.replace(' ','')
+        if new_host != host:
+            print('Name [{0}] for host is bad. Try names without spaces...'.format(host))
+        host = new_host
         # public_ip = instance.public_dns_name
         # if public_ip == "":
         #    continue
-        private_ip = instance.private_ip
+        #print(dir(instance))
+        private_ip = instance.private_ip_address
         if private_ip == "":
             continue
         pattern_to_add = pattern.format(
