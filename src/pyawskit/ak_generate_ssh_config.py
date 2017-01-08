@@ -11,7 +11,7 @@ import sys
 
 
 pattern = """Host {host}
-\tHostName {public_ip}
+\tHostName {ip}
 \tIdentityFile ~/.aws/keys/{key_name}.pem
 \tIdentitiesOnly yes
 \tUser ubuntu
@@ -67,12 +67,15 @@ def main():
         host = tags_dict["Name"]
         if host == "":
             continue
-        public_ip = instance.public_dns_name
-        if public_ip == "":
+        # public_ip = instance.public_dns_name
+        # if public_ip == "":
+        #    continue
+        private_ip = instance.private_dns_name
+        if private_ip == "":
             continue
         pattern_to_add = pattern.format(
             host=host,
-            public_ip=public_ip,
+            ip=private_ip,
             key_name=instance.key_name,
         )
         lines.extend(pattern_to_add)
