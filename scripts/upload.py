@@ -25,8 +25,8 @@ import os
 import os.path
 import common
 
-do_use_setup = True
-do_use_twine = False
+do_use_setup = False
+do_use_twine = True
     
 
 def upload_by_setup():
