@@ -11,7 +11,7 @@ from pyawskit.common import update_file
 def main():
     if not os.geteuid() == 0:
         sys.exit('Script must be run as root')
-    update_file(filename="/etc/hosts", pattern="{host} {ip}")
+    update_file(filename="/etc/hosts", pattern="{ip} {host}")
 
 if __name__ == "__main__":
     main()
