@@ -17,6 +17,11 @@ bash
     use mdadm
 - copy ~/.aws ~/.ssh ~/.s3cfg ~/.gitconfig ~/.passwd-s3fs to it
 - set the hostname of the machine (it's usually hostname is ip-XXX-XXX-XXX-XXX).
+- set the hostname in /etc/hosts beside
+    127.0.0.1 localhost
+    to avoid problems resolving the host name.
+- set quiet login using:
+    $ touch ~/.hushlogin
 - configure vim to do correct python editing and save editing positions.
 - install fancy prompt on it.
 - put the git repositories you want on it.
