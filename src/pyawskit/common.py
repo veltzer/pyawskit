@@ -57,7 +57,7 @@ def update_file(filename=None, pattern=None):
         host = tags_dict["Name"]
         if host == "":
             continue
-        new_host = host.replace(' ','')
+        new_host = host.replace(' ', '')
         if new_host != host:
             print('Name [{0}] for host is bad. Try names without spaces...'.format(host))
         host = new_host
