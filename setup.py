@@ -33,6 +33,7 @@ setuptools.setup(
         'console_scripts': [
             'ak_prep_machine=pyawskit.ak_prep_machine:main',
             'ak_generate_ssh_config=pyawskit.ak_generate_ssh_config:main',
+            'ak_generate_etc_hosts=pyawskit.ak_generate_etc_hosts:main',
             'ak_unify_disks=pyawskit.ak_unify_disks:main',
             'ak_compress_s3_folder=pyawskit.ak_compress_s3_folder:main',
             'ak_launch_machine=pyawskit.ak_launch_machine:main',

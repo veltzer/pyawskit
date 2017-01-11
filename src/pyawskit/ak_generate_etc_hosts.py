@@ -2,19 +2,16 @@
 This script will update ~/.aws/config file with the names of your machines.
 Notice that you must hold all of your .pem files in ~/.aws/keys
 """
+import os
+import sys
 
 from pyawskit.common import update_file
 
-pattern = """Host {host}
-\tHostName {ip}
-\tIdentityFile ~/.aws/keys/{key_name}.pem
-\tIdentitiesOnly yes
-\tUser ubuntu
-"""
-
 
 def main():
-    update_file(filename="~/.ssh/config", pattern=pattern)
+    if not os.geteuid() == 0:
+        sys.exit('Script must be run as root')
+    update_file(filename="~/.ssh/config", pattern="{host} {ip}")
 
 if __name__ == "__main__":
     main()
