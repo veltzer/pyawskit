@@ -32,6 +32,7 @@ setuptools.setup(
     entry_points={
         'console_scripts': [
             'ak_prep_machine=pyawskit.ak_prep_machine:main',
+            'ak_prep_account=pyawskit.ak_prep_account:main',
             'ak_generate_ssh_config=pyawskit.ak_generate_ssh_config:main',
             'ak_generate_etc_hosts=pyawskit.ak_generate_etc_hosts:main',
             'ak_generate_tilde_hosts=pyawskit.ak_generate_tilde_hosts:main',
