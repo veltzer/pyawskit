@@ -11,5 +11,5 @@ fi
 
 apt-get update
 apt-get upgrade
-apt-get install python3-pip
+apt-get install python3-pip awscli vim
 echo 127.0.0.1 `hostname` >> /etc/hosts
