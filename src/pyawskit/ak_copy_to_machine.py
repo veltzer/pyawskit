@@ -2,6 +2,9 @@
 
 """
 This script copies important files to a machine like key files and such.
+
+TODO:
+- do not copy ~/.aws/shell (it is big)
 """
 
 
