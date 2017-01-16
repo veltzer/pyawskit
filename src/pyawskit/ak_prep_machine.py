@@ -119,12 +119,19 @@ def install_packages():
     }
     # install the packages
     args = [
-        "sudo",
         "apt-get",
         "install",
     ]
     args.extend(list_of_packages[OSType.ubuntu])
     subprocess.check_call(args)
+
+
+def set_timezone():
+    subprocess.check_call([
+        "timedatectl",
+        "set-timezone",
+        "Asia/Jerusalem",
+    ])
 
 
 def main():
