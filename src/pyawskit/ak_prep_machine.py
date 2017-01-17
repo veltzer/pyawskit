@@ -39,7 +39,7 @@ class OSType(enum.Enum):
     aml = 2
 
 
-def run(args: List[str]):
+def run(args: List[str]) -> None:
     # print('running', args)
     subprocess.check_call(
         args,
@@ -52,7 +52,7 @@ os_type = None
 
 
 # first find out if we are on ubuntu or amazon linux
-def detect_os():
+def detect_os() -> None:
     global os_type
     # noinspection PyBroadException
     try:
@@ -73,18 +73,18 @@ def detect_os():
         sys.exit('could not detect the os running')
 
 
-def is_os_type(t):
+def is_os_type(t) -> bool:
     global os_type
     return os_type == t
 
 
 # check that we are running as root
-def check_root():
+def check_root() -> None:
     if not os.geteuid() == 0:
         sys.exit('script must be run as root')
 
 
-def update_machine():
+def update_machine() -> None:
     if is_os_type(OSType.ubuntu):
         run(['apt-get', 'update'])
         run(['apt-get', 'upgrade'])
@@ -94,7 +94,7 @@ def update_machine():
 
 
 # install necessary package per platform
-def install_packages():
+def install_packages() -> None:
     list_of_packages = {
         OSType.ubuntu: [
             'python-pip',
@@ -103,7 +103,7 @@ def install_packages():
             'python3-dev',
             'git',
             'parallel',
-            'jq',
+            'jq',  # for analyzing json files
             'tree',  # for tree(1)
             'zip',
             'awscli',
@@ -126,7 +126,7 @@ def install_packages():
     subprocess.check_call(args)
 
 
-def set_timezone():
+def set_timezone() -> None:
     subprocess.check_call([
         "timedatectl",
         "set-timezone",
@@ -134,7 +134,7 @@ def set_timezone():
     ])
 
 
-def main():
+def main() -> None:
     check_root()
     detect_os()
     update_machine()
