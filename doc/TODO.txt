@@ -1,2 +1,6 @@
-make ak_remove_ssh_config_entries.py which removes the entries
+- make ak_remove_ssh_config_entries.py which removes the entries
 that were automatically added to ~/.ssh/config.
+- make ak_create_filter.py which creates the ~/.aws/aws_filter file
+	for you.
+- make ak_kill_machine.py
+- make ak_launch_machine be able to launch more than 1 machine
