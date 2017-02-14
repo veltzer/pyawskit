@@ -21,6 +21,8 @@ command line option) whether to run this multi-core or not.
 def main():
     # TODO: check that we are running as root
     # if not then recommend sudo(1) and exit
+    # TODO: ask the user for yes/no confirmation since we are brutally
+    # erasing all of the local disks...
     disks = pyawskit.common.get_disks()
     for disk in disks:
         folder = "/mnt/{}".format(disk)
