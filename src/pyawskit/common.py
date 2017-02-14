@@ -1,9 +1,34 @@
 import os
 
 import ujson
+from typing import List
 
+import stat
 import boto3
 import sys
+import requests
+
+
+def get_disks() -> List[str]:
+    url = "http://169.254.169.254/latest/meta-data/block-device-mapping"
+    r = requests.get(url)
+    disks = []
+    for line in r.content.decode().split("\n"):
+        if not line.startswith('ephemeral'):
+            continue
+        ephemeral_url = 'http://169.254.169.254/latest/meta-data/block-device-mapping/{}'.format(line)
+        r = requests.get(ephemeral_url)
+        assert r.status_code == 200
+        content = r.content.decode()
+        assert content.startswith('sd')
+        assert len(content) == 3
+        letter = content[2]
+        device = '/dev/xvd{}'.format(letter)
+        mode = os.stat(device).st_mode
+        if not stat.S_ISBLK(mode):
+            continue
+        disks.append(device)
+    return disks
 
 
 def update_file(filename=None, pattern=None):

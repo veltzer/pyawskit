@@ -3,11 +3,11 @@
 import subprocess
 
 import pymount.mgr
-import requests
 import os.path
-import stat
 import sys
 import logging
+
+import pyawskit.common
 
 logging.basicConfig()
 logger = logging.getLogger(__name__)
@@ -39,29 +39,12 @@ def main():
     device_file = "/dev/md0"
     mount_point = "/mnt/raid0"
     mdadm_config_file = '/etc/mdadm/mdadm.conf'
-    url = "http://169.254.169.254/latest/meta-data/block-device-mapping"
     mdadm_binary = "/sbin/mdadm"
     fstab_filename = "/etc/fstab"
     file_system_type = "ext4"
 
     logger.info("looking for disks...")
-    r = requests.get(url)
-    disks = []
-    for line in r.content.decode().split("\n"):
-        if not line.startswith('ephemeral'):
-            continue
-        ephemeral_url = 'http://169.254.169.254/latest/meta-data/block-device-mapping/{}'.format(line)
-        r = requests.get(ephemeral_url)
-        assert r.status_code == 200
-        content = r.content.decode()
-        assert content.startswith('sd')
-        assert len(content) == 3
-        letter = content[2]
-        device = '/dev/xvd{}'.format(letter)
-        mode = os.stat(device).st_mode
-        if not stat.S_ISBLK(mode):
-            continue
-        disks.append(device)
+    disks = pyawskit.common.get_disks()
     if len(disks) == 0:
         print('found no disks, exiting...', file=sys.stderr)
         sys.exit(1)

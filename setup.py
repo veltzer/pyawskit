@@ -6,7 +6,7 @@ if not sys.version_info[0] == 3:
 
 setuptools.setup(
     name='pyawskit',
-    version='0.1.20',
+    version='0.1.21',
     description='pyawskit is a collection of utilities to help interact with aws',
     long_description='pyawskit helps you with various aws tasks',
     url='https://veltzer.github.io/pyawskit',
@@ -35,6 +35,7 @@ setuptools.setup(
             'ak_generate_etc_hosts=pyawskit.ak_generate_etc_hosts:main',
             'ak_generate_tilde_hosts=pyawskit.ak_generate_tilde_hosts:main',
             'ak_unify_disks=pyawskit.ak_unify_disks:main',
+            'ak_show_disks=pyawskit.ak_show_disks:main',
             'ak_compress_s3_folder=pyawskit.ak_compress_s3_folder:main',
             'ak_launch_machine=pyawskit.ak_launch_machine:main',
             'ak_copy_to_machine=pyawskit.ak_copy_to_machine:main',
