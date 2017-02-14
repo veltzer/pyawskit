@@ -88,20 +88,9 @@ def main():
     else:
         logger.info("no md [%s], good", device_file)
 
-    logger.info("erasing partition tables on the disks [%s]", ','.join(disks))
     for disk in disks:
-        subprocess.check_call([
-            "/bin/dd",
-            "if=/dev/zero",
-            "of={}".format(disk),
-            "bs=4096",
-            "count=1024",
-        ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-
-    logger.info("making OS re-read partition tables...")
-    subprocess.check_call([
-        "/sbin/partprobe",
-    ])
+        pyawskit.common.erase_partition_table(disk)
+    pyawskit.common.reread_partition_table()
 
     logger.info("creating the new md device...")
     subprocess.check_call([
@@ -130,20 +119,9 @@ def main():
         "--verbose",
     ], stdout=mdadm_handle, stderr=subprocess.DEVNULL)
 
-    logger.info("formatting the new device [%s]", device_file)
-    subprocess.check_call([
-        "/sbin/mkfs.ext4",
-        device_file,
-    ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    pyawskit.common.format_device(device_file)
 
-    logger.info("mounting the new device [%s, %s]", device_file, mount_point)
-    if not os.path.isdir(mount_point):
-        os.mkdir(mount_point)
-    subprocess.check_call([
-        "/bin/mount",
-        device_file,
-        mount_point,
-    ])
+    pyawskit.common.mount_disk(disk=device_file, folder=mount_point)
 
     logger.info("checking if need to add line to [%s] for mount on reboot...", fstab_filename)
     line_to_add = " ".join([

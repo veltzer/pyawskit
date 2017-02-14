@@ -1,4 +1,5 @@
 import os
+import subprocess
 
 import ujson
 from typing import List
@@ -7,6 +8,12 @@ import stat
 import boto3
 import sys
 import requests
+import logging
+
+
+logging.basicConfig()
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
 
 
 def get_disks() -> List[str]:
@@ -29,6 +36,32 @@ def get_disks() -> List[str]:
             continue
         disks.append(device)
     return disks
+
+
+def erase_partition_table(disk: str) -> None:
+    logger.info("erasing partition table on disk [%s]", disk)
+    subprocess.check_call([
+        "/bin/dd",
+        "if=/dev/zero",
+        "of={}".format(disk),
+        "bs=4096",
+        "count=1024",
+    ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+
+
+def reread_partition_table() -> None:
+    logger.info("making OS re-read partition tables...")
+    subprocess.check_call([
+        "/sbin/partprobe",
+    ])
+
+
+def format_device(disk: str) -> None:
+    logger.info("formatting the new device [%s]", disk)
+    subprocess.check_call([
+        "/sbin/mkfs.ext4",
+        disk,
+    ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
 
 def update_file(filename=None, pattern=None):
@@ -106,3 +139,14 @@ def update_file(filename=None, pattern=None):
         file_handle.writelines(lines)
     print("Added {} instances".format(added), file=sys.stderr)
     print("written {}".format(config_file))
+
+
+def mount_disk(disk: str, folder: str) -> None:
+    logger.info("mounting the new device [%s, %s]", disk, folder)
+    if not os.path.isdir(folder):
+        os.makedirs(folder)
+    subprocess.check_call([
+        "/bin/mount",
+        disk,
+        folder,
+    ])
