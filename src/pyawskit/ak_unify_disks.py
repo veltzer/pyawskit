@@ -110,8 +110,7 @@ def main():
         "--name={}".format(name_of_raid_device),
         # "-c256",
         "--raid-devices={}".format(len(disks)),
-    ]
-    args.extend(disks)
+    ].extend(disks)
     subprocess.check_call(args, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     if start_stop_queue:
         subprocess.check_call([
@@ -158,6 +157,7 @@ def main():
         logger.info("adding line to [%s]", fstab_filename)
         with open(fstab_filename, "at") as file_handle:
             print(line_to_add, file=file_handle)
+    # create ubuntu folder and chown it to ubuntu
 
 
 if __name__ == "__main__":
