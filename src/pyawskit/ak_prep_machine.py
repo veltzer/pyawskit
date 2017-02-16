@@ -113,6 +113,7 @@ def install_packages() -> None:
             'bc',  # nice to have tool
             's3fs',  # s3 file system
             'apt-file',  # for finding package names by files
+            'sysstat', # for iostat(1) and such
         ],
         OSType.aml: [
         ],
