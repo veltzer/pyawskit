@@ -56,11 +56,18 @@ def reread_partition_table() -> None:
     ])
 
 
-def format_device(disk: str) -> None:
+def format_device(disk: str, label: str=None) -> None:
     logger.info("formatting the new device [%s]", disk)
-    subprocess.check_call([
+    args = [
         "/sbin/mkfs.ext4",
         disk,
+    ]
+    if label is not None:
+        args.extend(
+
+        )
+    subprocess.check_call([
+
     ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
 

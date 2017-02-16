@@ -42,6 +42,9 @@ def main():
     mdadm_binary = "/sbin/mdadm"
     fstab_filename = "/etc/fstab"
     file_system_type = "ext4"
+    name_of_raid_device = "MY_RAID"
+    start_stop_queue = False
+    write_etc_mdadm = False
 
     logger.info("looking for disks...")
     disks = pyawskit.common.get_disks()
@@ -49,7 +52,7 @@ def main():
         print('found no disks, exiting...', file=sys.stderr)
         sys.exit(1)
 
-    logger.info("got %d disks", len(disks))
+    logger.info("got %d disks %s", len(disks), str(disks))
 
     logger.info("checking if any of the disks are mounted [%s]", ','.join(disks))
     manager = pymount.mgr.Manager()
@@ -93,39 +96,48 @@ def main():
     pyawskit.common.reread_partition_table()
 
     logger.info("creating the new md device...")
-    subprocess.check_call([
-        "/sbin/udevadm",
-        "control",
-        "--stop-exec-queue",
-    ])
+    if start_stop_queue:
+        subprocess.check_call([
+            "/sbin/udevadm",
+            "control",
+            "--stop-exec-queue",
+        ])
     args = [
         mdadm_binary,
         "--create",
         device_file,
-        "--level=0",
+        "--level=0",  # RAID 0 for performance
+        "--name={}".format(name_of_raid_device),
         # "-c256",
         "--raid-devices={}".format(len(disks)),
-    ]
-    args.extend(disks)
+    ].extend(disks)
     subprocess.check_call(args, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-    subprocess.check_call(["/sbin/udevadm", "control", "--start-exec-queue", ])
+    if start_stop_queue:
+        subprocess.check_call([
+            "/sbin/udevadm",
+            "control",
+            "--start-exec-queue",
+        ])
 
-    logger.info("writing the details of the new device in [%s]", mdadm_config_file)
-    mdadm_handle = open(mdadm_config_file, "at")
-    subprocess.check_call([
-        mdadm_binary,
-        "--detail",
-        "--scan",
-        "--verbose",
-    ], stdout=mdadm_handle, stderr=subprocess.DEVNULL)
+    # removed writing /etc/mdadm because it was causing problems
+    if write_etc_mdadm:
+        logger.info("writing the details of the new device in [%s]", mdadm_config_file)
+        mdadm_handle = open(mdadm_config_file, "at")
+        subprocess.check_call([
+            mdadm_binary,
+            "--detail",
+            "--scan",
+            "--verbose",
+        ], stdout=mdadm_handle, stderr=subprocess.DEVNULL)
 
-    pyawskit.common.format_device(device_file)
+    pyawskit.common.format_device(device_file, label=name_of_raid_device)
 
     pyawskit.common.mount_disk(disk=device_file, folder=mount_point)
 
     logger.info("checking if need to add line to [%s] for mount on reboot...", fstab_filename)
     line_to_add = " ".join([
-        device_file,
+        # device_file,
+        "LABEL={}".format(name_of_raid_device),
         mount_point,
         file_system_type,
         "defaults",
