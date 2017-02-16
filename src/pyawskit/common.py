@@ -17,6 +17,8 @@ logger.setLevel(logging.DEBUG)
 
 
 def get_disks() -> List[str]:
+    # another option is to take the output of lsblk(1)
+    # which is not amazon specific and has nice format of data.
     url = "http://169.254.169.254/latest/meta-data/block-device-mapping"
     r = requests.get(url)
     disks = []
