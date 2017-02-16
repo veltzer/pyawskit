@@ -63,12 +63,11 @@ def format_device(disk: str, label: str=None) -> None:
         disk,
     ]
     if label is not None:
-        args.extend(
-
-        )
-    subprocess.check_call([
-
-    ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        args.extend([
+            "-L",
+            label,
+        ])
+    subprocess.check_call(args, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
 
 def update_file(filename=None, pattern=None):
