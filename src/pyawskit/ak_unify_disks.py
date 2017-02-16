@@ -110,7 +110,8 @@ def main():
         "--name={}".format(name_of_raid_device),
         # "-c256",
         "--raid-devices={}".format(len(disks)),
-    ].extend(disks)
+    ]
+    args.extend(disks)
     subprocess.check_call(args, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     if start_stop_queue:
         subprocess.check_call([
