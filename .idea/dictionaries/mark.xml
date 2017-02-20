@@ -8,10 +8,12 @@
       <w>gitconfig</w>
       <w>gitignore</w>
       <w>hushlogin</w>
+      <w>iostat</w>
       <w>lgpl</w>
       <w>licensors</w>
       <w>lrunzip</w>
       <w>lrzip</w>
+      <w>lsblk</w>
       <w>mdadm</w>
       <w>mkfs</w>
       <w>noncommercially</w>
@@ -26,6 +28,7 @@
       <w>sbin</w>
       <w>sublicenses</w>
       <w>sublicensing</w>
+      <w>sysstat</w>
       <w>timedatectl</w>
       <w>udevadm</w>
       <w>ujson</w>

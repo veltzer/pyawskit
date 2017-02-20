@@ -73,6 +73,7 @@ def format_device(disk: str, label: str=None) -> None:
 
 
 def update_file(filename=None, pattern=None):
+    do_all = True
     assert filename is not None
     assert pattern is not None
 
@@ -102,7 +103,10 @@ def update_file(filename=None, pattern=None):
 
     # look for servers matching the query
     ec2 = boto3.resource('ec2')
-    instances = list(ec2.instances.filter(Filters=filters))
+    if do_all:
+        instances = list(ec2.instances.all())
+    else:
+        instances = list(ec2.instances.filter(Filters=filters))
     num_of_instances = len(instances)
     print("Found {} instances".format(num_of_instances), file=sys.stderr)
     # assert num_of_instances > 0
