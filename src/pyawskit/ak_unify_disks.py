@@ -45,6 +45,7 @@ def main():
     name_of_raid_device = "MY_RAID"
     start_stop_queue = False
     write_etc_mdadm = False
+    add_line_to_fstab = False
 
     logger.info("looking for disks...")
     disks = pyawskit.common.get_disks()
@@ -134,29 +135,30 @@ def main():
 
     pyawskit.common.mount_disk(disk=device_file, folder=mount_point)
 
-    logger.info("checking if need to add line to [%s] for mount on reboot...", fstab_filename)
-    line_to_add = " ".join([
-        # device_file,
-        "LABEL={}".format(name_of_raid_device),
-        mount_point,
-        file_system_type,
-        "defaults",
-        "0",
-        "0",
-    ])
-    found_line_to_add = False
-    with open(fstab_filename) as file_handle:
-        for line in file_handle:
-            line = line.rstrip()
-            if line == line_to_add:
-                found_line_to_add = True
-                break
-    if found_line_to_add:
-        logger.info("found the line to add. not doing anything...")
-    else:
-        logger.info("adding line to [%s]", fstab_filename)
-        with open(fstab_filename, "at") as file_handle:
-            print(line_to_add, file=file_handle)
+    if add_line_to_fstab:
+        logger.info("checking if need to add line to [%s] for mount on reboot...", fstab_filename)
+        line_to_add = " ".join([
+            # device_file,
+            "LABEL={}".format(name_of_raid_device),
+            mount_point,
+            file_system_type,
+            "defaults",
+            "0",
+            "0",
+        ])
+        found_line_to_add = False
+        with open(fstab_filename) as file_handle:
+            for line in file_handle:
+                line = line.rstrip()
+                if line == line_to_add:
+                    found_line_to_add = True
+                    break
+        if found_line_to_add:
+            logger.info("found the line to add. not doing anything...")
+        else:
+            logger.info("adding line to [%s]", fstab_filename)
+            with open(fstab_filename, "at") as file_handle:
+                print(line_to_add, file=file_handle)
     # create ubuntu folder and chown it to ubuntu
 
 
