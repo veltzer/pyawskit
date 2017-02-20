@@ -4,10 +4,14 @@ Notice that you must hold all of your .pem files in ~/.aws/keys
 """
 
 from pyawskit.common import update_file
+import click
 
 
-def main():
-    update_file(filename="~/.hosts", pattern="{ip} {host}\n")
+# noinspection PyShadowingBuiltins
+@click.command()
+@click.option("--all/--filter", default=False, help="filter or add all instances")
+def main(all):
+    update_file(filename="~/.hosts", pattern="{ip} {host}\n", do_all=all)
 
 if __name__ == "__main__":
     main()

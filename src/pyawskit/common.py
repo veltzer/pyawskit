@@ -72,8 +72,7 @@ def format_device(disk: str, label: str=None) -> None:
     subprocess.check_call(args, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
 
-def update_file(filename=None, pattern=None):
-    do_all = True
+def update_file(filename=None, pattern=None, do_all=False):
     assert filename is not None
     assert pattern is not None
 

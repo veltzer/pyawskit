@@ -26,6 +26,7 @@ setuptools.setup(
         'pymount',  # used by ak_unify_disks
         'ujson',  # used by ak_generate_ssh_config
         'pypipegzip',  # used by ak_compress_s3_folder
+        'click',  # used for command line parsing
     ],
     entry_points={
         'console_scripts': [
