@@ -15,8 +15,9 @@ bash
 - install a list of packages on the system:
 - format and mount all disks
     use mdadm
-- copy ~/.aws ~/.ssh ~/.s3cfg ~/.gitconfig ~/.passwd-s3fs to it
+- copy ~/.netrc ~/.aws ~/.ssh ~/.s3cfg ~/.gitconfig ~/.passwd-s3fs to it
 - set the hostname of the machine (it's usually hostname is ip-XXX-XXX-XXX-XXX).
+     $ sudo sh -c "echo MarksHome  > /etc/hostname"
 - set the hostname in /etc/hosts beside
     127.0.0.1 localhost
     to avoid problems resolving the host name.
