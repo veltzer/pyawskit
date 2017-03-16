@@ -4,3 +4,5 @@ that were automatically added to ~/.ssh/config.
 	for you.
 - make ak_kill_machine.py
 - make ak_launch_machine be able to launch more than 1 machine
+- make ak_generate_ssh_config be able to add machines in all regions
+	and not just in the current
