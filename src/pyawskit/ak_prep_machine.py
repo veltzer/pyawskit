@@ -11,7 +11,7 @@ bash
     $ sudo -H pip3 install pip --upgrade
 - a reboot may be necessary if a new kernel was installed
 
-- remove old kernels
+- sudo purge-old-kernels --keep 1 # to remove old kernels
 - install a list of packages on the system:
 - format and mount all disks
     use mdadm
@@ -19,7 +19,7 @@ bash
 - set the hostname of the machine (it's usually hostname is ip-XXX-XXX-XXX-XXX).
      $ sudo sh -c "echo MarksHome  > /etc/hostname"
 - set the hostname in /etc/hosts beside
-    127.0.0.1 localhost
+    127.0.0.1 localhost [hostname]
     to avoid problems resolving the host name.
 - set quiet login using:
     $ touch ~/.hushlogin
