@@ -99,23 +99,27 @@ def update_machine() -> None:
 def install_packages() -> None:
     list_of_packages = {
         OSType.ubuntu: [
+            # python
             'python-pip',
             'python-dev',
             'python3-pip',
             'python3-dev',
-            'git',
-            'parallel',
-            'jq',  # for analyzing json files
-            'tree',  # for tree(1)
-            'zip',
-            'awscli',
-            's3cmd',
+            # amazon stuff
+            'awscli',  # the basic aws cli
+            's3cmd',  # for the s3cmd application
+            'libs3-2',  # for the s3 application
+            's3fs',  # s3 file system
+            # misc
             'mdadm',  # is already installed on ubuntu on aws
             'lrzip',  # for lrzip(1), lrunzip(1)
             'bc',  # nice to have tool
-            's3fs',  # s3 file system
             'apt-file',  # for finding package names by files
             'sysstat',  # for iostat(1) and such
+            'jq',  # for analyzing json files
+            'tree',  # for tree(1)
+            'git',
+            'parallel',
+            'zip',
         ],
         OSType.aml: [
         ],
