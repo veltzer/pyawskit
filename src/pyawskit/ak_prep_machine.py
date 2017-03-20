@@ -17,6 +17,7 @@ bash
     use mdadm
 - scp -r ~/.netrc ~/.aws ~/.ssh ~/.s3cfg ~/.gitconfig ~/.passwd-s3fs MarksHome:~
 - ssh MarksHome "mkdir --parents ~/.config/pip"; scp ~/.config/pip/pip.conf MarksHome:~/.config/pip
+- ssh MarksHome "mkdir --parents /root/.config/pip"; scp ~/.config/pip/pip.conf MarksHome:/root/.config/pip
 - set the hostname of the machine (it's usually hostname is ip-XXX-XXX-XXX-XXX).
      $ sudo sh -c "echo MarksHome  > /etc/hostname"
 - set the hostname in /etc/hosts beside
