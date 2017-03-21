@@ -122,6 +122,7 @@ def install_packages() -> None:
             'parallel',
             'zip',
             'csvtool',
+            'python3-csvkit',
         ],
         OSType.aml: [
         ],
