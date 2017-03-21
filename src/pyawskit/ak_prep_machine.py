@@ -121,6 +121,7 @@ def install_packages() -> None:
             'git',
             'parallel',
             'zip',
+            'csvtool',
         ],
         OSType.aml: [
         ],
