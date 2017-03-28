@@ -123,6 +123,8 @@ def install_packages() -> None:
             'zip',
             'csvtool',
             'python3-csvkit',
+            'myrepos',
+            'octave',
         ],
         OSType.aml: [
         ],
