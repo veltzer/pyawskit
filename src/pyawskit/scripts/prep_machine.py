@@ -125,6 +125,7 @@ def install_packages() -> None:
             'python3-csvkit',
             'myrepos',
             'octave',
+            'iotop',
         ],
         OSType.aml: [
         ],
