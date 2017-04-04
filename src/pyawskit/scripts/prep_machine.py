@@ -126,6 +126,7 @@ def install_packages() -> None:
             'myrepos',
             'octave',
             'iotop',
+            'tofrodos',
         ],
         OSType.aml: [
         ],
