@@ -128,6 +128,7 @@ def install_packages() -> None:
             'iotop',
             'tofrodos',
             'makepasswd',
+            'lftp',
         ],
         OSType.aml: [
         ],
