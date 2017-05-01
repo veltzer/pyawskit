@@ -129,6 +129,8 @@ def install_packages() -> None:
             'tofrodos',
             'makepasswd',
             'lftp',
+            'ispell',
+            'hspell',
         ],
         OSType.aml: [
         ],
