@@ -131,6 +131,7 @@ def install_packages() -> None:
             'lftp',
             'ispell',
             'hspell',
+            'pigz', # for pigz(1) fast gzip compression
         ],
         OSType.aml: [
         ],
