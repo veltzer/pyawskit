@@ -132,6 +132,8 @@ def install_packages() -> None:
             'ispell',
             'hspell',
             'pigz', # for pigz(1) fast gzip compression
+            'virtualenv',  # for python virtual envs
+            'virtualenvwrapper',  # for a more easy virtual env
         ],
         OSType.aml: [
         ],
