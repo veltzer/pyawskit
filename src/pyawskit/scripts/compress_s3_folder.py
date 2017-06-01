@@ -95,13 +95,13 @@ def object_exists_bucket(bucket_obj, object_name: str) -> bool:
     return True
 
 
-def catch_all(function):
+def catch_all(the_function):
     print('there')
 
     def new_function(*args, **kwargs):
         print('here')
         try:
-            return function(*args, **kwargs)
+            return the_function(*args, **kwargs)
         except Exception as e:
             print('got exception', e)
             sys.exit(1)

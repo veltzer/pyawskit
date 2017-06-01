@@ -4,21 +4,30 @@
       <w>affero</w>
       <w>awscli</w>
       <w>chown</w>
+      <w>csvkit</w>
+      <w>csvtool</w>
+      <w>envs</w>
       <w>fstab</w>
       <w>gitconfig</w>
       <w>gitignore</w>
+      <w>hspell</w>
       <w>hushlogin</w>
       <w>iostat</w>
+      <w>iotop</w>
+      <w>lftp</w>
       <w>lgpl</w>
       <w>licensors</w>
       <w>lrunzip</w>
       <w>lrzip</w>
       <w>lsblk</w>
+      <w>makepasswd</w>
       <w>mdadm</w>
       <w>mkfs</w>
+      <w>myrepos</w>
       <w>noncommercially</w>
       <w>partprobe</w>
       <w>passwd</w>
+      <w>pigz</w>
       <w>pyawskit</w>
       <w>pymount</w>
       <w>pypi</w>
@@ -30,11 +39,13 @@
       <w>sublicensing</w>
       <w>sysstat</w>
       <w>timedatectl</w>
+      <w>tofrodos</w>
       <w>udevadm</w>
       <w>ujson</w>
       <w>umount</w>
       <w>unmount</w>
       <w>unmounting</w>
+      <w>virtualenvwrapper</w>
       <w>wipo</w>
       <w>xlarge</w>
     </words>

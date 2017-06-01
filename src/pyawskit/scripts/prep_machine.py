@@ -131,7 +131,7 @@ def install_packages() -> None:
             'lftp',
             'ispell',
             'hspell',
-            'pigz', # for pigz(1) fast gzip compression
+            'pigz',  # for pigz(1) fast gzip compression
             'virtualenv',  # for python virtual envs
             'virtualenvwrapper',  # for a more easy virtual env
         ],

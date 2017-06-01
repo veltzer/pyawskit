@@ -159,7 +159,7 @@ def main():
         else:
             logger.info("adding line to [%s]", fstab_filename)
             with open(fstab_filename, "at") as file_handle:
-                print(line_to_add, file=file_handle)
+                file_handle.write(line_to_add+"\n")
     # create ubuntu folder and chown it to ubuntu
 
 
