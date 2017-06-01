@@ -3,6 +3,7 @@
     <words>
       <w>affero</w>
       <w>awscli</w>
+      <w>awskey</w>
       <w>chown</w>
       <w>csvkit</w>
       <w>csvtool</w>
@@ -12,6 +13,7 @@
       <w>gitignore</w>
       <w>hspell</w>
       <w>hushlogin</w>
+      <w>iops</w>
       <w>iostat</w>
       <w>iotop</w>
       <w>lftp</w>

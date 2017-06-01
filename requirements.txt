@@ -1,3 +1,4 @@
+pyfakeuse
 tqdm
 requests
 boto3
