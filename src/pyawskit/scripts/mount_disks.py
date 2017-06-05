@@ -1,13 +1,6 @@
 #!/usr/bin/python3
 
-import logging
-
 import pyawskit.common
-
-logging.basicConfig()
-logger = logging.getLogger(__name__)
-logger.setLevel(logging.DEBUG)
-
 
 """
 This script mounts all the local disks as individuals
@@ -19,6 +12,7 @@ command line option) whether to run this multi-core or not.
 
 
 def main():
+    pyawskit.common.setup()
     # TODO: check that we are running as root
     # if not then recommend sudo(1) and exit
     # TODO: ask the user for yes/no confirmation since we are brutally

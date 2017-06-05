@@ -14,19 +14,20 @@ References:
 import boto3
 import logging
 
+import pylogconf
 from pyfakeuse.pyfakeuse import fake_use
 
 from pyawskit.common import load_json_config, setup
-
-logger = logging.getLogger(__name__)
 
 
 def main(
 ):
 
     setup()
-    client = boto3.client('ec2')
+    logger = logging.getLogger(__name__)
+    pylogconf.show_tree()
 
+    client = boto3.client('ec2')
     # parameters
     p_launch_configuration = load_json_config("launch_configuration")
     p_spot_request_tags = load_json_config("spot_request_tags")

@@ -2,17 +2,12 @@
 
 import subprocess
 
+import logging
 import pymount.mgr
 import os.path
 import sys
-import logging
 
 import pyawskit.common
-
-logging.basicConfig()
-logger = logging.getLogger(__name__)
-logger.setLevel(logging.DEBUG)
-
 
 """
 This script is derived from the following bash script:
@@ -47,6 +42,7 @@ def main():
     write_etc_mdadm = False
     add_line_to_fstab = False
 
+    logger = logging.getLogger(__name__)
     logger.info("looking for disks...")
     disks = pyawskit.common.get_disks()
     if len(disks) == 0:

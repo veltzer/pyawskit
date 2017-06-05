@@ -11,14 +11,11 @@ import sys
 
 import pylogconf
 import requests
-import logging
 import socket
 import errno
 import time
 
 from pyfakeuse.pyfakeuse import fake_use
-
-logger = logging.getLogger(__name__)
 
 
 def load_json_config(
