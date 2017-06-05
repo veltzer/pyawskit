@@ -1,3 +1,4 @@
+pylogconf
 pyfakeuse
 tqdm
 requests

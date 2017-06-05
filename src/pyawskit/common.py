@@ -1,3 +1,4 @@
+import json
 import os
 import subprocess
 
@@ -7,13 +8,75 @@ from typing import List
 import stat
 import boto3
 import sys
+
+import pylogconf
 import requests
 import logging
+import socket
+import errno
+import time
 
+from pyfakeuse.pyfakeuse import fake_use
 
-logging.basicConfig()
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.DEBUG)
+
+
+def load_json_config(
+        name: str,
+) -> object:
+    path = os.path.join(
+        os.getenv('HOME'),
+        ".pyawskit",
+        name+".json",
+    )
+    with open(path, "rt") as input_handle:
+        obj = json.load(input_handle)
+    return obj
+
+
+def wait_net_service(
+        server: str,
+        port: int,
+        timeout: int=300,
+) -> bool:
+    """
+        Wait for network service to appear
+        http://code.activestate.com/recipes/576655-wait-for-network-service-to-appear/
+        :param port:
+        :param server:
+        :param timeout
+    """
+    s = socket.socket()
+    end = None
+    if timeout:
+        from time import time as now
+        # time module is needed to calc timeout shared between two exceptions
+        end = now() + timeout
+
+    while True:
+        try:
+            if timeout:
+                next_timeout = end - time.time()
+                if next_timeout < 0:
+                    return False
+                else:
+                    s.settimeout(next_timeout)
+
+            s.connect((server, port))
+
+        except socket.timeout as _:
+            # this exception occurs only if timeout is set
+            if timeout:
+                return False
+
+        except socket.error as err:
+            # catch timeout exception from underlying network library
+            # this one is different from socket.timeout
+            if err.errno != errno.ETIMEDOUT:
+                raise
+        else:
+            s.close()
+            return True
 
 
 def get_disks() -> List[str]:
@@ -161,3 +224,26 @@ def mount_disk(disk: str, folder: str) -> None:
         disk,
         folder,
     ])
+
+
+def _excepthook(p_type, p_value, p_traceback):
+    # we do not do anything with the traceback
+    fake_use(p_traceback)
+    # this loop will drill to the core of the problem
+    # use only if this is what you want to show...
+    while p_value.__cause__:
+        p_value = p_value.__cause__
+    logger.error("Exception occurred")
+    logger.error("Exception type is [%s]" % p_type)
+    logger.error("Exception value is [%s]" % p_value)
+
+
+def setup_exceptions():
+    """ Only print the heart of the exception and not the stack trace """
+    sys.excepthook = _excepthook
+
+
+def setup():
+    """ Setup stuff for execution """
+    setup_exceptions()
+    pylogconf.setup()
