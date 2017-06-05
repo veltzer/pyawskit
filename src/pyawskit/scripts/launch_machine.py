@@ -14,7 +14,6 @@ References:
 import boto3
 import logging
 
-import pylogconf
 from pyfakeuse.pyfakeuse import fake_use
 
 from pyawskit.common import load_json_config, setup
@@ -25,7 +24,6 @@ def main(
 
     setup()
     logger = logging.getLogger(__name__)
-    pylogconf.show_tree()
 
     client = boto3.client('ec2')
     # parameters

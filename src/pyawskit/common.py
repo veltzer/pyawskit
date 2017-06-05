@@ -9,6 +9,7 @@ import stat
 import boto3
 import sys
 
+import logging
 import pylogconf
 import requests
 import socket
@@ -101,6 +102,7 @@ def get_disks() -> List[str]:
 
 
 def erase_partition_table(disk: str) -> None:
+    logger = logging.getLogger(__name__)
     logger.info("erasing partition table on disk [%s]", disk)
     subprocess.check_call([
         "/bin/dd",
@@ -112,6 +114,7 @@ def erase_partition_table(disk: str) -> None:
 
 
 def reread_partition_table() -> None:
+    logger = logging.getLogger(__name__)
     logger.info("making OS re-read partition tables...")
     subprocess.check_call([
         "/sbin/partprobe",
@@ -119,6 +122,7 @@ def reread_partition_table() -> None:
 
 
 def format_device(disk: str, label: str=None) -> None:
+    logger = logging.getLogger(__name__)
     logger.info("formatting the new device [%s]", disk)
     args = [
         "/sbin/mkfs.ext4",
@@ -213,6 +217,7 @@ def update_file(filename=None, pattern=None, do_all=False):
 
 
 def mount_disk(disk: str, folder: str) -> None:
+    logger = logging.getLogger(__name__)
     logger.info("mounting the new device [%s, %s]", disk, folder)
     if not os.path.isdir(folder):
         os.makedirs(folder)
@@ -224,6 +229,7 @@ def mount_disk(disk: str, folder: str) -> None:
 
 
 def _excepthook(p_type, p_value, p_traceback):
+    logger = logging.getLogger(__name__)
     # we do not do anything with the traceback
     fake_use(p_traceback)
     # this loop will drill to the core of the problem
