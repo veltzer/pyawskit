@@ -14,7 +14,7 @@ References:
 import boto3
 
 from pyawskit.aws import ProcessData, request_spot_instances, poll_requests_till_done, \
-    tag_spot_instance_requests
+    tag_spot_instance_requests, poll_instances_till_done
 from pyawskit.common import setup
 
 
@@ -24,13 +24,18 @@ def main(
     setup()
 
     client = boto3.client('ec2')
+    ec2 = boto3.resource('ec2')
     pd = ProcessData()
 
     r_request_spot_instances = request_spot_instances(client, pd)
     request_ids = [r['SpotInstanceRequestId'] for r in r_request_spot_instances['SpotInstanceRequests']]
     tag_spot_instance_requests(client, pd, request_ids)
     # wait_using_waiter(client, pd, request_ids)
-    poll_requests_till_done(client, pd, request_ids)
+    # poll_requests_till_done(client, pd, request_ids)
+    instances = poll_instances_till_done(ec2, pd, request_ids, show_progress=True)
+    for instance in instances:
+        print(instance)
+        print(instance.private_ip_address)
 
 
 if __name__ == "__main__":

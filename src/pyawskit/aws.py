@@ -1,4 +1,5 @@
 # http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-requests.html
+from time import sleep
 from typing import List
 
 from pyawskit.common import load_json_config
@@ -54,7 +55,16 @@ def poll_requests_till_done(client, pd: ProcessData, request_ids: List[str]):
         DryRun=pd.p_dry_run,
         SpotInstanceRequestIds=request_ids,
     )
+    print(response)
     return response
+
+
+def poll_instances_till_done(ec2, pd: ProcessData, request_ids: List[str], show_progress: bool):
+    instances = ec2.instances.filter(Filters=[{'Name': 'spot-instance-request-id', 'Values': request_ids}])
+    while len(list(instances)) < pd.p_instance_count:
+        sleep(1)
+        instances = ec2.instances.filter(Filters=[{'Name': 'spot-instance-request-id', 'Values': request_ids}])
+    return instances
 
 
 def tag_spot_instance_requests(client, pd: ProcessData, request_ids: List[str]):

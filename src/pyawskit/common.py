@@ -136,7 +136,11 @@ def format_device(disk: str, label: str=None) -> None:
     subprocess.check_call(args, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
 
-def update_file(filename=None, pattern=None, do_all=False):
+def update_file(
+        filename: str=None,
+        pattern: str=None,
+        do_all: bool=False,
+):
     assert filename is not None
     assert pattern is not None
 
@@ -155,7 +159,7 @@ def update_file(filename=None, pattern=None, do_all=False):
     except ValueError:
         pass
 
-    filter_file = os.path.expanduser("~/.aws/aws_filter")
+    filter_file = os.path.expanduser("~/.aws/aws_filter.json")
     if os.path.isfile(filter_file):
         print('reading [{0}]...'.format(filter_file))
         with open(filter_file) as file_handle:
