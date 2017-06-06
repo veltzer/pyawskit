@@ -2,6 +2,8 @@
 from time import sleep
 from typing import List
 
+from pyfakeuse.pyfakeuse import fake_use
+
 from pyawskit.common import load_json_config
 
 aws_spot_instance_types = {
@@ -25,9 +27,9 @@ class ProcessData:
         self.p_spot_request_tags = load_json_config("spot_request_tags")  # type: object
         self.p_instance_tags = load_json_config("instance_tags")  # type: object
         self.p_instance_count = 1  # type: int
-        self.p_spot_price = "4"  # type: string
+        self.p_spot_price = "4"  # type: str
         self.p_dry_run = False  # type: bool
-        self.p_type = "one-time"  # type: string
+        self.p_type = "one-time"  # type: str
 
 
 def request_spot_instances(client, pd: ProcessData):
@@ -60,6 +62,7 @@ def poll_requests_till_done(client, pd: ProcessData, request_ids: List[str]):
 
 
 def poll_instances_till_done(ec2, pd: ProcessData, request_ids: List[str], show_progress: bool):
+    fake_use(show_progress)
     instances = ec2.instances.filter(Filters=[{'Name': 'spot-instance-request-id', 'Values': request_ids}])
     while len(list(instances)) < pd.p_instance_count:
         sleep(1)

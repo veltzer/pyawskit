@@ -13,8 +13,7 @@ References:
 
 import boto3
 
-from pyawskit.aws import ProcessData, request_spot_instances, poll_requests_till_done, \
-    tag_spot_instance_requests, poll_instances_till_done
+from pyawskit.aws import ProcessData, request_spot_instances, tag_spot_instance_requests, poll_instances_till_done
 from pyawskit.common import setup
 
 
