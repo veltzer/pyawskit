@@ -13,8 +13,8 @@ References:
 
 import boto3
 
-from pyawskit.aws import ProcessData, request_spot_instances, tag_spot_instance_requests, poll_instances_till_done
-from pyawskit.common import setup
+from pyawskit.aws import ProcessData, request_spot_instances, tag_resources, poll_instances_till_done, wait_for_ssh
+from pyawskit.common import setup, update_ssh_config
 
 
 def main(
@@ -28,13 +28,16 @@ def main(
 
     r_request_spot_instances = request_spot_instances(client, pd)
     request_ids = [r['SpotInstanceRequestId'] for r in r_request_spot_instances['SpotInstanceRequests']]
-    tag_spot_instance_requests(client, pd, request_ids)
+    tag_resources(client, request_ids, pd.p_spot_request_tags)
     # wait_using_waiter(client, pd, request_ids)
     # poll_requests_till_done(client, pd, request_ids)
-    instances = poll_instances_till_done(ec2, pd, request_ids, show_progress=True)
-    for instance in instances:
-        print(instance)
-        print(instance.private_ip_address)
+    instances = poll_instances_till_done(ec2, pd, request_ids)
+    instance_ids = [i.id for i in instances]
+    tag_resources(client, instance_ids, pd.p_instance_tags)
+    wait_for_ssh(instances)
+
+    # TODO: we just need to add the instances we created
+    update_ssh_config(all_hosts=False)
 
 
 if __name__ == "__main__":

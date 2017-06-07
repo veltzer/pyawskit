@@ -141,6 +141,7 @@ def update_file(
         pattern: str=None,
         do_all: bool=False,
 ):
+    logger = logging.getLogger(__name__)
     assert filename is not None
     assert pattern is not None
 
@@ -161,11 +162,11 @@ def update_file(
 
     filter_file = os.path.expanduser("~/.aws/aws_filter.json")
     if os.path.isfile(filter_file):
-        print('reading [{0}]...'.format(filter_file))
+        logger.info('reading [{0}]...'.format(filter_file))
         with open(filter_file) as file_handle:
             filters = ujson.loads(file_handle.read())
     else:
-        print('no filter file [{0}] exists...'.format(filter_file))
+        logger.info('no filter file [{0}] exists...'.format(filter_file))
         filters = []
 
     # look for servers matching the query
@@ -175,7 +176,7 @@ def update_file(
     else:
         instances = list(ec2.instances.filter(Filters=filters))
     num_of_instances = len(instances)
-    print("Found {} instances".format(num_of_instances), file=sys.stderr)
+    logger.info("Found {} instances".format(num_of_instances))
     # assert num_of_instances > 0
 
     # add the comment line
@@ -196,12 +197,12 @@ def update_file(
             continue
         new_host = host.replace(' ', '')
         if new_host != host:
-            print('Name [{0}] for host is bad. Try names without spaces...'.format(host))
+            logger.info('Name [{0}] for host is bad. Try names without spaces...'.format(host))
         host = new_host
         # public_ip = instance.public_dns_name
         # if public_ip == "":
         #    continue
-        # print(dir(instance))
+        # logger.info(dir(instance))
         private_ip = instance.private_ip_address
         if private_ip == "":
             continue
@@ -216,8 +217,8 @@ def update_file(
     # print the final lines to the config file
     with open(config_file, "wt") as file_handle:
         file_handle.writelines(lines)
-    print("Added {} instances".format(added), file=sys.stderr)
-    print("written {}".format(config_file))
+    logger.info("Added {} instances".format(added))
+    logger.info("written {}".format(config_file))
 
 
 def mount_disk(disk: str, folder: str) -> None:
@@ -254,3 +255,14 @@ def setup():
     """ Setup stuff for execution """
     setup_exceptions()
     pylogconf.setup()
+
+ssh_config_pattern = """Host {host}
+\tHostName {ip}
+\tIdentityFile ~/.aws/keys/{key_name}.pem
+\tIdentitiesOnly yes
+\tUser ubuntu
+"""
+
+
+def update_ssh_config(all_hosts: bool):
+    update_file(filename="~/.ssh/config", pattern=ssh_config_pattern, do_all=all_hosts)

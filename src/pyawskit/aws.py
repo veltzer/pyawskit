@@ -1,11 +1,10 @@
-# http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-requests.html
+import logging
 from time import sleep
-from typing import List
+from typing import List, Callable
 
-from pyfakeuse.pyfakeuse import fake_use
+from pyawskit.common import load_json_config, wait_net_service
 
-from pyawskit.common import load_json_config
-
+# http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-requests.html
 aws_spot_instance_types = {
     "c3.8xlarge",
     "c4.8xlarge",
@@ -21,9 +20,18 @@ aws_spot_instance_types = {
 }
 
 
+def log_func_name(func: Callable):
+
+    def inner(*kw, **tw):
+        logger = logging.getLogger(__name__)
+        logger.info(func.__name__)
+        return func(*kw, **tw)
+    return inner
+
+
 class ProcessData:
     def __init__(self):
-        self.p_launch_configuration = load_json_config("launch_configuration")  # type:object
+        self.p_launch_specification = load_json_config("launch_specification")  # type:object
         self.p_spot_request_tags = load_json_config("spot_request_tags")  # type: object
         self.p_instance_tags = load_json_config("instance_tags")  # type: object
         self.p_instance_count = 1  # type: int
@@ -32,17 +40,19 @@ class ProcessData:
         self.p_type = "one-time"  # type: str
 
 
+@log_func_name
 def request_spot_instances(client, pd: ProcessData):
     r_request_spot_instances = client.request_spot_instances(
         DryRun=pd.p_dry_run,
         SpotPrice=pd.p_spot_price,
         InstanceCount=pd.p_instance_count,
-        LaunchSpecification=pd.p_launch_configuration,
+        LaunchSpecification=pd.p_launch_specification,
         Type=pd.p_type,
     )
     return r_request_spot_instances
 
 
+@log_func_name
 def wait_using_waiter(client, pd: ProcessData, request_ids: List[str]):
     waiter = client.get_waiter('spot_instance_request_fulfilled')
     ret = waiter.wait(
@@ -52,17 +62,17 @@ def wait_using_waiter(client, pd: ProcessData, request_ids: List[str]):
     return ret
 
 
+@log_func_name
 def poll_requests_till_done(client, pd: ProcessData, request_ids: List[str]):
     response = client.describe_spot_instance_requests(
         DryRun=pd.p_dry_run,
         SpotInstanceRequestIds=request_ids,
     )
-    print(response)
     return response
 
 
-def poll_instances_till_done(ec2, pd: ProcessData, request_ids: List[str], show_progress: bool):
-    fake_use(show_progress)
+@log_func_name
+def poll_instances_till_done(ec2, pd: ProcessData, request_ids: List[str]):
     instances = ec2.instances.filter(Filters=[{'Name': 'spot-instance-request-id', 'Values': request_ids}])
     while len(list(instances)) < pd.p_instance_count:
         sleep(1)
@@ -70,12 +80,19 @@ def poll_instances_till_done(ec2, pd: ProcessData, request_ids: List[str], show_
     return instances
 
 
-def tag_spot_instance_requests(client, pd: ProcessData, request_ids: List[str]):
+@log_func_name
+def tag_resources(client, resource_ids: List[str], tags: object):
     response = client.create_tags(
-        Resources=request_ids,
-        Tags=pd.p_spot_request_tags,
+        Resources=resource_ids,
+        Tags=tags,
     )
     return response
 
 
-
+@log_func_name
+def wait_for_ssh(instances):
+    for instance in instances:
+        wait_net_service(
+            server=instance.private_ip_address,
+            port=22,
+        )
