@@ -9,6 +9,9 @@ References:
 - https://stackoverflow.com/questions/35721557/boto3-spot-instance-creation
 - https://github.com/abdul/ec2-spot-instance-launcher
 - https://peteris.rocks/blog/script-to-launch-amazon-ec2-spot-instances/
+
+This is the real script where most of this one is from:
+- https://gist.github.com/aloysius-lim/b77f6d62a595ae329e41
 """
 
 import boto3
