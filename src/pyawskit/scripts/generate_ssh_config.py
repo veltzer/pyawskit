@@ -5,12 +5,13 @@ Notice that you must hold all of your .pem files in ~/.aws/keys
 
 import click
 
-from pyawskit.common import update_ssh_config
+from pyawskit.common import update_ssh_config, setup
 
 
 @click.command()
 @click.option("--all-hosts/--filter", default=False, help="filter or add all instances")
 def main(all_hosts):
+    setup()
     update_ssh_config(all_hosts)
 
 if __name__ == "__main__":

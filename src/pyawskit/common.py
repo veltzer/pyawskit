@@ -176,7 +176,7 @@ def update_file(
     else:
         instances = list(ec2.instances.filter(Filters=filters))
     num_of_instances = len(instances)
-    logger.info("Found {} instances".format(num_of_instances))
+    logger.info("Found {} instance(s)".format(num_of_instances))
     # assert num_of_instances > 0
 
     # add the comment line
@@ -193,12 +193,9 @@ def update_file(
         if "Name" not in tags_dict:
             continue
         host = tags_dict["Name"]
-        if host == "":
+        if host == "" or " " in host:
+            logger.info('Name [{0}] for host is bad. Try non empty names without spaces...'.format(host))
             continue
-        new_host = host.replace(' ', '')
-        if new_host != host:
-            logger.info('Name [{0}] for host is bad. Try names without spaces...'.format(host))
-        host = new_host
         # public_ip = instance.public_dns_name
         # if public_ip == "":
         #    continue
@@ -217,8 +214,8 @@ def update_file(
     # print the final lines to the config file
     with open(config_file, "wt") as file_handle:
         file_handle.writelines(lines)
-    logger.info("Added {} instances".format(added))
-    logger.info("written {}".format(config_file))
+    logger.info("Added {} instance(s)".format(added))
+    logger.info("Written {}".format(config_file))
 
 
 def mount_disk(disk: str, folder: str) -> None:
