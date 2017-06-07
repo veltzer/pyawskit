@@ -96,3 +96,13 @@ def wait_for_ssh(instances):
             server=instance.private_ip_address,
             port=22,
         )
+
+
+@log_func_name
+def attach_disk(ec2, instance_id: str, device: str, volume_id: str):
+    volume = ec2.Volume(volume_id)
+    response = volume.attach_to_instance(
+        InstanceId=instance_id,
+        Device=device,
+    )
+    return response

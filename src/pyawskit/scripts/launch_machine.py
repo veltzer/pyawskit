@@ -13,7 +13,8 @@ References:
 
 import boto3
 
-from pyawskit.aws import ProcessData, request_spot_instances, tag_resources, poll_instances_till_done, wait_for_ssh
+from pyawskit.aws import ProcessData, request_spot_instances, tag_resources, poll_instances_till_done, wait_for_ssh, \
+    attach_disk
 from pyawskit.common import setup, update_ssh_config
 
 
@@ -33,6 +34,13 @@ def main(
     instance_ids = [i.id for i in instances]
     tag_resources(client, instance_ids, pd.p_instance_tags)
     wait_for_ssh(instances)
+    p_instance_id = instance_ids[0]
+    attach_disk(
+        ec2=ec2,
+        p_instance_id=p_instance_id,
+        p_volume_id="vol-0a8c2aa1538d9fb0e",
+        device="/deb/xvdh",
+    )
 
     # TODO: we just need to add the instances we created
     update_ssh_config(all_hosts=False)
