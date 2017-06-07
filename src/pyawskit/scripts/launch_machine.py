@@ -39,7 +39,7 @@ def main(
         ec2=ec2,
         instance_id=p_instance_id,
         volume_id="vol-0a8c2aa1538d9fb0e",
-        device="/deb/xvdh",
+        device="xvdh",
     )
 
     # TODO: we just need to add the instances we created
