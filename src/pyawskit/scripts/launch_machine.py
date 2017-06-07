@@ -19,9 +19,7 @@ from pyawskit.common import setup, update_ssh_config
 
 def main(
 ):
-
     setup()
-
     client = boto3.client('ec2')
     ec2 = boto3.resource('ec2')
     pd = ProcessData()

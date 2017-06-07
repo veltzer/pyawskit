@@ -36,6 +36,8 @@ import sys
 import enum
 from typing import List
 
+from pyawskit.common import setup
+
 
 class OSType(enum.Enum):
     ubuntu = 1
@@ -156,6 +158,7 @@ def set_timezone() -> None:
 
 
 def main() -> None:
+    setup()
     check_root()
     detect_os()
     update_machine()

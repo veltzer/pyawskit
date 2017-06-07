@@ -31,6 +31,7 @@ TODO:
 
 
 def main():
+    pyawskit.common.setup()
     device_file = "/dev/md0"
     mount_point = "/mnt/raid0"
     mdadm_config_file = '/etc/mdadm/mdadm.conf'

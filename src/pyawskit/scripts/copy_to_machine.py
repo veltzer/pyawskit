@@ -12,8 +12,11 @@ import subprocess
 import sys
 import os.path
 
+from pyawskit.common import setup
+
 
 def main():
+    setup()
     folders_to_copy = [
         "~/.aws",
         "~/.ssh",

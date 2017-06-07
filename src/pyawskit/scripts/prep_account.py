@@ -11,6 +11,8 @@ These are the types of things it does:
 """
 import os
 
+from pyawskit.common import setup
+
 
 def do_hush_login():
     filename = os.path.expanduser("~/.hushlogin")
@@ -19,6 +21,7 @@ def do_hush_login():
 
 
 def main():
+    setup()
     do_hush_login()
 
 

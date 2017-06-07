@@ -23,6 +23,8 @@ import shutil
 
 from pypipegzip import pypipegzip
 
+from pyawskit.common import setup
+
 
 def copyfileobj(source, destination, buffer_size=1024 * 1024):
     """
@@ -135,6 +137,7 @@ def print_exception(e):
 
 
 def main():
+    setup()
     bucket_name = 'twiggle-click-streams'
     folder_in = 'flipkart/'
     folder_out = 'flipkart_gz'

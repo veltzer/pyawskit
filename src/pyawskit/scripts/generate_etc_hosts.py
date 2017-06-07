@@ -6,13 +6,14 @@ import os
 import sys
 import click
 
-from pyawskit.common import update_file
+from pyawskit.common import update_file, setup
 
 
 # noinspection PyShadowingBuiltins
 @click.command()
 @click.option("--all/--filter", default=False, help="filter or add all instances")
 def main(all):
+    setup()
     if not os.geteuid() == 0:
         sys.exit('Script must be run as root')
     update_file(filename="/etc/hosts", pattern="{ip} {host}\n", do_all=all)
