@@ -37,8 +37,8 @@ def main(
     p_instance_id = instance_ids[0]
     attach_disk(
         ec2=ec2,
-        p_instance_id=p_instance_id,
-        p_volume_id="vol-0a8c2aa1538d9fb0e",
+        instance_id=p_instance_id,
+        volume_id="vol-0a8c2aa1538d9fb0e",
         device="/deb/xvdh",
     )
 
