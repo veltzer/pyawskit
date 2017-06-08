@@ -22,7 +22,7 @@ from pyawskit.common import setup, update_ssh_config
 @click.option(
     "--price",
     default=8,
-    type=int,
+    type=float,
     help="price for bid",
 )
 @click.option(
@@ -32,7 +32,7 @@ from pyawskit.common import setup, update_ssh_config
     help="how many instances",
 )
 def main(
-        price: int,
+        price: float,
         count: int,
 ):
     """

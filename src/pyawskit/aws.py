@@ -30,12 +30,12 @@ def log_func_name(func: Callable):
 
 
 class ProcessData:
-    def __init__(self, price: int, count: int):
+    def __init__(self, price: float, count: int):
         self.p_launch_specification = load_json_config("launch_specification")  # type:object
         self.p_spot_request_tags = load_json_config("spot_request_tags")  # type: object
         self.p_instance_tags = load_json_config("instance_tags")  # type: object
         self.p_instance_count = count  # type: int
-        self.p_spot_price = price  # type: int
+        self.p_spot_price = price  # type: float
         self.p_dry_run = False  # type: bool
         self.p_type = "one-time"  # type: str
 
