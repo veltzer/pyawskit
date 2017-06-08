@@ -1,11 +1,11 @@
 import subprocess
 
 import logging
+
+import click
 import pymount.mgr
 import os.path
 import sys
-
-from click._unicodefun import click
 
 import pyawskit.common
 

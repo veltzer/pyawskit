@@ -36,6 +36,8 @@ import sys
 import enum
 from typing import List
 
+import click
+
 from pyawskit.common import setup
 
 
