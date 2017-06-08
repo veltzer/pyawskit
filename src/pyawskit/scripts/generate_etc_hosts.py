@@ -1,8 +1,9 @@
 import os
 import sys
+
 import click
 
-from pyawskit.common import update_file, setup, update_etc_hosts
+from pyawskit.common import setup, update_etc_hosts
 
 
 @click.command()
