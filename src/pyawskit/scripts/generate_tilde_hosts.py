@@ -7,12 +7,11 @@ from pyawskit.common import update_file, setup
 import click
 
 
-# noinspection PyShadowingBuiltins
 @click.command()
-@click.option("--all/--filter", default=False, help="filter or add all instances")
-def main(all):
+@click.option("--all-instances/--filter", default=False, help="filter or add all instances")
+def main(all_instances):
     setup()
-    update_file(filename="~/.hosts", pattern="{ip} {host}\n", do_all=all)
+    update_file(filename="~/.hosts", pattern="{ip} {host}\n", do_all=all_instances)
 
 if __name__ == "__main__":
     main()

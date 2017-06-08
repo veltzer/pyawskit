@@ -1,5 +1,3 @@
-#!/usr/bin/python3
-
 """
 This script launches a new machine via boto3
 
@@ -15,18 +13,37 @@ This is the real script where most of this one is from:
 """
 
 import boto3
+import click
 
 from pyawskit.aws import ProcessData, request_spot_instances, tag_resources, poll_instances_till_done, wait_for_ssh, \
     attach_disk
 from pyawskit.common import setup, update_ssh_config
 
 
+@click.command()
+@click.option(
+    "--price",
+    default=8,
+    type=int,
+    help="price for bid",
+)
+@click.option(
+    "--count",
+    default=1,
+    type=int,
+    help="how many instances",
+)
 def main(
+        price: int,
+        count: int,
 ):
     setup()
     client = boto3.client('ec2')
     ec2 = boto3.resource('ec2')
-    pd = ProcessData()
+    pd = ProcessData(
+        price=price,
+        count=count,
+    )
 
     r_request_spot_instances = request_spot_instances(client, pd)
     request_ids = [r['SpotInstanceRequestId'] for r in r_request_spot_instances['SpotInstanceRequests']]

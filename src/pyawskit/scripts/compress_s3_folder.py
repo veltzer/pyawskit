@@ -1,5 +1,3 @@
-#!/usr/bin/python3
-
 """
 This script accepts three parameters: bucket, in-folder, out-folder
 It reads every file in in-folder, gzip it, and then writes it with the suffix '.gz'

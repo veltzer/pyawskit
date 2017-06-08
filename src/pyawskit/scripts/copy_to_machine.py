@@ -1,5 +1,3 @@
-#!/usr/bin/python3
-
 """
 This script copies important files to a machine like key files and such.
 
