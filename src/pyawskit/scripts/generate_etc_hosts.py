@@ -1,7 +1,3 @@
-"""
-This script will update ~/.aws/config file with the names of your machines.
-Notice that you must hold all of your .pem files in ~/.aws/keys
-"""
 import os
 import sys
 import click
@@ -9,14 +5,18 @@ import click
 from pyawskit.common import update_file, setup
 
 
-# noinspection PyShadowingBuiltins
 @click.command()
-@click.option("--all/--filter", default=False, help="filter or add all instances")
-def main(all):
+@click.option("--all-instances/--filter", default=False, help="filter or add all instances")
+def main(all_instances):
+    """
+    This script will update ~/.aws/config file with the names of your machines.
+    Notice that you must hold all of your .pem files in ~/.aws/keys
+    """
     setup()
-    if not os.geteuid() == 0:
-        sys.exit('Script must be run as root')
-    update_file(filename="/etc/hosts", pattern="{ip} {host}\n", do_all=all)
+    filename = "/etc/hosts"
+    if not os.geteuid() == 0 and not os.access(filename, os.W_OK):
+        sys.exit('script must be run as root or {} must be writable'.format(filename))
+    update_file(filename=filename, pattern="{ip} {host}\n", do_all=all_instances)
 
 if __name__ == "__main__":
     main()

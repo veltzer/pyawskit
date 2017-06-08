@@ -1,3 +1,5 @@
+import click
+
 import pyawskit.common
 
 """
@@ -9,7 +11,11 @@ command line option) whether to run this multi-core or not.
 """
 
 
+@click.command()
 def main():
+    """
+    This script mounts all the local disks as individuals
+    """
     pyawskit.common.setup()
     # TODO: check that we are running as root
     # if not then recommend sudo(1) and exit

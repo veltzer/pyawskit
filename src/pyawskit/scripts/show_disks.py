@@ -1,6 +1,9 @@
+import click
+
 import pyawskit.common
 
 
+@click.command()
 def main():
     """
     This script simply shows all the disks you have on an AWS machine

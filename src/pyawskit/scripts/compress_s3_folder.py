@@ -1,11 +1,3 @@
-"""
-This script accepts three parameters: bucket, in-folder, out-folder
-It reads every file in in-folder, gzip it, and then writes it with the suffix '.gz'
-to the out folder.
-
-The credentials for this are NOT stored in this script
-but rather are in ~/.aws/credentials.
-"""
 import subprocess
 
 import boto3
@@ -15,6 +7,8 @@ import multiprocessing.pool
 import multiprocessing
 
 import sys
+
+import click
 import tqdm
 import os.path
 import shutil
@@ -134,7 +128,16 @@ def print_exception(e):
     sys.exit(1)
 
 
+@click.command()
 def main():
+    """
+    This script accepts three parameters: bucket, in-folder, out-folder
+    It reads every file in in-folder, gzip it, and then writes it with the suffix '.gz'
+    to the out folder.
+
+    The credentials for this are NOT stored in this script
+    but rather are in ~/.aws/credentials.
+    """
     setup()
     bucket_name = 'twiggle-click-streams'
     folder_in = 'flipkart/'

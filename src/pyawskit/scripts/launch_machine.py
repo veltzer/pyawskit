@@ -1,6 +1,4 @@
 """
-This script launches a new machine via boto3
-
 References:
 - http://boto3.readthedocs.io/en/latest/reference/services/ec2.html#EC2.Client.run_instances
 - http://boto3.readthedocs.io/en/latest/reference/services/ec2.html#EC2.Client.request_spot_instances
@@ -37,6 +35,9 @@ def main(
         price: int,
         count: int,
 ):
+    """
+    This script launches a new machine via boto3
+    """
     setup()
     client = boto3.client('ec2')
     ec2 = boto3.resource('ec2')

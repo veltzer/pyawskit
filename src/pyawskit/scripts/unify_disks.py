@@ -5,6 +5,8 @@ import pymount.mgr
 import os.path
 import sys
 
+from click._unicodefun import click
+
 import pyawskit.common
 
 """
@@ -28,6 +30,7 @@ TODO:
 """
 
 
+@click.command()
 def main():
     pyawskit.common.setup()
     device_file = "/dev/md0"

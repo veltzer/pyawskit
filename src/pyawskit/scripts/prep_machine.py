@@ -157,6 +157,7 @@ def set_timezone() -> None:
     ])
 
 
+@click.command()
 def main() -> None:
     setup()
     check_root()

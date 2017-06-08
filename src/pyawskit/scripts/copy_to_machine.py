@@ -1,19 +1,20 @@
-"""
-This script copies important files to a machine like key files and such.
-
-TODO:
-- do not copy ~/.aws/shell (it is big)
-"""
-
-
 import subprocess
 import sys
 import os.path
 
+import click
+
 from pyawskit.common import setup
 
 
+@click.command()
 def main():
+    """
+    This script copies important files to a machine like key files and such.
+
+    TODO:
+    - do not copy ~/.aws/shell (it is big)
+    """
     setup()
     folders_to_copy = [
         "~/.aws",

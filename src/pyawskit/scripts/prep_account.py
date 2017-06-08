@@ -19,7 +19,7 @@ def do_hush_login():
     with open(filename, "w"):
         pass
 
-
+@click.command()
 def main():
     setup()
     do_hush_login()
