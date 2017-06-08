@@ -2,7 +2,7 @@ import os
 import sys
 import click
 
-from pyawskit.common import update_file, setup
+from pyawskit.common import update_file, setup, update_etc_hosts
 
 
 @click.command()
@@ -16,7 +16,7 @@ def main(all_instances):
     filename = "/etc/hosts"
     if not os.geteuid() == 0 and not os.access(filename, os.W_OK):
         sys.exit('script must be run as root or {} must be writable'.format(filename))
-    update_file(filename=filename, pattern="{ip} {host}\n", do_all=all_instances)
+    update_etc_hosts(all_hosts=all_instances)
 
 if __name__ == "__main__":
     main()

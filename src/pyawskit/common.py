@@ -259,6 +259,12 @@ ssh_config_pattern = """Host {host}
 \tUser ubuntu
 """
 
+etc_hosts_pattern = "{ip} {host}\n"
+
 
 def update_ssh_config(all_hosts: bool):
     update_file(filename="~/.ssh/config", pattern=ssh_config_pattern, do_all=all_hosts)
+
+
+def update_etc_hosts(all_hosts: bool):
+    update_file(filename="/etc/hosts", pattern=etc_hosts_pattern, do_all=all_hosts)
