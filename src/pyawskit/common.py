@@ -47,9 +47,8 @@ def wait_net_service(
     s = socket.socket()
     end = None
     if timeout:
-        from time import time as now
         # time module is needed to calc timeout shared between two exceptions
-        end = now() + timeout
+        end = time.time() + timeout
 
     while True:
         try:
