@@ -1,6 +1,4 @@
 """
-This script prepares your account on a new aws machine.
-
 These are the types of things it does:
 - copy ~/.aws ~/.ssh ~/.s3cfg ~/.gitconfig ~/.passwd-s3fs to it
 - set quiet login using:
@@ -24,6 +22,9 @@ def do_hush_login():
 
 @click.command()
 def main():
+    """
+    This script prepares your account on a new aws machine.
+    """
     setup()
     do_hush_login()
 
