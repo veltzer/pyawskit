@@ -120,6 +120,12 @@ def reread_partition_table() -> None:
     ])
 
 
+def all_regions() -> List[str]:
+    client = boto3.client('ec2')
+    regions = [region['RegionName'] for region in client.describe_regions()['Regions']]
+    return regions
+
+
 def format_device(disk: str, label: str=None) -> None:
     logger = logging.getLogger(__name__)
     logger.info("formatting the new device [%s]", disk)
@@ -168,12 +174,14 @@ def update_file(
         logger.info('no filter file [{0}] exists...'.format(filter_file))
         filters = []
 
-    # look for servers matching the query
-    ec2 = boto3.resource('ec2')
-    if do_all:
-        instances = list(ec2.instances.all())
-    else:
-        instances = list(ec2.instances.filter(Filters=filters))
+    # look for servers matching the query, in all regions
+    instances = []
+    for region in all_regions():
+        ec2 = boto3.resource('ec2', region_name=region)
+        if do_all:
+            instances.extend(list(ec2.instances.all()))
+        else:
+            instances.extend(list(ec2.instances.filter(Filters=filters)))
     num_of_instances = len(instances)
     logger.info("Found {} instance(s)".format(num_of_instances))
     # assert num_of_instances > 0
