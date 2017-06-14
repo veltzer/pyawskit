@@ -21,7 +21,7 @@ from pyfakeuse.pyfakeuse import fake_use
 
 def load_json_config(
         name: str,
-) -> object:
+):
     path = os.path.join(
         os.getenv('HOME'),
         ".pyawskit",

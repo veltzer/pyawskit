@@ -20,20 +20,14 @@ from pyawskit.common import setup, update_ssh_config
 
 @click.command()
 @click.option(
-    "--price",
-    default=8,
-    type=float,
-    help="price for bid",
-)
-@click.option(
-    "--count",
-    default=1,
-    type=int,
-    help="how many instances",
+    "--name",
+    default=None,
+    type=str,
+    required=True,
+    help="What config to launch?",
 )
 def main(
-        price: float,
-        count: int,
+        name: str,
 ):
     """
     This script launches a new machine via boto3
@@ -41,19 +35,16 @@ def main(
     setup()
     client = boto3.client('ec2')
     ec2 = boto3.resource('ec2')
-    pd = ProcessData(
-        price=price,
-        count=count,
-    )
+    pd = ProcessData(name=name)
 
     r_request_spot_instances = request_spot_instances(client, pd)
     request_ids = [r['SpotInstanceRequestId'] for r in r_request_spot_instances['SpotInstanceRequests']]
-    tag_resources(client, request_ids, pd.p_spot_request_tags)
+    tag_resources(client, request_ids, pd.p_launch_config[pd.p_name]["spot_request_tags"])
     # wait_using_waiter(client, pd, request_ids)
     # poll_requests_till_done(client, pd, request_ids)
     instances = poll_instances_till_done(ec2, pd, request_ids)
     instance_ids = [i.id for i in instances]
-    tag_resources(client, instance_ids, pd.p_instance_tags)
+    tag_resources(client, instance_ids, pd.p_launch_config[pd.p_name]["instance_tags"])
     wait_for_ssh(instances)
     p_instance_id = instance_ids[0]
     attach_disk(

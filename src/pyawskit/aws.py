@@ -30,23 +30,26 @@ def log_func_name(func: Callable):
 
 
 class ProcessData:
-    def __init__(self, price: float, count: int):
-        self.p_launch_specification = load_json_config("launch_specification")  # type:object
-        self.p_spot_request_tags = load_json_config("spot_request_tags")  # type: object
-        self.p_instance_tags = load_json_config("instance_tags")  # type: object
-        self.p_instance_count = count  # type: int
-        self.p_spot_price = price  # type: float
+    def __init__(self, name: str):
+        self.p_name = name  # type: str
+        self.p_launch_config = load_json_config("launch_config")
+        self.p_config = self.p_launch_config[self.p_name]
+        self.p_price = float(self.p_config["price"])
+        self.p_count = int(self.p_config["count"])
         self.p_dry_run = False  # type: bool
         self.p_type = "one-time"  # type: str
+
+    def get_price(self):
+        return self.p_config["price"]
 
 
 @log_func_name
 def request_spot_instances(client, pd: ProcessData):
     r_request_spot_instances = client.request_spot_instances(
         DryRun=pd.p_dry_run,
-        SpotPrice=str(pd.p_spot_price),
-        InstanceCount=pd.p_instance_count,
-        LaunchSpecification=pd.p_launch_specification,
+        SpotPrice=str(pd.p_price),
+        InstanceCount=pd.p_count,
+        LaunchSpecification=pd.p_config["launch_config"],
         Type=pd.p_type,
     )
     return r_request_spot_instances
@@ -74,7 +77,7 @@ def poll_requests_till_done(client, pd: ProcessData, request_ids: List[str]):
 @log_func_name
 def poll_instances_till_done(ec2, pd: ProcessData, request_ids: List[str]):
     instances = ec2.instances.filter(Filters=[{'Name': 'spot-instance-request-id', 'Values': request_ids}])
-    while len(list(instances)) < pd.p_instance_count:
+    while len(list(instances)) < pd.p_count:
         sleep(1)
         instances = ec2.instances.filter(Filters=[{'Name': 'spot-instance-request-id', 'Values': request_ids}])
     return instances
