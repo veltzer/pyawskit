@@ -33,9 +33,10 @@ def main(
     This script launches a new machine via boto3
     """
     setup()
-    client = boto3.client('ec2')
-    ec2 = boto3.resource('ec2')
     pd = ProcessData(name=name)
+
+    client = boto3.client('ec2', region=pd.p_region)
+    ec2 = boto3.resource('ec2', region=pd.p_region)
 
     r_request_spot_instances = request_spot_instances(client, pd)
     request_ids = [r['SpotInstanceRequestId'] for r in r_request_spot_instances['SpotInstanceRequests']]

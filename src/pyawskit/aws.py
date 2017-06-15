@@ -36,6 +36,7 @@ class ProcessData:
         self.p_config = self.p_launch_config[self.p_name]
         self.p_price = float(self.p_config["price"])
         self.p_count = int(self.p_config["count"])
+        self.p_region = self.p_config["region"]
         self.p_dry_run = False  # type: bool
         self.p_type = "one-time"  # type: str
 

@@ -31,28 +31,19 @@ bash
 """
 
 import subprocess
-import os
 import sys
 import enum
-from typing import List
+from sultan.api import Sultan
+
 
 import click
 
-from pyawskit.common import setup
+from pyawskit.common import setup, run_devnull, wait_net_service
 
 
 class OSType(enum.Enum):
     ubuntu = 1
     aml = 2
-
-
-def run(args: List[str]) -> None:
-    # print('running', args)
-    subprocess.check_call(
-        args,
-        stdout=subprocess.DEVNULL,
-        stderr=subprocess.DEVNULL
-    )
 
 
 os_type = None
@@ -85,19 +76,13 @@ def is_os_type(t) -> bool:
     return os_type == t
 
 
-# check that we are running as root
-def check_root() -> None:
-    if not os.geteuid() == 0:
-        sys.exit('script must be run as root')
-
-
 def update_machine() -> None:
     if is_os_type(OSType.ubuntu):
-        run(['apt-get', 'update'])
-        run(['apt-get', 'upgrade'])
+        run_devnull(['apt-get', 'update'])
+        run_devnull(['apt-get', 'upgrade'])
     if is_os_type(OSType.aml):
-        run(['yum', 'update'])
-        run(['yum', 'upgrade'])
+        run_devnull(['yum', 'update'])
+        run_devnull(['yum', 'upgrade'])
 
 
 # install necessary package per platform
@@ -160,13 +145,22 @@ def set_timezone() -> None:
 
 
 @click.command()
-def main() -> None:
+@click.option(
+    "--name",
+    default=None,
+    type=str,
+    required=True,
+    help="What config to launch?",
+)
+def main(name: str) -> None:
     setup()
-    check_root()
-    detect_os()
-    update_machine()
-    install_packages()
-
+    with Sultan.load(sudo=False, hostname=name) as sultan:
+        sultan.sudo("apt update -y")
+        sultan.sudo("apt dist-upgrade -y")
+        sultan.sudo("reboot")
+    wait_net_service(server=name, port=22)
+    with Sultan.load(sudo=False, hostname=name) as sultan:
+        sultan.run("touch ~/.hushlogin")
 
 if __name__ == '__main__':
     main()

@@ -3,8 +3,6 @@ import click
 import pyawskit.common
 
 """
-This script mounts all the local disks as individuals
-
 TODO:
 - make this run in parallel on multiple cores and enable the user to choose (via
 command line option) whether to run this multi-core or not.

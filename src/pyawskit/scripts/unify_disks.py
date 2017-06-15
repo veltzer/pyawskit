@@ -7,7 +7,7 @@ import pymount.mgr
 import os.path
 import sys
 
-import pyawskit.common
+from pyawskit.common import setup, get_disks, reread_partition_table, erase_partition_table, mount_disk, format_device
 
 """
 This script is derived from the following bash script:
@@ -32,7 +32,8 @@ TODO:
 
 @click.command()
 def main():
-    pyawskit.common.setup()
+    """ unify disks of a machine in raid 0 """
+    setup()
     device_file = "/dev/md0"
     mount_point = "/mnt/raid0"
     mdadm_config_file = '/etc/mdadm/mdadm.conf'
@@ -46,7 +47,7 @@ def main():
 
     logger = logging.getLogger(__name__)
     logger.info("looking for disks...")
-    disks = pyawskit.common.get_disks()
+    disks = get_disks()
     if len(disks) == 0:
         print('found no disks, exiting...', file=sys.stderr)
         sys.exit(1)
@@ -91,8 +92,8 @@ def main():
         logger.info("no md [%s], good", device_file)
 
     for disk in disks:
-        pyawskit.common.erase_partition_table(disk)
-    pyawskit.common.reread_partition_table()
+        erase_partition_table(disk)
+    reread_partition_table()
 
     logger.info("creating the new md device...")
     if start_stop_queue:
@@ -130,9 +131,9 @@ def main():
             "--verbose",
         ], stdout=mdadm_handle, stderr=subprocess.DEVNULL)
 
-    pyawskit.common.format_device(device_file, label=name_of_raid_device)
+    format_device(device_file, label=name_of_raid_device)
 
-    pyawskit.common.mount_disk(disk=device_file, folder=mount_point)
+    mount_disk(disk=device_file, folder=mount_point)
 
     if add_line_to_fstab:
         logger.info("checking if need to add line to [%s] for mount on reboot...", fstab_filename)

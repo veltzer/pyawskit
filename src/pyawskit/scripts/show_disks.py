@@ -1,6 +1,6 @@
 import click
 
-import pyawskit.common
+from pyawskit.common import setup, get_disks
 
 
 @click.command()
@@ -8,8 +8,8 @@ def main():
     """
     This script simply shows all the disks you have on an AWS machine
     """
-    pyawskit.common.setup()
-    print(pyawskit.common.get_disks())
+    setup()
+    print(get_disks())
 
 
 if __name__ == "__main__":

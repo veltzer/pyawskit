@@ -276,3 +276,19 @@ def update_ssh_config(all_hosts: bool):
 
 def update_etc_hosts(all_hosts: bool):
     update_file(filename="/etc/hosts", pattern=etc_hosts_pattern, do_all=all_hosts)
+
+
+def run_devnull(args: List[str]) -> None:
+    subprocess.check_call(
+        args,
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL
+    )
+
+
+def check_root() -> None:
+    """
+    check that we are running as root
+    """
+    if not os.geteuid() == 0:
+        sys.exit('script must be run as root')
