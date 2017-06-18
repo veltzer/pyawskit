@@ -292,3 +292,8 @@ def check_root() -> None:
     """
     if not os.geteuid() == 0:
         sys.exit('script must be run as root')
+
+
+def touch(filename: str) -> None:
+    with open(filename, "w"):
+        pass

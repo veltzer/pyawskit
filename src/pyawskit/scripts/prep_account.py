@@ -11,13 +11,12 @@ import os
 
 import click
 
-from pyawskit.common import setup
+from pyawskit.common import setup, touch
 
 
 def do_hush_login():
     filename = os.path.expanduser("~/.hushlogin")
-    with open(filename, "w"):
-        pass
+    touch(filename)
 
 
 @click.command()

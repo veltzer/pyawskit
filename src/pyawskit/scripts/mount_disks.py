@@ -15,8 +15,7 @@ def main():
     This script mounts all the local disks as individuals
     """
     pyawskit.common.setup()
-    # TODO: check that we are running as root
-    # if not then recommend sudo(1) and exit
+    pyawskit.common.check_root()
     # TODO: ask the user for yes/no confirmation since we are brutally
     # erasing all of the local disks...
     disks = pyawskit.common.get_disks()
