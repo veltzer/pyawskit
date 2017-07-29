@@ -6,7 +6,7 @@ if not sys.version_info[0] == 3:
 
 setuptools.setup(
     name='pyawskit',
-    version='0.1.42',
+    version='0.1.43',
     description='pyawskit is a collection of utilities to help interact with aws',
     long_description='pyawskit helps you with various aws tasks',
     url='https://veltzer.github.io/pyawskit',
@@ -19,8 +19,7 @@ setuptools.setup(
         'Programming Language :: Python :: 3',
     ],
     keywords='aws utils',
-    package_dir={'': 'src'},
-    packages=setuptools.find_packages('src'),
+    packages=setuptools.find_packages(),
     install_requires=[
         'boto3',  # used by pyawskit_generate_ssh_config
         'pymount',  # used by pyawskit_unify_disks
