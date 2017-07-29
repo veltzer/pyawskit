@@ -30,6 +30,7 @@
       <w>partprobe</w>
       <w>passwd</w>
       <w>pigz</w>
+      <w>postgresql</w>
       <w>pyawskit</w>
       <w>pymount</w>
       <w>pypi</w>
