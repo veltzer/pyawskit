@@ -2,28 +2,13 @@
 A python version of the bash script here:
 https://gist.github.com/joemiller/6049831
 
-bash
-- apt-get update
-- apt-get dist-upgrade
-- install python3-pip python3-dev python-pip python-dev
-- upgrade pip using
-    $ sudo -H pip install pip --upgrade
-    $ sudo -H pip3 install pip --upgrade
-- a reboot may be necessary if a new kernel was installed
-
 - sudo purge-old-kernels --keep 1 # to remove old kernels
 - install a list of packages on the system:
 - format and mount all disks
     use mdadm
-- scp -r ~/.netrc ~/.aws ~/.ssh ~/.s3cfg ~/.gitconfig ~/.passwd-s3fs MarksHome:~
-- ssh MarksHome "mkdir --parents ~/.config/pip"; scp ~/.config/pip/pip.conf MarksHome:~/.config/pip
-- ssh MarksHome "mkdir --parents /root/.config/pip"; scp ~/.config/pip/pip.conf MarksHome:/root/.config/pip
-- set the hostname of the machine (it's usually hostname is ip-XXX-XXX-XXX-XXX).
-     $ sudo sh -c "echo MarksHome  > /etc/hostname"
 - set the hostname in /etc/hosts beside
     127.0.0.1 localhost [hostname]
     to avoid problems resolving the host name.
-- set quiet login using:
     $ touch ~/.hushlogin
 - configure vim to do correct python editing and save editing positions.
 - install fancy prompt on it.
