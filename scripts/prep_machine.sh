@@ -12,6 +12,9 @@ sudo -H pip3 install pip --upgrade
 mkdir --parents ~/.config/pip
 sudo mkdir --parents /root/.config/pip
 # set the hostname of the machine (it's usually hostname is ip-XXX-XXX-XXX-XXX).
-sudo sh -c "echo MarksHome  > /etc/hostname"
-# set quiet login using:
+HOST_NAME="MarksHome"
+sudo sh -c "echo $HOST_NAME  > /etc/hostname"
+sudo hostname "$HOST_NAME"
+# TBD: change /etc/hosts
+# set quiet login
 touch ~/.hushlogin
