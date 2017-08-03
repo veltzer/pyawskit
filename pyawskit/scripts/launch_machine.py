@@ -25,12 +25,23 @@ from pyawskit.common import setup, update_ssh_config
     type=str,
     required=True,
     help="What config to launch?",
+    show_default=True,
+)
+@click.option(
+    "--attach",
+    default=False,
+    type=bool,
+    required=False,
+    help="Attach my disk?",
+    show_default=True,
 )
 def main(
         name: str,
+        attach: bool,
 ):
     """
-    This script launches a new machine via boto3
+    This script launches a new machine via boto3 with configuration from
+    ~/.pyawskit/launch_config.json
     """
     setup()
     pd = ProcessData(name=name)
@@ -41,22 +52,24 @@ def main(
     r_request_spot_instances = request_spot_instances(client, pd)
     request_ids = [r['SpotInstanceRequestId'] for r in r_request_spot_instances['SpotInstanceRequests']]
     tag_resources(client, request_ids, pd.p_launch_config[pd.p_name]["spot_request_tags"])
+    # other way of waiting...
     # wait_using_waiter(client, pd, request_ids)
-    # poll_requests_till_done(client, pd, request_ids)
     instances = poll_instances_till_done(ec2, pd, request_ids)
     instance_ids = [i.id for i in instances]
     tag_resources(client, instance_ids, pd.p_launch_config[pd.p_name]["instance_tags"])
     wait_for_ssh(instances)
-    p_instance_id = instance_ids[0]
-    attach_disk(
-        ec2=ec2,
-        instance_id=p_instance_id,
-        volume_id="vol-0a8c2aa1538d9fb0e",
-        device="xvdh",
-    )
 
     # TODO: we just need to add the instances we created
     update_ssh_config(all_hosts=False)
+
+    if attach:
+        p_instance_id = instance_ids[0]
+        attach_disk(
+            ec2=ec2,
+            instance_id=p_instance_id,
+            volume_id="vol-0a8c2aa1538d9fb0e",
+            device="xvdh",
+        )
 
 
 if __name__ == "__main__":
