@@ -2,8 +2,8 @@
 
 # HOST_NAME=MarksHome
 HOST_NAME=MarksZuhause
-scp -r ~/.pgpass ~/.netrc ~/.aws ~/.ssh ~/.s3cfg ~/.gitconfig ~/.passwd-s3fs MarksHome: > /dev/null
-scp ~/.config/pip/pip.conf MarksHome:~/.config/pip > /dev/null
-scp -r ~/.bashrc.d ~/.bashy ~/.bashrc MarksHome: > /dev/null
-scp -r ~/.hushlogin MarksHome: > /dev/null
-# scp ~/.config/pip/pip.conf MarksHome:/root/.config/pip > /dev/null
+scp -r ~/.pgpass ~/.netrc ~/.aws ~/.ssh ~/.s3cfg ~/.gitconfig ~/.passwd-s3fs $HOST_NAME: > /dev/null
+scp ~/.config/pip/pip.conf $HOST_NAME:~/.config/pip > /dev/null
+scp -r ~/.bashrc.d ~/.bashy ~/.bashrc $HOST_NAME: > /dev/null
+scp -r ~/.hushlogin $HOST_NAME: > /dev/null
+# scp ~/.config/pip/pip.conf $HOST_NAME:/root/.config/pip > /dev/null
