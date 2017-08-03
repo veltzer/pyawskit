@@ -3,6 +3,12 @@
 # This script does the basic stuff on the machine
 # must be run with sudo
 
+if [ "$EUID" -ne 0 ]
+	then
+	echo "Please run as root"
+	exit
+fi
+
 export DEBIAN_FRONTEND=noninteractive
 export APT_QUIET_FLAGS=-yq
 apt $APT_QUIET_FLAGS update
