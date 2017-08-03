@@ -17,6 +17,7 @@ mkdir --parents ~/.config/pip
 sudo mkdir --parents /root/.config/pip
 
 # set the hostname of the machine (it's usually hostname is ip-XXX-XXX-XXX-XXX).
+HOST_NAME="MarksHome"
 HOST_NAME="MarksZuhause"
 sudo sh -c "echo 127.0.0.1 $HOST_NAME >> /etc/hosts"
 sudo sh -c "echo $HOST_NAME > /etc/hostname"
