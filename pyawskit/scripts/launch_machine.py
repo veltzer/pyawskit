@@ -42,6 +42,9 @@ def main(
     """
     This script launches a new machine via boto3 with configuration from
     ~/.pyawskit/launch_config.json
+
+    If you want to know how to edit this file look at:
+    http://boto3.readthedocs.io/en/latest/reference/services/ec2.html#EC2.Client.request_spot_instances
     """
     setup()
     pd = ProcessData(name=name)
