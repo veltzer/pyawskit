@@ -15,7 +15,7 @@ apt $APT_QUIET_FLAGS update
 apt $APT_QUIET_FLAGS dist-upgrade
 apt $APT_QUIET_FLAGS auto-remove
 # a reboot may be necessary if a new kernel was installed
-apt $APT_QUIET_FLAGS install python-pip python-dev python3-pip python3-dev git apt-file awscli s3cmd s3fs zip tree jq parallel mdadm lrzip bc sqlite3 pipemeter awscli postgresql-client-common postgresql-client-9.5 virtualenv virtualenvwrapper dialog libenchant-dev libssl-dev pigz tree
+apt $APT_QUIET_FLAGS install python-pip python-dev python3-pip python3-dev git apt-file awscli s3cmd s3fs zip tree jq parallel mdadm lrzip bc sqlite3 pipemeter awscli postgresql-client-common postgresql-client-9.5 virtualenv virtualenvwrapper dialog libenchant-dev libssl-dev pigz tree lmdb-utils
 
 pip install pip --upgrade
 pip3 install pip --upgrade
