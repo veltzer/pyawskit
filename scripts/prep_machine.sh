@@ -22,7 +22,7 @@ pip3 install pip --upgrade
 
 # set the hostname of the machine (it's usually hostname is ip-XXX-XXX-XXX-XXX).
 HOST_NAME="MarksHome"
-HOST_NAME="MarksZuhause"
+# HOST_NAME="MarksZuhause"
 echo 127.0.0.1 $HOST_NAME >> /etc/hosts
 echo $HOST_NAME > /etc/hostname
 hostname "$HOST_NAME"
