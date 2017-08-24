@@ -21,11 +21,16 @@ setuptools.setup(
     keywords='aws utils',
     packages=setuptools.find_packages(),
     install_requires=[
+        'pylogconf',  # for logging configuration
+        'pyfakeuse',  # for coding
+        'pypipegzip',  # used by pyawskit_compress_s3_folder
+        'tqdm',  # used for progress
+        'requests',  # for http
         'boto3',  # used by pyawskit_generate_ssh_config
         'pymount',  # used by pyawskit_unify_disks
         'ujson',  # used by pyawskit_generate_ssh_config
-        'pypipegzip',  # used by pyawskit_compress_s3_folder
         'click',  # used for command line parsing
+        'sultan',  # for better ssh
     ],
     entry_points={
         'console_scripts': [

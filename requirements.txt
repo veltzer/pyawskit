@@ -1,11 +1,10 @@
 pylogconf
 pyfakeuse
+pypipegzip
 tqdm
 requests
 boto3
 pymount
 ujson
-pypipegzip
 click
 sultan
-pypitools
