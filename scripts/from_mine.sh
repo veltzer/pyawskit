@@ -4,7 +4,7 @@ HOST_NAME=MarksZuhause
 HOST_NAME=MarksHome
 
 # secrets
-scp -r ~/.api-keys.json ~/.pgpass ~/.netrc ~/.aws ~/.ssh ~/.s3cfg ~/.gitconfig ~/.passwd-s3fs "$HOST_NAME:" > /dev/null
+scp -r ~/.spell-sheet-auth ~/.api-keys.json ~/.pgpass ~/.netrc ~/.aws ~/.ssh ~/.s3cfg ~/.gitconfig ~/.passwd-s3fs "$HOST_NAME:" > /dev/null
 
 # pip config
 ssh "$HOST_NAME" "mkdir --parents ~/.config/pip" > /dev/null
