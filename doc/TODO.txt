@@ -1,8 +1,10 @@
-- make ak_remove_ssh_config_entries.py which removes the entries
+- make pyawskit_create_template which creates the ~/.pyawskit/launch_config.json
+	file which you can fill.
+- make pyawskit_remove_ssh_config_entries.py which removes the entries
 that were automatically added to ~/.ssh/config.
-- make ak_create_filter.py which creates the ~/.aws/aws_filter file
+- make pyawskit_create_filter.py which creates the ~/.aws/aws_filter file
 	for you.
-- make ak_kill_machine.py
-- make ak_launch_machine be able to launch more than 1 machine
-- make ak_generate_ssh_config be able to add machines in all regions
+- make pyawskit_kill_machine.py
+- make pyawskit_launch_machine be able to launch more than 1 machine
+- make pyawskit_generate_ssh_config be able to add machines in all regions
 	and not just in the current
