@@ -1,10 +1,20 @@
 - make pyawskit_create_template which creates the ~/.pyawskit/launch_config.json
 	file which you can fill.
 - make pyawskit_remove_ssh_config_entries.py which removes the entries
-that were automatically added to ~/.ssh/config.
+	that were automatically added to ~/.ssh/config.
 - make pyawskit_create_filter.py which creates the ~/.aws/aws_filter file
 	for you.
 - make pyawskit_kill_machine.py
 - make pyawskit_launch_machine be able to launch more than 1 machine
-- make pyawskit_generate_ssh_config be able to add machines in all regions
-	and not just in the current
+	I think it already does support this. try this out.
+- make pyawskit_generate_ssh_config have a parameters that controls
+	whether it adds the hosts in all regions (currently this
+	is it's behaviour) or just in the default region or maybe
+	some list of regions (in ~/.pyawskit/region_groups.json).
+- add the ability to specify the size of the root hard drive of the machines
+	you are launching.
+- add the ability to connect a new hard drive per each machine you are
+	creating.
+- add the ability to connect an existing hard drive to a machine you
+	are creating (note: machine and not machines, since a hard
+	drive can only be connected to one machine at a time).
