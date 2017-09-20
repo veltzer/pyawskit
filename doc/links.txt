@@ -1,2 +1,0 @@
-How to launch an EC2 spot instance remotely?
-	https://peteris.rocks/blog/script-to-launch-amazon-ec2-spot-instances/
