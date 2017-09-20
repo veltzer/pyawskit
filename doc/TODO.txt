@@ -18,3 +18,6 @@
 - add the ability to connect an existing hard drive to a machine you
 	are creating (note: machine and not machines, since a hard
 	drive can only be connected to one machine at a time).
+- remove the scripts under scripts (from_mine.sh, prep_machine.sh) and
+	move them to ~/.pyawskit and the creation of the machine
+	automatically run them on creation.

@@ -6,7 +6,7 @@ if not sys.version_info[0] == 3:
 
 setuptools.setup(
     name='pyawskit',
-    version='0.1.46',
+    version='0.1.47',
     description='pyawskit is a collection of utilities to help interact with aws',
     long_description='pyawskit helps you with various aws tasks',
     url='https://veltzer.github.io/pyawskit',
