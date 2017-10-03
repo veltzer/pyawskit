@@ -260,6 +260,7 @@ def setup():
     setup_exceptions()
     pylogconf.setup()
 
+
 ssh_config_pattern = """Host {host}
 \tHostName {ip}
 \tIdentityFile ~/.aws/keys/{key_name}.pem
@@ -271,7 +272,7 @@ etc_hosts_pattern = "{ip} {host}\n"
 
 
 def update_ssh_config(all_hosts: bool):
-    update_file(filename="~/.ssh/config", pattern=ssh_config_pattern, do_all=all_hosts)
+    update_file(filename="~/.ssh/config.d/99_dynamic.conf", pattern=ssh_config_pattern, do_all=all_hosts)
 
 
 def update_etc_hosts(all_hosts: bool):

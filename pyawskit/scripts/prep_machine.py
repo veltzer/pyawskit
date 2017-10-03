@@ -37,19 +37,19 @@ os_type = None
 # first find out if we are on ubuntu or amazon linux
 def detect_os() -> None:
     global os_type
-    # noinspection PyBroadException
+    # noinspection PyBroadException,PyPep8
     try:
         if subprocess.check_output(['lsb_release', '--id', '-s']).decode().rstrip() == 'Ubuntu':
             os_type = OSType.ubuntu
-    except:
+    except Exception:
         pass
-    # noinspection PyBroadException
+    # noinspection PyBroadException,PyPep8
     try:
         with open('/etc/issue') as f:
             d = f.read()
             if d.startswith('Amazon Linux AMI'):
                 os_type = OSType.aml
-    except:
+    except Exception:
         pass
 
     if os_type is None:
@@ -146,6 +146,7 @@ def main(name: str) -> None:
     wait_net_service(server=name, port=22)
     with Sultan.load(sudo=False, hostname=name) as sultan:
         sultan.run("touch ~/.hushlogin")
+
 
 if __name__ == '__main__':
     main()

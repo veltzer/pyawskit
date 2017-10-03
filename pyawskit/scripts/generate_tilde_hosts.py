@@ -12,5 +12,6 @@ def main(all_instances):
     setup()
     update_file(filename="~/.hosts", pattern="{ip} {host}\n", do_all=all_instances)
 
+
 if __name__ == "__main__":
     main()

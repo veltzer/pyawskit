@@ -19,5 +19,6 @@ def main(all_instances):
         sys.exit('script must be run as root or {} must be writable'.format(filename))
     update_etc_hosts(all_hosts=all_instances)
 
+
 if __name__ == "__main__":
     main()

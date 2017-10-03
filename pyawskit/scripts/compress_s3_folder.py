@@ -1,7 +1,9 @@
 import subprocess
 
 import boto3
+# noinspection PyPackageRequirements
 import botocore
+# noinspection PyPackageRequirements
 import botocore.exceptions
 import multiprocessing.pool
 import multiprocessing

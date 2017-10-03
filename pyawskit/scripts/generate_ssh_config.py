@@ -13,5 +13,6 @@ def main(all_hosts):
     setup()
     update_ssh_config(all_hosts)
 
+
 if __name__ == "__main__":
     main()
