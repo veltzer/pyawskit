@@ -1,6 +1,6 @@
 import logging
 from time import sleep
-from typing import List, Callable
+from typing import List, Callable, Dict
 
 from pyawskit.common import load_json_config, wait_net_service
 
@@ -91,6 +91,25 @@ def tag_resources(client, resource_ids: List[str], tags: object):
         Tags=tags,
     )
     return response
+
+
+@log_func_name
+def attach_disks(ec2, instance_ids: List[str], disks: List[Dict[str, str]]):
+    """
+    This function attaches a list of disks to the instances in the list
+    :param ec2:
+    :param instance_ids:
+    :param disks:
+    :return:
+    """
+    for p_instance_id in instance_ids:
+        for disk in disks:
+            attach_disk(
+                ec2=ec2,
+                instance_id=p_instance_id,
+                volume_id=disk['volume_id'],
+                device=disk['xvdh'],
+            )
 
 
 @log_func_name

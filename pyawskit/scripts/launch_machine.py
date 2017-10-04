@@ -14,7 +14,7 @@ import boto3
 import click
 
 from pyawskit.aws import ProcessData, request_spot_instances, tag_resources, poll_instances_till_done, wait_for_ssh, \
-    attach_disk
+    attach_disks
 from pyawskit.common import setup, update_ssh_config
 
 
@@ -27,17 +27,8 @@ from pyawskit.common import setup, update_ssh_config
     help="What config to launch?",
     show_default=True,
 )
-@click.option(
-    "--attach",
-    default=False,
-    type=bool,
-    required=False,
-    help="Attach my disk?",
-    show_default=True,
-)
 def main(
         name: str,
-        attach: bool,
 ):
     """
     This script launches a new machine via boto3 with configuration from
@@ -65,14 +56,7 @@ def main(
     # TODO: we just need to add the instances we created
     update_ssh_config(all_hosts=False)
 
-    if attach:
-        p_instance_id = instance_ids[0]
-        attach_disk(
-            ec2=ec2,
-            instance_id=p_instance_id,
-            volume_id="vol-0a8c2aa1538d9fb0e",
-            device="xvdh",
-        )
+    attach_disks(ec2, instance_ids, pd.p_launch_config[pd.p_name]["disks_to_attach"])
 
 
 if __name__ == "__main__":
