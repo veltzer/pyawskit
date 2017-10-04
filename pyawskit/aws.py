@@ -102,14 +102,17 @@ def attach_disks(ec2, instance_ids: List[str], disks: List[Dict[str, str]]):
     :param disks:
     :return:
     """
+    responses = []
     for p_instance_id in instance_ids:
         for disk in disks:
-            attach_disk(
+            response = attach_disk(
                 ec2=ec2,
                 instance_id=p_instance_id,
                 volume_id=disk['volume_id'],
-                device=disk['xvdh'],
+                device=disk['device'],
             )
+            responses.append(response)
+    return responses
 
 
 @log_func_name
@@ -122,7 +125,7 @@ def wait_for_ssh(instances):
 
 
 @log_func_name
-def attach_disk(ec2, instance_id: str, device: str, volume_id: str):
+def attach_disk(ec2, instance_id: str, volume_id: str, device: str):
     volume = ec2.Volume(volume_id)
     response = volume.attach_to_instance(
         InstanceId=instance_id,
