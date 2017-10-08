@@ -8,7 +8,7 @@ setuptools.setup(
     name='pyawskit',
     version='0.1.50',
     description='pyawskit is a collection of utilities to help interact with aws',
-    long_description='pyawskit helps you with various aws tasks',
+    long_description='pyawskit is a collection of utilities to help interact with aws',
     url='https://veltzer.github.io/pyawskit',
     author='Mark Veltzer',
     author_email='mark.veltzer@gmail.com',
@@ -18,7 +18,7 @@ setuptools.setup(
         'Intended Audience :: Developers',
         'Programming Language :: Python :: 3',
     ],
-    keywords='aws utils',
+    keywords='aws utils python API command line',
     packages=setuptools.find_packages(),
     install_requires=[
         'pylogconf',  # for logging configuration

@@ -237,27 +237,7 @@ def mount_disk(disk: str, folder: str) -> None:
     ])
 
 
-def _excepthook(p_type, p_value, p_traceback):
-    logger = logging.getLogger(__name__)
-    # we do not do anything with the traceback
-    fake_use(p_traceback)
-    # this loop will drill to the core of the problem
-    # use only if this is what you want to show...
-    while p_value.__cause__:
-        p_value = p_value.__cause__
-    logger.error("Exception occurred")
-    logger.error("Exception type is [%s]" % p_type)
-    logger.error("Exception value is [%s]" % p_value)
-
-
-def setup_exceptions():
-    """ Only print the heart of the exception and not the stack trace """
-    sys.excepthook = _excepthook
-
-
 def setup():
-    """ Setup stuff for execution """
-    setup_exceptions()
     pylogconf.setup()
 
 
