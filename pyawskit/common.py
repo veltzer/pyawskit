@@ -10,7 +10,7 @@ import boto3
 import sys
 
 import logging
-import pylogconf
+import pylogconf.core
 import requests
 import socket
 import errno
@@ -238,7 +238,7 @@ def mount_disk(disk: str, folder: str) -> None:
 
 
 def setup():
-    pylogconf.setup()
+    pylogconf.core.setup()
 
 
 ssh_config_pattern = """Host {host}
