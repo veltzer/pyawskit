@@ -165,7 +165,7 @@ def update_file(
     except ValueError:
         pass
 
-    filter_file = os.path.expanduser("~/.aws/aws_filter.json")
+    filter_file = os.path.expanduser("~/.pyawskit/aws_filter.json")
     if os.path.isfile(filter_file):
         logger.info('reading [{0}]...'.format(filter_file))
         with open(filter_file) as file_handle:
@@ -243,7 +243,7 @@ def setup():
 
 ssh_config_pattern = """Host {host}
 \tHostName {ip}
-\tIdentityFile ~/.aws/keys/{key_name}.pem
+\tIdentityFile ~/.pyawskit/keys/{key_name}.pem
 \tIdentitiesOnly yes
 \tUser ubuntu
 """
