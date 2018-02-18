@@ -35,7 +35,7 @@ def load_json_config(
 def wait_net_service(
         server: str,
         port: int,
-        timeout: int=300,
+        timeout: int=600,
 ) -> bool:
     """
         Wait for network service to appear
