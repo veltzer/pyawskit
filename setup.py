@@ -2,7 +2,7 @@ import setuptools
 
 setuptools.setup(
     name='pyawskit',
-    version='0.1.52',
+    version='0.1.53',
     description='pyawskit is a collection of utilities to help interact with aws',
     long_description='pyawskit is a collection of utilities to help interact with aws',
     url='https://veltzer.github.io/pyawskit',
