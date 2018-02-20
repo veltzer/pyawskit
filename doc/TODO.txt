@@ -1,3 +1,6 @@
+- make pyawskit have a boolean option to decide weather it will add entries to
+	~/.ssh/config or to ~/.ssh/config.d/99_dynamic.conf
+	in that process also create the folders (~/.ssh or ~/.ssh/config.d) if needed.
 - make pyawskit_create_template which creates the ~/.pyawskit/launch_config.json
 	file which you can fill.
 - make pyawskit_remove_ssh_config_entries.py which removes the entries
