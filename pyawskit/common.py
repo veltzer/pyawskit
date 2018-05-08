@@ -1,22 +1,17 @@
+import errno
 import json
+import logging
 import os
+import socket
+import stat
 import subprocess
-
+import sys
+import time
 import ujson
 from typing import List
 
-import stat
 import boto3
-import sys
-
-import logging
-import pylogconf.core
 import requests
-import socket
-import errno
-import time
-
-from pyfakeuse.pyfakeuse import fake_use
 
 
 def load_json_config(
@@ -237,15 +232,13 @@ def mount_disk(disk: str, folder: str) -> None:
     ])
 
 
-def setup():
-    pylogconf.core.setup()
-
-
 ssh_config_pattern = """Host {host}
 \tHostName {ip}
 \tIdentityFile ~/.pyawskit/keys/{key_name}.pem
 \tIdentitiesOnly yes
 \tUser ubuntu
+\tStrictHostKeyChecking no
+\tUserKnownHostsFile /dev/null
 """
 
 etc_hosts_pattern = "{ip} {host}\n"
@@ -278,3 +271,8 @@ def check_root() -> None:
 def touch(filename: str) -> None:
     with open(filename, "w"):
         pass
+
+
+def do_hush_login():
+    filename = os.path.expanduser("~/.hushlogin")
+    touch(filename)

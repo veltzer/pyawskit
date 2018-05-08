@@ -1,29 +1,8 @@
-"""
-A python version of the bash script here:
-https://gist.github.com/joemiller/6049831
-
-- sudo purge-old-kernels --keep 1 # to remove old kernels
-- install a list of packages on the system:
-- format and mount all disks
-    use mdadm
-- set the hostname in /etc/hosts beside
-    127.0.0.1 localhost [hostname]
-    to avoid problems resolving the host name.
-    $ touch ~/.hushlogin
-- configure vim to do correct python editing and save editing positions.
-- install fancy prompt on it.
-- put the git repositories you want on it.
-"""
-
+import enum
 import subprocess
 import sys
-import enum
-from sultan.api import Sultan
 
-
-import click
-
-from pyawskit.common import setup, run_devnull, wait_net_service
+from pyawskit.common import run_devnull
 
 
 class OSType(enum.Enum):
@@ -34,8 +13,19 @@ class OSType(enum.Enum):
 os_type = None
 
 
-# first find out if we are on ubuntu or amazon linux
+def set_timezone() -> None:
+    subprocess.check_call([
+        "timedatectl",
+        "set-timezone",
+        "Asia/Jerusalem",
+    ])
+
+
 def detect_os() -> None:
+    """
+    first find out if we are on ubuntu or amazon linux
+    :return:
+    """
     global os_type
     # noinspection PyBroadException,PyPep8
     try:
@@ -70,8 +60,11 @@ def update_machine() -> None:
         run_devnull(['yum', 'upgrade'])
 
 
-# install necessary package per platform
 def install_packages() -> None:
+    """
+    install necessary package per platform
+    :return:
+    """
     list_of_packages = {
         OSType.ubuntu: [
             # python
@@ -119,34 +112,3 @@ def install_packages() -> None:
     ]
     args.extend(list_of_packages[OSType.ubuntu])
     subprocess.check_call(args)
-
-
-def set_timezone() -> None:
-    subprocess.check_call([
-        "timedatectl",
-        "set-timezone",
-        "Asia/Jerusalem",
-    ])
-
-
-@click.command()
-@click.option(
-    "--name",
-    default=None,
-    type=str,
-    required=True,
-    help="What config to launch?",
-)
-def main(name: str) -> None:
-    setup()
-    with Sultan.load(sudo=False, hostname=name) as sultan:
-        sultan.sudo("apt update -y")
-        sultan.sudo("apt dist-upgrade -y")
-        sultan.sudo("reboot")
-    wait_net_service(server=name, port=22)
-    with Sultan.load(sudo=False, hostname=name) as sultan:
-        sultan.run("touch ~/.hushlogin")
-
-
-if __name__ == '__main__':
-    main()

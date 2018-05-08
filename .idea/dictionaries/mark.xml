@@ -11,6 +11,7 @@
       <w>fstab</w>
       <w>gitconfig</w>
       <w>gitignore</w>
+      <w>homehosts</w>
       <w>hspell</w>
       <w>hushlogin</w>
       <w>iops</w>
@@ -18,6 +19,7 @@
       <w>iotop</w>
       <w>lftp</w>
       <w>lgpl</w>
+      <w>libnss</w>
       <w>licensors</w>
       <w>lrunzip</w>
       <w>lrzip</w>

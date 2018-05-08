@@ -1,23 +1,14 @@
+import os.path
+import shutil
 import subprocess
+import sys
 
 import boto3
 # noinspection PyPackageRequirements
 import botocore
 # noinspection PyPackageRequirements
 import botocore.exceptions
-import multiprocessing.pool
-import multiprocessing
-
-import sys
-
-import click
-import tqdm
-import os.path
-import shutil
-
 from pypipegzip import pypipegzip
-
-from pyawskit.common import setup
 
 
 def copyfileobj(source, destination, buffer_size=1024 * 1024):
@@ -128,44 +119,3 @@ def process_one_file(basename, full_name, compressed_basename, full_compressed_n
 def print_exception(e):
     print('exception happened', e)
     sys.exit(1)
-
-
-@click.command()
-def main():
-    """
-    This script accepts three parameters: bucket, in-folder, out-folder
-    It reads every file in in-folder, gzip it, and then writes it with the suffix '.gz'
-    to the out folder.
-
-    The credentials for this are NOT stored in this script
-    but rather are in ~/.aws/credentials.
-    """
-    setup()
-    bucket_name = 'twiggle-click-streams'
-    folder_in = 'flipkart/'
-    folder_out = 'flipkart_gz'
-    do_progress = False
-    s3 = boto3.resource('s3')
-    bucket = s3.Bucket(bucket_name)
-    gen = bucket.objects.filter(Prefix=folder_in)
-    if do_progress:
-        gen = tqdm.tqdm(gen)
-    jobs = []
-    for object_summary in gen:
-        print('doing [{}]'.format(object_summary.key))
-        full_name = object_summary.key
-        basename = os.path.basename(full_name)
-        compressed_basename = basename + '.gz'
-        full_compressed_name = os.path.join(folder_out, compressed_basename)
-        if object_exists(s3, bucket_name, full_compressed_name):
-            print('object exists, skipping')
-            continue
-        jobs.append([basename, full_name, compressed_basename, full_compressed_name, bucket_name])
-    pool = multiprocessing.Pool(processes=multiprocessing.cpu_count())
-    pool.map_async(process_one_file, jobs, error_callback=print_exception)
-    pool.close()
-    pool.join()
-
-
-if __name__ == '__main__':
-    main()

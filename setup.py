@@ -2,7 +2,7 @@ import setuptools
 
 setuptools.setup(
     name='pyawskit',
-    version='0.1.53',
+    version='0.1.54',
     description='pyawskit is a collection of utilities to help interact with aws',
     long_description='pyawskit is a collection of utilities to help interact with aws',
     url='https://veltzer.github.io/pyawskit',
@@ -29,22 +29,12 @@ setuptools.setup(
         'boto3',  # used by pyawskit_generate_ssh_config
         'pymount',  # used by pyawskit_unify_disks
         'ujson',  # used by pyawskit_generate_ssh_config
-        'click',  # used for command line parsing
         'sultan',  # for better ssh
+        'pytconf',  # for command line parsing
     ],
     entry_points={
         'console_scripts': [
-            'pyawskit_prep_machine=pyawskit.scripts.prep_machine:main',
-            'pyawskit_prep_account=pyawskit.scripts.prep_account:main',
-            'pyawskit_generate_ssh_config=pyawskit.scripts.generate_ssh_config:main',
-            'pyawskit_generate_etc_hosts=pyawskit.scripts.generate_etc_hosts:main',
-            'pyawskit_generate_tilde_hosts=pyawskit.scripts.generate_tilde_hosts:main',
-            'pyawskit_unify_disks=pyawskit.scripts.unify_disks:main',
-            'pyawskit_show_disks=pyawskit.scripts.show_disks:main',
-            'pyawskit_mount_disks=pyawskit.scripts.mount_disks:main',
-            'pyawskit_compress_s3_folder=pyawskit.scripts.compress_s3_folder:main',
-            'pyawskit_launch_machine=pyawskit.scripts.launch_machine:main',
-            'pyawskit_copy_to_machine=pyawskit.scripts.copy_to_machine:main',
+            'pyawskit = pyawskit.endpoints.main:main',
         ],
     },
 )
