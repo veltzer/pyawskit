@@ -238,7 +238,9 @@ ssh_config_pattern = """Host {host}
 \tIdentitiesOnly yes
 \tUser ubuntu
 \tStrictHostKeyChecking no
-\tUserKnownHostsFile /dev/null
+\tLogLevel ERROR
+\tCheckHostIP no
+\t# UserKnownHostsFile /dev/null
 """
 
 etc_hosts_pattern = "{ip} {host}\n"
