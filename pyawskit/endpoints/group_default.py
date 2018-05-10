@@ -20,7 +20,7 @@ from pyawskit.configs import ConfigFilter, ConfigName
 from pyawskit.utils import object_exists, process_one_file, print_exception
 
 GROUP_NAME_DEFAULT = "default"
-GROUP_DESCRIPTION_DEFAULT = "default description"
+GROUP_DESCRIPTION_DEFAULT = "standard pyawskit commands"
 
 
 def register_group_default():
@@ -38,6 +38,9 @@ def register_group_default():
     group=GROUP_NAME_DEFAULT,
 )
 def compress_s3_folder() -> None:
+    """
+    Compress an S3 folder
+    """
     """
     This script accepts three parameters: bucket, in-folder, out-folder
     It reads every file in in-folder, gzip it, and then writes it with the suffix '.gz'
@@ -81,8 +84,9 @@ def compress_s3_folder() -> None:
 )
 def copy_to_machine() -> None:
     """
-    This script copies important files to a machine like key files and such.
-
+    This script copies important files to a machine like key files and such
+    """
+    """
     TODO:
     - do not copy ~/.aws/shell (it is big)
     """
@@ -116,6 +120,9 @@ def copy_to_machine() -> None:
 )
 def generate_eth_hosts() -> None:
     """
+    Generate /etc/hosts file for you. Must be run as root
+    """
+    """
     This script will update ~/.aws/config file with the names of your machines.
     Notice that you must hold all of your .pem files in ~/.aws/keys
     """
@@ -135,6 +142,9 @@ def generate_eth_hosts() -> None:
 )
 def generate_ssh_config() -> None:
     """
+    Generate ~/ssh/config or ~/.ssh/config.d/99_dynamic.conf file for you
+    """
+    """
     This script will update ~/.aws/config file with the names of your machines.
     Notice that you must hold all of your .pem files in ~/.aws/keys
     """
@@ -151,6 +161,9 @@ def generate_ssh_config() -> None:
 )
 def generate_tilde_hosts() -> None:
     """
+    Generate ~/.hosts for you
+    """
+    """
     This script will update ~/.hosts file with the names of your machines.
     You must use something like libnss_homehosts to use this file for each app.
     """
@@ -166,6 +179,9 @@ def generate_tilde_hosts() -> None:
     group=GROUP_NAME_DEFAULT,
 )
 def launch_machine() -> None:
+    """
+    Lauch a machine on AWS via a json configuration.
+    """
     """
     This script launches a new machine via boto3 with configuration from
     ~/.pyawskit/launch_config.json
@@ -207,7 +223,8 @@ def launch_machine() -> None:
 def mount_dists() -> None:
     """
     This script mounts all the local disks as individuals
-
+    """
+    """
     TODO:
     - make this run in parallel on multiple cores and enable the user to choose (via
     command line option) whether to run this multi-core or not.
@@ -232,8 +249,9 @@ def mount_dists() -> None:
 )
 def prep_account():
     """
-    This script prepares your account on a new aws machine.
-
+    This script prepares your account on a new AWS machine
+    """
+    """
     These are the types of things it does:
     - copy ~/.aws ~/.ssh ~/.s3cfg ~/.gitconfig ~/.passwd-s3fs to it
     - set quiet login using:
@@ -255,21 +273,22 @@ def prep_account():
 def prep_machine(name: str) -> None:
     """
     Prepare a machine for work
+    """
+    """
+    A python version of the bash script here:
+    https://gist.github.com/joemiller/6049831
 
-        A python version of the bash script here:
-        https://gist.github.com/joemiller/6049831
-
-        - sudo purge-old-kernels --keep 1 # to remove old kernels
-        - install a list of packages on the system:
-        - format and mount all disks
-            use mdadm
-        - set the hostname in /etc/hosts beside
-            127.0.0.1 localhost [hostname]
-            to avoid problems resolving the host name.
-            $ touch ~/.hushlogin
-        - configure vim to do correct python editing and save editing positions.
-        - install fancy prompt on it.
-        - put the git repositories you want on it.
+    - sudo purge-old-kernels --keep 1 # to remove old kernels
+    - install a list of packages on the system:
+    - format and mount all disks
+        use mdadm
+    - set the hostname in /etc/hosts beside
+        127.0.0.1 localhost [hostname]
+        to avoid problems resolving the host name.
+        $ touch ~/.hushlogin
+    - configure vim to do correct python editing and save editing positions.
+    - install fancy prompt on it.
+    - put the git repositories you want on it.
     :param name:
     :return:
     """
@@ -299,7 +318,8 @@ def show_disks() -> None:
 def unify_disks() -> None:
     """
     unify disks of a machine in raid 0
-
+    """
+    """
     This script is derived from the following bash script:
     https://gist.github.com/joemiller/6049831
 

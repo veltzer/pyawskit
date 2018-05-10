@@ -14,7 +14,7 @@ def register_all_groups():
 @register_main()
 def main():
     """
-    Pytsv is you TSV Swiss Army Knife.
+    Pyawskit is you AWS Swiss Army Knife.
     """
     setup()
     register_all_groups()
