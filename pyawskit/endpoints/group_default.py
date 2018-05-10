@@ -118,7 +118,7 @@ def copy_to_machine() -> None:
     ],
     group=GROUP_NAME_DEFAULT,
 )
-def generate_eth_hosts() -> None:
+def generate_etc_hosts() -> None:
     """
     Generate /etc/hosts file for you. Must be run as root
     """
