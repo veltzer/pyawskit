@@ -1,4 +1,5 @@
-# production
+# THIS IS AN AUTO-GENERATED FILE. DO NOT EDIT!
+# production requirements
 pylogconf
 pyfakeuse
 pypipegzip
@@ -9,5 +10,12 @@ pymount
 ujson
 sultan
 pytconf
-# development tools
+# dev requirements
+pyclassifiers
 pypitools
+pydmt
+Sphinx
+# test requirements
+pylint
+pytest
+pyflakes

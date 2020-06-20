@@ -1,40 +1,72 @@
 import setuptools
 
+
+def get_readme():
+    with open('README.rst') as f:
+        return f.read()
+
+
 setuptools.setup(
-    name='pyawskit',
-    version='0.1.57',
-    description='pyawskit is a collection of utilities to help interact with aws',
-    long_description='pyawskit is a collection of utilities to help interact with aws',
-    url='https://veltzer.github.io/pyawskit',
-    download_url='https://github.com/veltzer/pyawskit',
-    author='Mark Veltzer',
-    author_email='mark.veltzer@gmail.com',
-    maintainer='Mark Veltzer',
-    maintainer_email='mark.veltzer@gmail.com',
-    license='MIT',
-    platforms=['python3'],
-    classifiers=[
-        'Development Status :: 3 - Alpha',
-        'Intended Audience :: Developers',
-        'Programming Language :: Python :: 3',
+    # the first three fields are a must according to the documentation
+    name="pyawskit",
+    version="0.1.58",
+    packages=[
+        'pyawskit',
+        'pyawskit.endpoints',
     ],
-    keywords='aws utils python API command line',
-    packages=setuptools.find_packages(),
+    # from here all is optional
+    description="pyawskit is a collection of utilities to help interact with aws",
+    long_description=get_readme(),
+    long_description_content_type="text/x-rst",
+    author="Mark Veltzer",
+    author_email="mark.veltzer@gmail.com",
+    maintainer="Mark Veltzer",
+    maintainer_email="mark.veltzer@gmail.com",
+    keywords=[
+        'aws',
+        'utils',
+        'python',
+        'API',
+        'command',
+        'line',
+    ],
+    url="https://veltzer.github.io/pyawskit",
+    download_url="https://github.com/veltzer/pyawskit",
+    license="MIT",
+    platforms=[
+        'python3',
+    ],
     install_requires=[
-        'pylogconf',  # for logging configuration
-        'pyfakeuse',  # for coding
-        'pypipegzip',  # used by pyawskit_compress_s3_folder
-        'tqdm',  # used for progress
-        'requests',  # for http
-        'boto3',  # used by pyawskit_generate_ssh_config
-        'pymount',  # used by pyawskit_unify_disks
-        'ujson',  # used by pyawskit_generate_ssh_config
-        'sultan',  # for better ssh
-        'pytconf',  # for command line parsing
+        'pylogconf',
+        'pyfakeuse',
+        'pypipegzip',
+        'tqdm',
+        'requests',
+        'boto3',
+        'pymount',
+        'ujson',
+        'sultan',
+        'pytconf',
     ],
-    entry_points={
-        'console_scripts': [
-            'pyawskit = pyawskit.endpoints.main:main',
-        ],
+    extras_require={
     },
+    classifiers=[
+        'Development Status :: 4 - Beta',
+        'Environment :: Console',
+        'Operating System :: OS Independent',
+        'Programming Language :: Python',
+        'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3 :: Only',
+        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8',
+        'Topic :: Utilities',
+        'License :: OSI Approved :: MIT License',
+    ],
+    data_files=[
+    ],
+    entry_points={"console_scripts": [
+        'pyawskit=pyawskit.endpoints.main:main',
+    ]},
+    python_requires=">=3.6",
 )

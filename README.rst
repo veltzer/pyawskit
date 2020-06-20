@@ -1,6 +1,16 @@
-# pyawskit
-Various aws helpers written in python
+==========
+*pyawskit*
+==========
 
-This module works only with python3.
+.. image:: https://img.shields.io/pypi/v/pyawskit
 
-Patches for python2 are welcome if not intrusive.
+.. image:: https://img.shields.io/github/license/veltzer/pyawskit
+
+.. image:: https://img.shields.io/badge/code%20style-black-000000.svg
+
+project website: https://veltzer.github.io/pyawskit
+
+author: Mark Veltzer
+
+version: 0.1.58
+
