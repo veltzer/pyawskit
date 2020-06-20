@@ -31,10 +31,6 @@ def register_group_default():
 
 
 @register_endpoint(
-    configs=[
-    ],
-    suggest_configs=[
-    ],
     group=GROUP_NAME_DEFAULT,
 )
 def compress_s3_folder() -> None:
@@ -76,10 +72,6 @@ def compress_s3_folder() -> None:
 
 
 @register_endpoint(
-    configs=[
-    ],
-    suggest_configs=[
-    ],
     group=GROUP_NAME_DEFAULT,
 )
 def copy_to_machine() -> None:
@@ -114,8 +106,6 @@ def copy_to_machine() -> None:
     configs=[
         ConfigFilter,
     ],
-    suggest_configs=[
-    ],
     group=GROUP_NAME_DEFAULT,
 )
 def generate_etc_hosts() -> None:
@@ -136,8 +126,6 @@ def generate_etc_hosts() -> None:
     configs=[
         ConfigFilter,
     ],
-    suggest_configs=[
-    ],
     group=GROUP_NAME_DEFAULT,
 )
 def generate_ssh_config() -> None:
@@ -155,8 +143,6 @@ def generate_ssh_config() -> None:
     configs=[
         ConfigFilter,
     ],
-    suggest_configs=[
-    ],
     group=GROUP_NAME_DEFAULT,
 )
 def generate_tilde_hosts() -> None:
@@ -173,8 +159,6 @@ def generate_tilde_hosts() -> None:
 @register_endpoint(
     configs=[
         ConfigName,
-    ],
-    suggest_configs=[
     ],
     group=GROUP_NAME_DEFAULT,
 )
@@ -241,10 +225,6 @@ def mount_dists() -> None:
 
 
 @register_endpoint(
-    configs=[
-    ],
-    suggest_configs=[
-    ],
     group=GROUP_NAME_DEFAULT,
 )
 def prep_account():
@@ -264,10 +244,6 @@ def prep_account():
 
 
 @register_endpoint(
-    configs=[
-    ],
-    suggest_configs=[
-    ],
     group=GROUP_NAME_DEFAULT,
 )
 def prep_machine(name: str) -> None:
@@ -302,10 +278,6 @@ def prep_machine(name: str) -> None:
 
 
 @register_endpoint(
-    configs=[
-    ],
-    suggest_configs=[
-    ],
     group=GROUP_NAME_DEFAULT,
 )
 def show_disks() -> None:
