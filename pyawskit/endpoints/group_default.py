@@ -8,7 +8,7 @@ import sys
 import boto3
 import pymount.mgr
 import tqdm
-from pytconf.config import register_function_group, register_endpoint
+from pytconf import register_function_group, register_endpoint
 from sultan import Sultan
 
 import pyawskit.common

@@ -1,4 +1,4 @@
-from pytconf.config import Config, ParamCreator
+from pytconf import Config, ParamCreator
 
 
 class ConfigName(Config):
