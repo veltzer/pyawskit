@@ -17,8 +17,11 @@
 ![Downloads](https://pepy.tech/badge/pyawskit/week)
 
 
+
 pyawskit is a collection of utilities to help interact with aws
 
 project website: <https://veltzer.github.io/pyawskit>
+
+chat with me at [![gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/veltzer/mark.veltzer)
 
 
