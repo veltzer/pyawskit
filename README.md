@@ -16,6 +16,8 @@
 ![Downloads](https://pepy.tech/badge/pyawskit/month)
 ![Downloads](https://pepy.tech/badge/pyawskit/week)
 
+[![Known Vulnerabilities](https://snyk.io/test/github/veltzer/pyawskit/badge.svg?targetFile=requirements.txt)](https://snyk.io/test/github/veltzer/pyawskit?targetFile=requirements.txt)
+
 
 
 pyawskit is a collection of utilities to help interact with aws
