@@ -19,10 +19,13 @@
 [![Known Vulnerabilities](https://snyk.io/test/github/veltzer/pyawskit/badge.svg?targetFile=requirements.txt)](https://snyk.io/test/github/veltzer/pyawskit?targetFile=requirements.txt)
 
 
+Actions
+
+![build](https://github.com/veltzer/pyawskit/workflows/build/badge.svg)
 
 pyawskit is a collection of utilities to help interact with aws
 
-project website: <https://veltzer.github.io/pyawskit>
+project website: https://veltzer.github.io/pyawskit
 
 chat with me at [![gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/veltzer/mark.veltzer)
 
