@@ -3,7 +3,7 @@ import config.project
 package_name = config.project.project_name
 
 console_scripts = [
-    'pyawskit=pyawskit.endpoints.main:main',
+    'pyawskit=pyawskit.main:main',
 ]
 
 setup_requires = [
@@ -40,6 +40,6 @@ install_requires.extend(run_requires)
 
 python_requires = ">=3.6"
 
-extras_require={
-#    ':python_version == "2.7"': ['futures'],  # for python2.7 backport of concurrent.futures
+extras_require = {
+    #    ':python_version == "2.7"': ['futures'],  # for python2.7 backport of concurrent.futures
 }

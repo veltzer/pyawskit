@@ -1,15 +1,18 @@
 import logging
 import multiprocessing
-import os
-import os.path
 import subprocess
 import sys
+import os
+
+from sultan import Sultan
+
 
 import boto3
-import pymount.mgr
 import tqdm
-from pytconf import register_function_group, register_endpoint
-from sultan import Sultan
+
+import pymount.mgr
+from pylogconf.core import setup
+from pytconf import register_main, config_arg_parse_and_launch, register_endpoint
 
 import pyawskit.common
 from pyawskit.aws import ProcessData, request_spot_instances, tag_resources, poll_instances_till_done, wait_for_ssh, \
@@ -17,26 +20,15 @@ from pyawskit.aws import ProcessData, request_spot_instances, tag_resources, pol
 from pyawskit.common import update_etc_hosts, update_ssh_config, update_file, do_hush_login, wait_net_service, \
     get_disks, erase_partition_table, reread_partition_table, format_device, mount_disk
 from pyawskit.configs import ConfigFilter, ConfigName
+
+from pyawskit.static import APP_NAME, VERSION_STR
 from pyawskit.utils import object_exists, process_one_file, print_exception
-
-GROUP_NAME_DEFAULT = "default"
-GROUP_DESCRIPTION_DEFAULT = "standard pyawskit commands"
-
-
-def register_group_default():
-    register_function_group(
-        function_group_name=GROUP_NAME_DEFAULT,
-        function_group_description=GROUP_DESCRIPTION_DEFAULT,
-    )
 
 
 @register_endpoint(
-    group=GROUP_NAME_DEFAULT,
+    description="Compress an S3 folder",
 )
 def compress_s3_folder() -> None:
-    """
-    Compress an S3 folder
-    """
     """
     This script accepts three parameters: bucket, in-folder, out-folder
     It reads every file in in-folder, gzip it, and then writes it with the suffix '.gz'
@@ -45,7 +37,7 @@ def compress_s3_folder() -> None:
     The credentials for this are NOT stored in this script
     but rather are in ~/.aws/credentials.
     """
-    bucket_name = 'twiggle-click-streams'
+    bucket_name = 'bucket_name'
     folder_in = 'flipkart/'
     folder_out = 'flipkart_gz'
     do_progress = False
@@ -72,12 +64,9 @@ def compress_s3_folder() -> None:
 
 
 @register_endpoint(
-    group=GROUP_NAME_DEFAULT,
+    description="Copy important files to a machine like key files and such",
 )
 def copy_to_machine() -> None:
-    """
-    This script copies important files to a machine like key files and such
-    """
     """
     TODO:
     - do not copy ~/.aws/shell (it is big)
@@ -103,15 +92,12 @@ def copy_to_machine() -> None:
 
 
 @register_endpoint(
+    description="Generate /etc/hosts file for you. Must be run as root",
     configs=[
         ConfigFilter,
     ],
-    group=GROUP_NAME_DEFAULT,
 )
 def generate_etc_hosts() -> None:
-    """
-    Generate /etc/hosts file for you. Must be run as root
-    """
     """
     This script will update ~/.aws/config file with the names of your machines.
     Notice that you must hold all of your .pem files in ~/.aws/keys
@@ -123,15 +109,12 @@ def generate_etc_hosts() -> None:
 
 
 @register_endpoint(
+    description="Generate ~/ssh/config or ~/.ssh/config.d/99_dynamic.conf file for you",
     configs=[
         ConfigFilter,
     ],
-    group=GROUP_NAME_DEFAULT,
 )
 def generate_ssh_config() -> None:
-    """
-    Generate ~/ssh/config or ~/.ssh/config.d/99_dynamic.conf file for you
-    """
     """
     This script will update ~/.aws/config file with the names of your machines.
     Notice that you must hold all of your .pem files in ~/.aws/keys
@@ -140,15 +123,12 @@ def generate_ssh_config() -> None:
 
 
 @register_endpoint(
+    description="Generate ~/.hosts for you",
     configs=[
         ConfigFilter,
     ],
-    group=GROUP_NAME_DEFAULT,
 )
 def generate_tilde_hosts() -> None:
-    """
-    Generate ~/.hosts for you
-    """
     """
     This script will update ~/.hosts file with the names of your machines.
     You must use something like libnss_homehosts to use this file for each app.
@@ -157,15 +137,12 @@ def generate_tilde_hosts() -> None:
 
 
 @register_endpoint(
+    description="Launch a machine on AWS via a json configuration",
     configs=[
         ConfigName,
     ],
-    group=GROUP_NAME_DEFAULT,
 )
 def launch_machine() -> None:
-    """
-    Lauch a machine on AWS via a json configuration.
-    """
     """
     This script launches a new machine via boto3 with configuration from
     ~/.pyawskit/launch_config.json
@@ -225,12 +202,9 @@ def mount_dists() -> None:
 
 
 @register_endpoint(
-    group=GROUP_NAME_DEFAULT,
+    description="Prepares your account on a new AWS machine",
 )
 def prep_account():
-    """
-    This script prepares your account on a new AWS machine
-    """
     """
     These are the types of things it does:
     - copy ~/.aws ~/.ssh ~/.s3cfg ~/.gitconfig ~/.passwd-s3fs to it
@@ -244,12 +218,9 @@ def prep_account():
 
 
 @register_endpoint(
-    group=GROUP_NAME_DEFAULT,
+    description="Prepare a machine for work",
 )
 def prep_machine(name: str) -> None:
-    """
-    Prepare a machine for work
-    """
     """
     A python version of the bash script here:
     https://gist.github.com/joemiller/6049831
@@ -278,12 +249,9 @@ def prep_machine(name: str) -> None:
 
 
 @register_endpoint(
-    group=GROUP_NAME_DEFAULT,
+    description="Shows all the disks you have on an AWS machine",
 )
 def show_disks() -> None:
-    """
-    This script simply shows all the disks you have on an AWS machine
-    """
     print(get_disks())
 
 
@@ -436,3 +404,17 @@ def unify_disks() -> None:
             with open(fstab_filename, "at") as file_handle:
                 file_handle.write(line_to_add+"\n")
     # create ubuntu folder and chown it to ubuntu
+
+
+@register_main(
+    main_description="Pyawskit is you AWS Swiss Army Knife",
+    app_name=APP_NAME,
+    version=VERSION_STR,
+)
+def main():
+    setup()
+    config_arg_parse_and_launch()
+
+
+if __name__ == '__main__':
+    main()

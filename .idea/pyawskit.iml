@@ -13,6 +13,8 @@
       <excludeFolder url="file://$MODULE_DIR$/wheel" />
       <excludeFolder url="file://$MODULE_DIR$/pyawskit.egg-info" />
     </content>
+    <orderEntry type="jdk" jdkName="Python 3.8 (pyawskit)" jdkType="Python SDK" />
+    <orderEntry type="sourceFolder" forTests="false" />
   </component>
   <component name="TemplatesService">
     <option name="templateFileTypes">

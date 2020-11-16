@@ -59,8 +59,7 @@ def object_exists(s3_connection, check_bucket_name: str, object_name: str) -> bo
     except botocore.exceptions.ClientError as e:
         if e.response['Error']['Code'] == "404":
             return False
-        else:
-            raise
+        raise
     return True
 
 
@@ -77,8 +76,7 @@ def object_exists_bucket(bucket_obj, object_name: str) -> bool:
     except botocore.exceptions.ClientError as e:
         if e.response['Error']['Code'] == "404":
             return False
-        else:
-            raise
+        raise
     return True
 
 

@@ -12,7 +12,6 @@ setuptools.setup(
     version="0.1.59",
     packages=[
         'pyawskit',
-        'pyawskit.endpoints',
     ],
     # from here all is optional
     description="pyawskit is a collection of utilities to help interact with aws",
@@ -66,7 +65,7 @@ setuptools.setup(
     data_files=[
     ],
     entry_points={"console_scripts": [
-        'pyawskit=pyawskit.endpoints.main:main',
+        'pyawskit=pyawskit.main:main',
     ]},
     python_requires=">=3.6",
 )

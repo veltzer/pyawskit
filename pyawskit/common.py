@@ -7,7 +7,6 @@ import stat
 import subprocess
 import sys
 import time
-import ujson
 from typing import List
 
 import boto3
@@ -15,12 +14,12 @@ import requests
 
 
 def load_json_config(
-        name: str,
+    name: str,
 ):
     path = os.path.join(
         os.getenv('HOME'),
         ".pyawskit",
-        name+".json",
+        name + ".json",
     )
     with open(path, "rt") as input_handle:
         obj = json.load(input_handle)
@@ -28,9 +27,9 @@ def load_json_config(
 
 
 def wait_net_service(
-        server: str,
-        port: int,
-        timeout: int=600,
+    server: str,
+    port: int,
+    timeout: int = 600,
 ) -> bool:
     """
         Wait for network service to appear
@@ -51,8 +50,7 @@ def wait_net_service(
                 next_timeout = end - time.time()
                 if next_timeout < 0:
                     return False
-                else:
-                    s.settimeout(next_timeout)
+                s.settimeout(next_timeout)
 
             s.connect((server, port))
 
@@ -121,7 +119,7 @@ def all_regions() -> List[str]:
     return regions
 
 
-def format_device(disk: str, label: str=None) -> None:
+def format_device(disk: str, label: str = None) -> None:
     logger = logging.getLogger(__name__)
     logger.info("formatting the new device [%s]", disk)
     args = [
@@ -137,9 +135,9 @@ def format_device(disk: str, label: str=None) -> None:
 
 
 def update_file(
-        filename: str=None,
-        pattern: str=None,
-        do_all: bool=False,
+    filename: str = None,
+    pattern: str = None,
+    do_all: bool = False,
 ):
     logger = logging.getLogger(__name__)
     assert filename is not None
@@ -164,7 +162,7 @@ def update_file(
     if os.path.isfile(filter_file):
         logger.info('reading [{0}]...'.format(filter_file))
         with open(filter_file) as file_handle:
-            filters = ujson.loads(file_handle.read())
+            filters = json.loads(file_handle.read())
     else:
         logger.info('no filter file [{0}] exists...'.format(filter_file))
         filters = []
