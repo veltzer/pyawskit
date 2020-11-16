@@ -10,7 +10,8 @@ class OSType(enum.Enum):
     aml = 2
 
 
-os_type = None
+os_data = dict()
+OS_TYPE = "OS_TYPE"
 
 
 def set_timezone() -> None:
@@ -26,11 +27,10 @@ def detect_os() -> None:
     first find out if we are on ubuntu or amazon linux
     :return:
     """
-    global os_type
     # noinspection PyBroadException,PyPep8
     try:
         if subprocess.check_output(['lsb_release', '--id', '-s']).decode().rstrip() == 'Ubuntu':
-            os_type = OSType.ubuntu
+            os_data[OS_TYPE] = OSType.ubuntu
     except Exception:
         pass
     # noinspection PyBroadException,PyPep8
@@ -47,8 +47,7 @@ def detect_os() -> None:
 
 
 def is_os_type(t) -> bool:
-    global os_type
-    return os_type == t
+    return os_data["OS_TYPE"] == t
 
 
 def update_machine() -> None:

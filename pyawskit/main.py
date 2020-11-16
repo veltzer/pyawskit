@@ -25,6 +25,9 @@ from pyawskit.static import APP_NAME, VERSION_STR
 from pyawskit.utils import object_exists, process_one_file, print_exception
 
 
+FILE_ETC_HOSTS = "/etc/hosts"
+
+
 @register_endpoint(
     description="Compress an S3 folder",
 )
@@ -102,9 +105,8 @@ def generate_etc_hosts() -> None:
     This script will update ~/.aws/config file with the names of your machines.
     Notice that you must hold all of your .pem files in ~/.aws/keys
     """
-    filename = "/etc/hosts"
-    if not os.geteuid() == 0 and not os.access(filename, os.W_OK):
-        sys.exit('script must be run as root or {} must be writable'.format(filename))
+    if not os.geteuid() == 0 and not os.access(FILE_ETC_HOSTS, os.W_OK):
+        sys.exit('script must be run as root or {} must be writable'.format(FILE_ETC_HOSTS))
     update_etc_hosts(all_hosts=not ConfigFilter.filter)
 
 
@@ -184,8 +186,7 @@ def launch_machine() -> None:
 def mount_dists() -> None:
     """
     This script mounts all the local disks as individuals
-    """
-    """
+
     TODO:
     - make this run in parallel on multiple cores and enable the user to choose (via
     command line option) whether to run this multi-core or not.
@@ -258,8 +259,7 @@ def show_disks() -> None:
 def unify_disks() -> None:
     """
     unify disks of a machine in raid 0
-    """
-    """
+
     This script is derived from the following bash script:
     https://gist.github.com/joemiller/6049831
 

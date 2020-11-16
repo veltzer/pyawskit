@@ -2,7 +2,7 @@
     import config.project
     import config.python
     import user.personal
-    import os
+    import os_utils
     import glob
     import yaml
 %>
