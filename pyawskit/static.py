@@ -2,3 +2,4 @@
 VERSION_STR = "0.1.59"
 DESCRIPTION = "pyawskit is a collection of utilities to help interact with aws"
 APP_NAME = "pyawskit"
+LOGGER_NAME = "pyawskit"

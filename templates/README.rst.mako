@@ -3,7 +3,7 @@
     import config.python
     import user.personal
     import config.version
-    import os_utils
+    import os
     line = '=' * (len(config.project.project_name)+2)
 %>${line}
 *${config.project.project_name}*

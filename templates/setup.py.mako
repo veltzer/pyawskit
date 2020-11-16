@@ -4,7 +4,7 @@
     import config.project
     import config.version
     import pydmt.helpers.python
-    import os_utils
+    import os
 %>import setuptools
 
 
