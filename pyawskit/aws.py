@@ -31,14 +31,14 @@ def log_func_name(func: Callable):
 
 class ProcessData:
     def __init__(self, name: str):
-        self.p_name = name  # type: str
+        self.p_name: str = name
         self.p_launch_config = load_json_config("launch_config")
         self.p_config = self.p_launch_config[self.p_name]
         self.p_price = float(self.p_config["price"])
         self.p_count = int(self.p_config["count"])
         self.p_region = self.p_config["region"]
-        self.p_dry_run = False  # type: bool
-        self.p_type = "one-time"  # type: str
+        self.p_dry_run: bool = False
+        self.p_type: str = "one-time"
 
     def get_price(self):
         return self.p_config["price"]
