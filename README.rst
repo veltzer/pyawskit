@@ -12,6 +12,6 @@ project website: https://veltzer.github.io/pyawskit
 
 author: Mark Veltzer
 
-version: 0.1.59
+version: 0.1.60
 
 
