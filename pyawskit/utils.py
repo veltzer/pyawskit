@@ -81,10 +81,8 @@ def object_exists_bucket(bucket_obj, object_name: str) -> bool:
 
 
 def catch_all(the_function):
-    print('there')
-
     def new_function(*args, **kwargs):
-        print('here')
+        # pylint: disable=broad-except
         try:
             return the_function(*args, **kwargs)
         except Exception as e:

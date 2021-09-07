@@ -1,6 +1,8 @@
 import enum
 import subprocess
 import sys
+import shutil
+import os.path
 
 from pyawskit.common import run_devnull
 
@@ -10,7 +12,7 @@ class OSType(enum.Enum):
     aml = 2
 
 
-os_data = dict()
+os_data = {}
 OS_TYPE = "OS_TYPE"
 
 
@@ -27,21 +29,15 @@ def detect_os() -> None:
     first find out if we are on ubuntu or amazon linux
     :return:
     """
-    # noinspection PyBroadException,PyPep8
-    try:
-        if subprocess.check_output(['lsb_release', '--id', '-s']).decode().rstrip() == 'Ubuntu':
+    lsb_release = shutil.which("lsb_release")
+    if lsb_release is not None:
+        if subprocess.check_output([lsb_release, '--id', '-s']).decode().rstrip() == 'Ubuntu':
             os_data[OS_TYPE] = OSType.ubuntu
-    except Exception:
-        pass
-    # noinspection PyBroadException,PyPep8
-    try:
+    if os.path.isfile("/etc/issue"):
         with open('/etc/issue') as f:
             d = f.read()
             if d.startswith('Amazon Linux AMI'):
                 os_type = OSType.aml
-    except Exception:
-        pass
-
     if os_type is None:
         sys.exit('could not detect the os running')
 

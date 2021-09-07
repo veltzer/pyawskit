@@ -60,10 +60,9 @@ def compress_s3_folder() -> None:
             print('object exists, skipping')
             continue
         jobs.append([basename, full_name, compressed_basename, full_compressed_name, bucket_name])
-    pool = multiprocessing.Pool(processes=multiprocessing.cpu_count())
-    pool.map_async(process_one_file, jobs, error_callback=print_exception)
-    pool.close()
-    pool.join()
+    with multiprocessing.Pool(processes=multiprocessing.cpu_count()) as pool:
+        pool.map_async(process_one_file, jobs, error_callback=print_exception)
+        pool.join()
 
 
 @register_endpoint(
@@ -367,13 +366,13 @@ def unify_disks() -> None:
     # removed writing /etc/mdadm because it was causing problems
     if write_etc_mdadm:
         logger.info("writing the details of the new device in [%s]", mdadm_config_file)
-        mdadm_handle = open(mdadm_config_file, "at")
-        subprocess.check_call([
-            mdadm_binary,
-            "--detail",
-            "--scan",
-            "--verbose",
-        ], stdout=mdadm_handle, stderr=subprocess.DEVNULL)
+        with open(mdadm_config_file, "at") as mdadm_handle:
+            subprocess.check_call([
+                mdadm_binary,
+                "--detail",
+                "--scan",
+                "--verbose",
+            ], stdout=mdadm_handle, stderr=subprocess.DEVNULL)
 
     format_device(device_file, label=name_of_raid_device)
 

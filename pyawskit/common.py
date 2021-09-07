@@ -135,13 +135,11 @@ def format_device(disk: str, label: str = None) -> None:
 
 
 def update_file(
-    filename: str = None,
-    pattern: str = None,
+    filename: str,
+    pattern: str,
     do_all: bool = False,
 ):
     logger = logging.getLogger(__name__)
-    assert filename is not None
-    assert pattern is not None
 
     config_file = os.path.expanduser(filename)
     if os.path.isfile(config_file):
@@ -152,11 +150,9 @@ def update_file(
 
     # cut down auto generated lines if they exist...
     comment_line = "# DO NOT EDIT BEYOND THIS LINE - LEAVE THIS LINE AS IS\n"
-    try:
+    if comment_line in lines:
         location_of_comment_line = lines.index(comment_line)
         lines = lines[:location_of_comment_line]
-    except ValueError:
-        pass
 
     filter_file = os.path.expanduser("~/.pyawskit/aws_filter.json")
     if os.path.isfile(filter_file):
