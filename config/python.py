@@ -25,7 +25,9 @@ run_requires = [
 test_requires = [
     'pylint',
     'pytest',
+    'pytest-cov',
     'pyflakes',
+    'flake8',
 ]
 
 dev_requires = [

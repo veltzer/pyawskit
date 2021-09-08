@@ -54,7 +54,7 @@ def object_exists(s3_connection, check_bucket_name: str, object_name: str) -> bo
     :return: whether the object exists
     """
     try:
-        #s3_connection.Object(check_bucket_name, object_name).load()
+        # s3_connection.Object(check_bucket_name, object_name).load()
         s3_connection.head_object(Bucket=check_bucket_name, Key=object_name)
     except botocore.exceptions.ClientError as e:
         if e.response['Error']['Code'] == "404":

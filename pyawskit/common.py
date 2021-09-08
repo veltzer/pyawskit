@@ -54,7 +54,7 @@ def wait_net_service(
 
             s.connect((server, port))
 
-        except socket.timeout as _:
+        except socket.timeout:
             # this exception occurs only if timeout is set
             if timeout:
                 return False

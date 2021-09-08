@@ -19,7 +19,7 @@ from pyawskit.aws import ProcessData, request_spot_instances, tag_resources, pol
     attach_disks
 from pyawskit.common import update_etc_hosts, update_ssh_config, update_file, do_hush_login, wait_net_service, \
     get_disks, erase_partition_table, reread_partition_table, format_device, mount_disk
-from pyawskit.configs import ConfigFilter, ConfigName
+from pyawskit.configs import ConfigFilter, ConfigName, ConfigWork
 
 from pyawskit.static import APP_NAME, VERSION_STR
 from pyawskit.utils import object_exists, process_one_file, print_exception
@@ -277,86 +277,35 @@ def unify_disks() -> None:
     TODO:
     - make this script work in parallel. But for the dd(1) and mkfs(1) parts.
     """
-    device_file = "/dev/md0"
-    mount_point = "/mnt/raid0"
-    mdadm_config_file = '/etc/mdadm/mdadm.conf'
-    mdadm_binary = "/sbin/mdadm"
-    fstab_filename = "/etc/fstab"
-    file_system_type = "ext4"
-    name_of_raid_device = "MY_RAID"
-    start_stop_queue = False
-    write_etc_mdadm = False
-    add_line_to_fstab = False
 
     logger = logging.getLogger(__name__)
     logger.info("looking for disks...")
     disks = get_disks()
-    if len(disks) == 0:
-        print('found no disks, exiting...', file=sys.stderr)
-        sys.exit(1)
+    assert len(disks) > 0, "found no disks"
 
-    logger.info("got %d disks %s", len(disks), str(disks))
+    logger.info(f"got {len(disks)} disks {str(disks)}")
 
-    logger.info("checking if any of the disks are mounted [%s]", ','.join(disks))
-    manager = pymount.mgr.Manager()
-    for disk in disks:
-        if manager.is_mounted(disk):
-            mount_point = manager.get_mount_point(disk)
-            logger.info("unmounting device [%s] from [%s]", device_file, mount_point)
-            subprocess.check_call([
-                "/bin/umount",
-                mount_point,
-            ])
-        else:
-            logger.info("device [%s] is not mounted, good", device_file)
+    check_unmounted(logger, disks)
 
-    logger.info("checking if the md device is mounted...[%s]", device_file)
-    if manager.is_mounted(device_file):
-        mount_point = manager.get_mount_point(device_file)
-        logger.info("unmounting device [%s] from [%s]", device_file, mount_point)
+    logger.info(f"checking if device exists [{ConfigWork.device_file}]")
+    if os.path.exists(ConfigWork.device_file):
+        logger.info(f"stopping md on the current device [{ConfigWork.device_file}]")
         subprocess.check_call([
-            "/bin/umount",
-            mount_point,
-        ])
-        logger.info("unmount of [%s] was ok", device_file)
-    else:
-        logger.info("device [%s] is not mounted, good...", device_file)
-
-    logger.info("checking if device exists [%s]", device_file)
-    if os.path.exists(device_file):
-        logger.info("stopping md on the current device [%s]", device_file)
-        subprocess.check_call([
-            mdadm_binary,
+            ConfigWork.mdadm_binary,
             "--stop",
-            device_file,
+            ConfigWork.device_file,
         ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-        logger.info("stopped md on [%s] successfully...", device_file)
+        logger.info(f"stopped md on [{ConfigWork.device_file}] successfully...")
     else:
-        logger.info("no md [%s], good", device_file)
+        logger.info(f"no md [{ConfigWork.device_file}], good")
 
     for disk in disks:
         erase_partition_table(disk)
     reread_partition_table()
 
-    logger.info("creating the new md device...")
-    if start_stop_queue:
-        subprocess.check_call([
-            "/sbin/udevadm",
-            "control",
-            "--stop-exec-queue",
-        ])
-    args = [
-        mdadm_binary,
-        "--create",
-        device_file,
-        "--level=0",  # RAID 0 for performance
-        "--name={}".format(name_of_raid_device),
-        # "-c256",
-        "--raid-devices={}".format(len(disks)),
-    ]
-    args.extend(disks)
-    subprocess.check_call(args, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-    if start_stop_queue:
+    create_new_device(logger, disks)
+
+    if ConfigWork.start_stop_queue:
         subprocess.check_call([
             "/sbin/udevadm",
             "control",
@@ -364,33 +313,33 @@ def unify_disks() -> None:
         ])
 
     # removed writing /etc/mdadm because it was causing problems
-    if write_etc_mdadm:
-        logger.info("writing the details of the new device in [%s]", mdadm_config_file)
-        with open(mdadm_config_file, "at") as mdadm_handle:
+    if ConfigWork.write_etc_mdadm:
+        logger.info(f"writing the details of the new device in [{ConfigWork.mdadm_config_file}]")
+        with open(ConfigWork.mdadm_config_file, "at") as mdadm_handle:
             subprocess.check_call([
-                mdadm_binary,
+                ConfigWork.mdadm_binary,
                 "--detail",
                 "--scan",
                 "--verbose",
             ], stdout=mdadm_handle, stderr=subprocess.DEVNULL)
 
-    format_device(device_file, label=name_of_raid_device)
+    format_device(ConfigWork.device_file, label=ConfigWork.name_of_raid_device)
 
-    mount_disk(disk=device_file, folder=mount_point)
+    mount_disk(disk=ConfigWork.device_file, folder=ConfigWork.mount_point)
 
-    if add_line_to_fstab:
-        logger.info("checking if need to add line to [%s] for mount on reboot...", fstab_filename)
+    if ConfigWork.add_line_to_fstab:
+        logger.info(f"checking if need to add line to [{ConfigWork.fstab_filename}] for mount on reboot...")
         line_to_add = " ".join([
-            # device_file,
-            "LABEL={}".format(name_of_raid_device),
-            mount_point,
-            file_system_type,
+            # ConfigWork.device_file,
+            "LABEL={}".format(ConfigWork.name_of_raid_device),
+            ConfigWork.mount_point,
+            ConfigWork.file_system_type,
             "defaults",
             "0",
             "0",
         ])
         found_line_to_add = False
-        with open(fstab_filename) as file_handle:
+        with open(ConfigWork.fstab_filename) as file_handle:
             for line in file_handle:
                 line = line.rstrip()
                 if line == line_to_add:
@@ -399,9 +348,9 @@ def unify_disks() -> None:
         if found_line_to_add:
             logger.info("found the line to add. not doing anything...")
         else:
-            logger.info("adding line to [%s]", fstab_filename)
-            with open(fstab_filename, "at") as file_handle:
-                file_handle.write(line_to_add+"\n")
+            logger.info("adding line to [%s]", ConfigWork.fstab_filename)
+            with open(ConfigWork.fstab_filename, "at") as file_handle:
+                file_handle.write(line_to_add + "\n")
     # create ubuntu folder and chown it to ubuntu
 
 
@@ -413,6 +362,53 @@ def unify_disks() -> None:
 def main():
     setup()
     config_arg_parse_and_launch()
+
+
+def create_new_device(logger, disks):
+    logger.info("creating the new md device...")
+    if ConfigWork.start_stop_queue:
+        subprocess.check_call([
+            "/sbin/udevadm",
+            "control",
+            "--stop-exec-queue",
+        ])
+    args = [
+        ConfigWork.mdadm_binary,
+        "--create",
+        ConfigWork.device_file,
+        "--level=0",  # RAID 0 for performance
+        f"--name={ConfigWork.name_of_raid_device}",
+        # "-c256",
+        f"--raid-devices={len(disks)}",
+    ]
+    args.extend(disks)
+    subprocess.check_call(args, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+
+
+def check_unmounted(logger, disks):
+    logger.info(f"checking if any of the disks are mounted [{'.'.join(disks)}]")
+    manager = pymount.mgr.Manager()
+    for disk in disks:
+        if manager.is_mounted(disk):
+            mount_point = manager.get_mount_point(disk)
+            logger.info(f"unmounting device [{ConfigWork.device_file}] from [{mount_point}]")
+            subprocess.check_call([
+                "/bin/umount",
+                mount_point,
+            ])
+        else:
+            logger.info(f"device [{ConfigWork.device_file}] is not mounted, good")
+    logger.info(f"checking if the md device is mounted...[{ConfigWork.device_file}]")
+    if manager.is_mounted(ConfigWork.device_file):
+        mount_point = manager.get_mount_point(ConfigWork.device_file)
+        logger.info(f"unmounting device [{ConfigWork.device_file}] from [{mount_point}]")
+        subprocess.check_call([
+            "/bin/umount",
+            mount_point,
+        ])
+        logger.info(f"unmount of [{ConfigWork.device_file}] was ok")
+    else:
+        logger.info(f"device [{ConfigWork.device_file}] is not mounted, good...")
 
 
 if __name__ == '__main__':
