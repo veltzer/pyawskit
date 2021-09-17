@@ -51,7 +51,7 @@ def compress_s3_folder() -> None:
         gen = tqdm.tqdm(gen)
     jobs = []
     for object_summary in gen:
-        print('doing [{}]'.format(object_summary.key))
+        print(f"doing [{object_summary.key}]")
         full_name = object_summary.key
         basename = os.path.basename(full_name)
         compressed_basename = basename + '.gz'
@@ -88,7 +88,7 @@ def copy_to_machine() -> None:
         "-r",
     ]
     args.extend(map(os.path.expanduser, folders_to_copy))
-    args.append("{machine_name}:~".format(machine_name=machine_name))
+    args.append(f"{machine_name}:~")
     # subprocess.check_call(args, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     subprocess.check_call(args)
 
@@ -105,7 +105,7 @@ def generate_etc_hosts() -> None:
     Notice that you must hold all of your .pem files in ~/.aws/keys
     """
     if not os.geteuid() == 0 and not os.access(FILE_ETC_HOSTS, os.W_OK):
-        sys.exit('script must be run as root or {} must be writable'.format(FILE_ETC_HOSTS))
+        sys.exit(f"script must be run as root or {FILE_ETC_HOSTS} must be writable")
     update_etc_hosts(all_hosts=not ConfigFilter.filter)
 
 
@@ -195,7 +195,7 @@ def mount_dists() -> None:
     # erasing all of the local disks...
     disks = pyawskit.common.get_disks()
     for disk in disks:
-        folder = "/mnt/{}".format(disk)
+        folder = f"/mnt/{disk}"
         pyawskit.common.erase_partition_table(disk=disk)
         pyawskit.common.format_device(disk=disk)
         pyawskit.common.mount_disk(disk=disk, folder=folder)
@@ -331,7 +331,7 @@ def unify_disks() -> None:
         logger.info(f"checking if need to add line to [{ConfigWork.fstab_filename}] for mount on reboot...")
         line_to_add = " ".join([
             # ConfigWork.device_file,
-            "LABEL={}".format(ConfigWork.name_of_raid_device),
+            f"LABEL={ConfigWork.name_of_raid_device}",
             ConfigWork.mount_point,
             ConfigWork.file_system_type,
             "defaults",

@@ -78,14 +78,14 @@ def get_disks() -> List[str]:
     for line in r.content.decode().split("\n"):
         if not line.startswith('ephemeral'):
             continue
-        ephemeral_url = 'http://169.254.169.254/latest/meta-data/block-device-mapping/{}'.format(line)
+        ephemeral_url = f"http://169.254.169.254/latest/meta-data/block-device-mapping/{line}"
         r = requests.get(ephemeral_url)
         assert r.status_code == 200
         content = r.content.decode()
         assert content.startswith('sd')
         assert len(content) == 3
         letter = content[2]
-        device = '/dev/xvd{}'.format(letter)
+        device = f"/dev/xvd{letter}"
         mode = os.stat(device).st_mode
         if not stat.S_ISBLK(mode):
             continue
@@ -99,7 +99,7 @@ def erase_partition_table(disk: str) -> None:
     subprocess.check_call([
         "/bin/dd",
         "if=/dev/zero",
-        "of={}".format(disk),
+        f"of={disk}"
         "bs=4096",
         "count=1024",
     ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
@@ -121,7 +121,7 @@ def all_regions() -> List[str]:
 
 def format_device(disk: str, label: str = None) -> None:
     logger = logging.getLogger(__name__)
-    logger.info("formatting the new device [%s]", disk)
+    logger.info(f"formatting the new device [{disk}]")
     args = [
         "/sbin/mkfs.ext4",
         disk,
@@ -156,11 +156,11 @@ def update_file(
 
     filter_file = os.path.expanduser("~/.pyawskit/aws_filter.json")
     if os.path.isfile(filter_file):
-        logger.info('reading [{0}]...'.format(filter_file))
+        logger.info(f"reading [{filter_file}]...")
         with open(filter_file) as file_handle:
             filters = json.loads(file_handle.read())
     else:
-        logger.info('no filter file [{0}] exists...'.format(filter_file))
+        logger.info(f"no filter file [{filter_file}] exists...")
         filters = []
 
     # look for servers matching the query, in all regions
@@ -172,7 +172,7 @@ def update_file(
         else:
             instances.extend(list(ec2.instances.filter(Filters=filters)))
     num_of_instances = len(instances)
-    logger.info("Found {} instance(s)".format(num_of_instances))
+    logger.info(f"Found {num_of_instances} instance(s)")
     # assert num_of_instances > 0
 
     # add the comment line
@@ -190,7 +190,7 @@ def update_file(
             continue
         host = tags_dict["Name"]
         if host == "" or " " in host:
-            logger.info('Name [{0}] for host is bad. Try non empty names without spaces...'.format(host))
+            logger.info(f"Name [{host}] for host is bad. Try non empty names without spaces...")
             continue
         # public_ip = instance.public_dns_name
         # if public_ip == "":
@@ -210,8 +210,8 @@ def update_file(
     # print the final lines to the config file
     with open(config_file, "wt") as file_handle:
         file_handle.writelines(lines)
-    logger.info("Added {} instance(s)".format(added))
-    logger.info("Written {}".format(config_file))
+    logger.info(f"Added {added} instance(s)")
+    logger.info(f"Written {config_file}")
 
 
 def mount_disk(disk: str, folder: str) -> None:

@@ -33,10 +33,7 @@ def gzip_file(file_in: str, file_out: str) -> None:
 
 def gzip_file_process(file_in: str, file_out: str) -> None:
     subprocess.check_call(
-        'gzip < {file_in} > {file_out}'.format(
-            file_in=file_in,
-            file_out=file_out,
-        ),
+        f"gzip < {file_in} > {file_out}",
         shell=True,
     )
 
