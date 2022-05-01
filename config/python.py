@@ -41,10 +41,10 @@ dev_requires = [
 install_requires = list(setup_requires)
 install_requires.extend(run_requires)
 
-python_requires = ">=3.7"
+python_requires = ">=3.9"
 
 extras_require = {
 }
 test_os = "[ubuntu-20.04]"
-test_python = "[3.7, 3.8, 3.9]"
+test_python = "[3.9]"
 test_container = "[ubuntu:20.04]"
