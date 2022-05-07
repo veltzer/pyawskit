@@ -1,15 +1,4 @@
 # THIS IS AN AUTO-GENERATED FILE. DO NOT EDIT!
-# production requirements
-pylogconf
-pyfakeuse
-pypipegzip
-tqdm
-requests
-boto3
-pymount
-ujson
-sultan
-pytconf
 # dev requirements
 pyclassifiers
 pypitools

@@ -35,20 +35,6 @@ setuptools.setup(
     platforms=[
         'python3',
     ],
-    install_requires=[
-        'pylogconf',
-        'pyfakeuse',
-        'pypipegzip',
-        'tqdm',
-        'requests',
-        'boto3',
-        'pymount',
-        'ujson',
-        'sultan',
-        'pytconf',
-    ],
-    extras_require={
-    },
     classifiers=[
         'Development Status :: 4 - Beta',
         'Environment :: Console',
