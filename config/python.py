@@ -6,7 +6,7 @@ console_scripts = [
     "pyawskit=pyawskit.main:main",
 ]
 
-run_requires = [
+install_requires = [
     "pylogconf",
     "pyfakeuse",
     "pypipegzip",
