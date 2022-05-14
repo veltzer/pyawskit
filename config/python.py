@@ -6,11 +6,13 @@ console_scripts = [
     "pyawskit=pyawskit.main:main",
 ]
 dev_requires = [
-    "pyclassifiers",
     "pypitools",
-    "pydmt",
-    "Sphinx",
+]
+make_requires = [
     "pymakehelper",
+]
+config_requires = [
+    "pyclassifiers",
 ]
 install_requires = [
     "pylogconf",
