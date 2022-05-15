@@ -11,11 +11,7 @@ ujson
 sultan
 pytconf
 # dev requirements
-pyclassifiers
 pypitools
-pydmt
-Sphinx
-pymakehelper
 # test requirements
 pylint
 pytest
