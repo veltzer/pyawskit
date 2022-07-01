@@ -3,6 +3,8 @@ import shutil
 import subprocess
 import sys
 
+from typing import Any, List
+
 import boto3
 # noinspection PyPackageRequirements
 import botocore
@@ -86,6 +88,10 @@ def catch_all(the_function):
             print('got exception', e)
             sys.exit(1)
     return new_function
+
+
+def compress_one_file(_list: List[Any]) -> Any:
+    pass
 
 
 def process_one_file(basename, full_name, compressed_basename, full_compressed_name, bucket_name):

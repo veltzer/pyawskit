@@ -4,6 +4,8 @@ import sys
 import shutil
 import os.path
 
+from typing import List, Dict
+
 from pyawskit.common import run_devnull
 
 
@@ -60,7 +62,7 @@ def install_packages() -> None:
     install necessary package per platform
     :return:
     """
-    list_of_packages = {
+    list_of_packages: Dict[OSType, List[str]] = {
         OSType.ubuntu: [
             # python
             'python-pip',

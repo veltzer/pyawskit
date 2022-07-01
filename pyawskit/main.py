@@ -22,7 +22,7 @@ from pyawskit.common import update_etc_hosts, update_ssh_config, update_file, do
 from pyawskit.configs import ConfigFilter, ConfigName, ConfigWork
 
 from pyawskit.static import APP_NAME, VERSION_STR
-from pyawskit.utils import object_exists, process_one_file, print_exception
+from pyawskit.utils import object_exists, compress_one_file, print_exception
 
 
 FILE_ETC_HOSTS = "/etc/hosts"
@@ -61,7 +61,7 @@ def compress_s3_folder() -> None:
             continue
         jobs.append([basename, full_name, compressed_basename, full_compressed_name, bucket_name])
     with multiprocessing.Pool(processes=multiprocessing.cpu_count()) as pool:
-        pool.map_async(process_one_file, jobs, error_callback=print_exception)
+        pool.map_async(compress_one_file, jobs, error_callback=print_exception)
         pool.join()
 
 

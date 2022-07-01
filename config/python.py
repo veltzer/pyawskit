@@ -29,4 +29,5 @@ test_requires = [
     "pyflakes",
     "flake8",
     "mypy",
+    "types-requests",
 ]

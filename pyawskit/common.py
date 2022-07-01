@@ -16,8 +16,10 @@ import requests
 def load_json_config(
     name: str,
 ):
+    home = os.getenv("HOME")
+    assert home is not None
     path = os.path.join(
-        os.getenv('HOME'),
+        home,
         ".pyawskit",
         name + ".json",
     )
@@ -39,7 +41,7 @@ def wait_net_service(
         :param timeout
     """
     s = socket.socket()
-    end = None
+    end: float
     if timeout:
         # time module is needed to calc timeout shared between two exceptions
         end = time.time() + timeout
