@@ -75,13 +75,13 @@ def get_disks() -> List[str]:
     # another option is to take the output of lsblk(1)
     # which is not amazon specific and has nice format of data.
     url = "http://169.254.169.254/latest/meta-data/block-device-mapping"
-    r = requests.get(url)
+    r = requests.get(url, timeout=5)
     disks = []
     for line in r.content.decode().split("\n"):
         if not line.startswith('ephemeral'):
             continue
         ephemeral_url = f"http://169.254.169.254/latest/meta-data/block-device-mapping/{line}"
-        r = requests.get(ephemeral_url)
+        r = requests.get(ephemeral_url, timeout=5)
         assert r.status_code == 200
         content = r.content.decode()
         assert content.startswith('sd')
