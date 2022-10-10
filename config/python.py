@@ -7,6 +7,7 @@ dev_requires = [
 make_requires = [
     "pymakehelper",
     "pydmt",
+    "pyclassifiers",
 ]
 config_requires = [
     "pyclassifiers",
