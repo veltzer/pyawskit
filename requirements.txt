@@ -10,13 +10,3 @@ pymount
 ujson
 sultan
 pytconf
-# dev requirements
-pypitools
-# test requirements
-pylint
-pytest
-pytest-cov
-pyflakes
-flake8
-mypy
-types-requests
