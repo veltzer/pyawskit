@@ -7,7 +7,7 @@ import stat
 import subprocess
 import sys
 import time
-from typing import List
+from typing import List, Optional
 
 import boto3
 import requests
@@ -121,7 +121,7 @@ def all_regions() -> List[str]:
     return regions
 
 
-def format_device(disk: str, label: str = None) -> None:
+def format_device(disk: str, label: Optional[str] = None) -> None:
     logger = logging.getLogger(__name__)
     logger.info(f"formatting the new device [{disk}]")
     args = [
