@@ -21,7 +21,7 @@ def handle_data(url: str) -> None:
 
 def run() -> None:
     env_pip_domain = ConfigAwsCodeartifactPip.env_pip_domain
-    env_pip_domain_owner = ConfigAwsCodeartifactPip.env_pip_omain_owner
+    env_pip_domain_owner = ConfigAwsCodeartifactPip.env_pip_domain_owner
     env_pip_repository = ConfigAwsCodeartifactPip.env_pip_repository
     temp_store = pyapikey.core.TempStore()
     if temp_store.has(KEY):

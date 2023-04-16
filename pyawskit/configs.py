@@ -45,7 +45,7 @@ class ConfigAwsCodeartifactNpm(Config):
 
 class ConfigAwsCodeartifactPip(Config):
     env_pip_domain = ParamCreator.create_str(help_string="env pip domain")
-    env_pip_omain_owner = ParamCreator.create_str(help_string="env pip domain owner")
+    env_pip_domain_owner = ParamCreator.create_str(help_string="env pip domain owner")
     env_pip_repository = ParamCreator.create_str(help_string="env pip repository")
 
 
