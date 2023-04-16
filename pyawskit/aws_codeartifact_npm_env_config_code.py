@@ -16,6 +16,8 @@ import boto3
 from furl import furl
 import pyapikey
 
+from pyawskit.configs import ConfigAwsCodeartifactNpm
+
 KEY = "codeartifact_npm_config"
 USERNAME = "aws"
 USE_ENV = False
@@ -45,11 +47,10 @@ def handle_data(url: str, short_url: str, password: str, replace: bool) -> None:
                 stream.write(f"registry={url}\n")
 
 
-def aws_codeartifact_npm_env_config(
-    env_domain: str,
-    env_domain_owner: str,
-    env_npm_repository: str,
-):
+def run() -> None:
+    env_npm_domain = ConfigAwsCodeartifactNpm.env_npm_domain
+    env_npm_domain_owner = ConfigAwsCodeartifactNpm.env_npm_domain_owner
+    env_npm_repository = ConfigAwsCodeartifactNpm.env_npm_repository
     temp_store = pyapikey.core.TempStore()
     if temp_store.has(KEY):
         data = temp_store.get(KEY)
@@ -67,15 +68,15 @@ def aws_codeartifact_npm_env_config(
 
     client = boto3.client('codeartifact')
     res = client.get_authorization_token(
-        domain=env_domain,
-        domainOwner=env_domain_owner,
+        domain=env_npm_domain,
+        domainOwner=env_npm_domain_owner,
         durationSeconds=43200,
     )
     d_password = res["authorizationToken"]
     expiration = res["expiration"]
     res = client.get_repository_endpoint(
-        domain=env_domain,
-        domainOwner=env_domain_owner,
+        domain=env_npm_domain,
+        domainOwner=env_npm_domain_owner,
         repository=env_npm_repository,
         format="npm",
     )

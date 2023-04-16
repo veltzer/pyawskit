@@ -35,3 +35,20 @@ class ConfigWork(Config):
     start_stop_queue = ParamCreator.create_bool(default=False, help_string="do start stop queue")
     write_etc_mdadm = ParamCreator.create_bool(default=False, help_string="write /etc/mdadm")
     add_line_to_fstab = ParamCreator.create_bool(default=False, help_string="add line to /etc/fstab")
+
+
+class ConfigAwsCodeartifactNpm(Config):
+    env_npm_domain = ParamCreator.create_str(help_string="env npm domain")
+    env_npm_domain_owner = ParamCreator.create_str(help_string="env npm domain owner")
+    env_npm_repository = ParamCreator.create_str(help_string="env npm repository")
+
+
+class ConfigAwsCodeartifactPip(Config):
+    env_pip_domain = ParamCreator.create_str(help_string="env pip domain")
+    env_pip_omain_owner = ParamCreator.create_str(help_string="env pip domain owner")
+    env_pip_repository = ParamCreator.create_str(help_string="env pip repository")
+
+
+class ConfigAwsEcrLogin(Config):
+    env_ecr_region = ParamCreator.create_str(help_string="env ecr region")
+    env_ecr_account_id = ParamCreator.create_str(help_string="env ecr account id")

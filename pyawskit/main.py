@@ -19,13 +19,45 @@ from pyawskit.aws import ProcessData, request_spot_instances, tag_resources, pol
     attach_disks
 from pyawskit.common import update_etc_hosts, update_ssh_config, update_file, do_hush_login, wait_net_service, \
     get_disks, erase_partition_table, reread_partition_table, format_device, mount_disk
-from pyawskit.configs import ConfigFilter, ConfigName, ConfigWork
+from pyawskit.configs import ConfigFilter, ConfigName, ConfigWork, ConfigAwsCodeartifactNpm, ConfigAwsCodeartifactPip, \
+    ConfigAwsEcrLogin
 
 from pyawskit.static import APP_NAME, VERSION_STR
 from pyawskit.utils import object_exists, compress_one_file, print_exception
 
+import pyawskit.aws_codeartifact_npm_env_config_code
+import pyawskit.aws_codeartifact_pip_env_config_code
+import pyawskit.aws_ecr_login_code
 
-FILE_ETC_HOSTS = "/etc/hosts"
+
+@register_endpoint(
+    description="configure npm for codeartifact",
+    configs=[
+        ConfigAwsCodeartifactNpm,
+    ],
+)
+def aws_codeartifact_npm_env_config() -> None:
+    pyawskit.aws_codeartifact_npm_env_config_code.run()
+
+
+@register_endpoint(
+    description="configure pip for codeartifact",
+    configs=[
+        ConfigAwsCodeartifactPip,
+    ],
+)
+def aws_codeartifact_pip_env_config() -> None:
+    pyawskit.aws_codeartifact_pip_env_config_code.run()
+
+
+@register_endpoint(
+    description="docker login to aws acr",
+    configs=[
+        ConfigAwsEcrLogin,
+    ],
+)
+def aws_ecr_login() -> None:
+    pyawskit.aws_ecr_login_code.run()
 
 
 @register_endpoint(
@@ -104,8 +136,9 @@ def generate_etc_hosts() -> None:
     This script will update ~/.aws/config file with the names of your machines.
     Notice that you must hold all of your .pem files in ~/.aws/keys
     """
-    if not os.geteuid() == 0 and not os.access(FILE_ETC_HOSTS, os.W_OK):
-        sys.exit(f"script must be run as root or {FILE_ETC_HOSTS} must be writable")
+    file_etc_hosts = "/etc/hosts"
+    if not os.geteuid() == 0 and not os.access(file_etc_hosts, os.W_OK):
+        sys.exit(f"script must be run as root or {file_etc_hosts} must be writable")
     update_etc_hosts(all_hosts=not ConfigFilter.filter)
 
 

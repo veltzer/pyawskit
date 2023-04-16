@@ -8,6 +8,8 @@ import boto3
 from furl import furl
 import pyapikey
 
+from pyawskit.configs import ConfigAwsCodeartifactPip
+
 
 KEY = "codeartifact_pip_config"
 
@@ -17,11 +19,10 @@ def handle_data(url: str) -> None:
     print(f"export PIP_INDEX_URL=\"{url}\"")
 
 
-def aws_codeartifact_pip_env_config(
-    env_domain: str,
-    env_domain_owner: str,
-    env_pip_repository: str,
-):
+def run() -> None:
+    env_pip_domain = ConfigAwsCodeartifactPip.env_pip_domain
+    env_pip_domain_owner = ConfigAwsCodeartifactPip.env_pip_omain_owner
+    env_pip_repository = ConfigAwsCodeartifactPip.env_pip_repository
     temp_store = pyapikey.core.TempStore()
     if temp_store.has(KEY):
         data = temp_store.get(KEY)
@@ -37,15 +38,15 @@ def aws_codeartifact_pip_env_config(
 
     client = boto3.client('codeartifact')
     res = client.get_authorization_token(
-        domain=env_domain,
-        domainOwner=env_domain_owner,
+        domain=env_pip_domain,
+        domainOwner=env_pip_domain_owner,
         durationSeconds=43200,
     )
     password = res["authorizationToken"]
     d_expiration = res["expiration"]
     res = client.get_repository_endpoint(
-        domain=env_domain,
-        domainOwner=env_domain_owner,
+        domain=env_pip_domain,
+        domainOwner=env_pip_domain_owner,
         repository=env_pip_repository,
         format="pypi",
     )
