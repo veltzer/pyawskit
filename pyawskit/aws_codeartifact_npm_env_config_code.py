@@ -42,7 +42,9 @@ def handle_data(url: str, short_url: str, password: str, replace: bool) -> None:
         if not os.path.isfile(filename) or replace:
             with open("/dev/tty", "wt", encoding="utf-8") as stream:
                 print(f"Writing new file [{filename}]...", file=stream)
-            os.makedirs(os.path.dirname(filename))
+            dirname = os.path.dirname(filename)
+            if not os.path.isdir(dirname):
+                os.makedirs(dirname)
             with open(filename, "wt", encoding="utf-8") as stream:
                 stream.write(f"{short_url}:_authToken={password}\n")
                 stream.write(f"registry={url}\n")
