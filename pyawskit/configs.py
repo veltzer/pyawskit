@@ -28,10 +28,10 @@ class ConfigWork(Config):
     )
     mount_point = ParamCreator.create_str(default="/mnt/raid0", help_string="mount point")
     mdadm_config_file = ParamCreator.create_str(default='/etc/mdadm/mdadm.conf', help_string="mdadm config file")
-    mdadm_binary = "/sbin/mdadm"
-    fstab_filename = "/etc/fstab"
-    file_system_type = "ext4"
-    name_of_raid_device = "MY_RAID"
-    start_stop_queue = False
-    write_etc_mdadm = False
-    add_line_to_fstab = False
+    mdadm_binary = ParamCreator.create_str(default="/sbin/mdadm", help_string="mdam tool")
+    fstab_filename = ParamCreator.create_str(default="/etc/fstab", help_string="fstab filename")
+    file_system_type = ParamCreator.create_str(default="ext4", help_string="file system type")
+    name_of_raid_device = ParamCreator.create_str(default="MY_RAID", help_string="name of raid device")
+    start_stop_queue = ParamCreator.create_bool(default=False, help_string="do start stop queue")
+    write_etc_mdadm = ParamCreator.create_bool(default=False, help_string="write /etc/mdadm")
+    add_line_to_fstab = ParamCreator.create_bool(default=False, help_string="add line to /etc/fstab")
