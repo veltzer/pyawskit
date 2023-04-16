@@ -23,6 +23,7 @@ install_requires = [
     "ujson",
     "sultan",
     "pytconf",
+    "pyapikey",
 ]
 test_requires = [
     "pylint",
