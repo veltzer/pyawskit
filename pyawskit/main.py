@@ -355,7 +355,7 @@ def unify_disks() -> None:
 
 
 @register_main(
-    main_description="Pyawskit is you AWS Swiss Army Knife",
+    main_description="Pyawskit is your AWS Swiss Army Knife",
     app_name=APP_NAME,
     version=VERSION_STR,
 )
