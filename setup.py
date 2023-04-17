@@ -9,7 +9,7 @@ def get_readme():
 setuptools.setup(
     # the first three fields are a must according to the documentation
     name="pyawskit",
-    version="0.1.67",
+    version="0.1.68",
     packages=[
         "pyawskit",
     ],
@@ -47,6 +47,7 @@ setuptools.setup(
         "sultan",
         "pytconf",
         "pyapikey",
+        "furl",
     ],
     classifiers=[
         "Development Status :: 4 - Beta",
