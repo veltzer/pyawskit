@@ -24,6 +24,7 @@ install_requires = [
     "sultan",
     "pytconf",
     "pyapikey",
+    "furl",
 ]
 test_requires = [
     "pylint",
