@@ -47,8 +47,3 @@ class ConfigAwsCodeartifactPip(Config):
     env_pip_domain = ParamCreator.create_str(help_string="env pip domain")
     env_pip_domain_owner = ParamCreator.create_str(help_string="env pip domain owner")
     env_pip_repository = ParamCreator.create_str(help_string="env pip repository")
-
-
-class ConfigAwsEcrLogin(Config):
-    env_ecr_region = ParamCreator.create_str(help_string="env ecr region")
-    env_ecr_account_id = ParamCreator.create_str(help_string="env ecr account id")

@@ -19,8 +19,7 @@ from pyawskit.aws import ProcessData, request_spot_instances, tag_resources, pol
     attach_disks
 from pyawskit.common import update_etc_hosts, update_ssh_config, update_file, do_hush_login, wait_net_service, \
     get_disks, erase_partition_table, reread_partition_table, format_device, mount_disk
-from pyawskit.configs import ConfigFilter, ConfigName, ConfigWork, ConfigAwsCodeartifactNpm, ConfigAwsCodeartifactPip, \
-    ConfigAwsEcrLogin
+from pyawskit.configs import ConfigFilter, ConfigName, ConfigWork, ConfigAwsCodeartifactNpm, ConfigAwsCodeartifactPip
 
 from pyawskit.static import APP_NAME, VERSION_STR
 from pyawskit.utils import object_exists, compress_one_file, print_exception
@@ -52,9 +51,6 @@ def aws_codeartifact_pip_env_config() -> None:
 
 @register_endpoint(
     description="docker login to aws acr",
-    configs=[
-        ConfigAwsEcrLogin,
-    ],
 )
 def aws_ecr_login() -> None:
     pyawskit.aws_ecr_login_code.run()
