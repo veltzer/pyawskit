@@ -41,7 +41,7 @@ def run() -> None:
 
     client = boto3.client("ecr")
     res = client.get_authorization_token()
-    authorizationData = res["authorizationData"]
+    authorizationData = res["authorizationData"][0]
     d_authorizationToken = authorizationData["authorizationToken"]
     d_expiresAt = authorizationData["expiresAt"]
     d_proxyEndpoint = authorizationData["proxyEndpoint"]
