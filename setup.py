@@ -48,6 +48,7 @@ setuptools.setup(
         "pytconf",
         "pyapikey",
         "furl",
+        "docker-py",
     ],
     classifiers=[
         "Development Status :: 4 - Beta",

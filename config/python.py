@@ -25,6 +25,7 @@ install_requires = [
     "pytconf",
     "pyapikey",
     "furl",
+    "docker-py",
 ]
 test_requires = [
     "pylint",
