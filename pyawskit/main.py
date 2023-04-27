@@ -21,7 +21,7 @@ from pyawskit.common import update_etc_hosts, update_ssh_config, update_file, do
     get_disks, erase_partition_table, reread_partition_table, format_device, mount_disk
 from pyawskit.configs import ConfigFilter, ConfigName, ConfigWork, ConfigAwsCodeartifactNpm, ConfigAwsCodeartifactPip
 
-from pyawskit.static import APP_NAME, VERSION_STR
+from pyawskit.static import APP_NAME, VERSION_STR, DESCRIPTION
 from pyawskit.utils import object_exists, compress_one_file, print_exception
 
 import pyawskit.aws_codeartifact_npm_env_config_code
@@ -384,7 +384,7 @@ def unify_disks() -> None:
 
 
 @register_main(
-    main_description="Pyawskit is your AWS Swiss Army Knife",
+    main_description=DESCRIPTION,
     app_name=APP_NAME,
     version=VERSION_STR,
 )

@@ -9,12 +9,12 @@ def get_readme():
 setuptools.setup(
     # the first three fields are a must according to the documentation
     name="pyawskit",
-    version="0.1.71",
+    version="0.1.72",
     packages=[
         "pyawskit",
     ],
     # from here all is optional
-    description="pyawskit is a collection of utilities to help interact with aws",
+    description="('Pyawskit is your AWS Swiss Army Knife',)",
     long_description=get_readme(),
     long_description_content_type="text/x-rst",
     author="Mark Veltzer",

@@ -1,12 +1,12 @@
 # *pyawskit* project by Mark Veltzer
 
-description: pyawskit is a collection of utilities to help interact with aws
+description: ('Pyawskit is your AWS Swiss Army Knife',)
 
 project website: https://veltzer.github.io/pyawskit
 
 author: Mark Veltzer
 
-version: 0.1.71
+version: 0.1.72
 
 ![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)
 

@@ -1,4 +1,4 @@
-description_short = "pyawskit is a collection of utilities to help interact with aws"
+description_short = "Pyawskit is your AWS Swiss Army Knife",
 keywords = [
     "aws",
     "utils",
