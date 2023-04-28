@@ -1,5 +1,5 @@
 name = "pyawskit"
-description_short = "Pyawskit is your AWS Swiss Army Knife",
+description_short = "Pyawskit is your AWS Swiss Army Knife"
 keywords = [
     "aws",
     "utils",
