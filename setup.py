@@ -14,7 +14,7 @@ setuptools.setup(
         "pyawskit",
     ],
     # from here all is optional
-    description="('Pyawskit is your AWS Swiss Army Knife',)",
+    description="Pyawskit is your AWS Swiss Army Knife",
     long_description=get_readme(),
     long_description_content_type="text/x-rst",
     author="Mark Veltzer",

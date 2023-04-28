@@ -1,6 +1,6 @@
 # *pyawskit* project by Mark Veltzer
 
-description: ('Pyawskit is your AWS Swiss Army Knife',)
+description: Pyawskit is your AWS Swiss Army Knife
 
 project website: https://veltzer.github.io/pyawskit
 
