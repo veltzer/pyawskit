@@ -37,7 +37,7 @@ def run() -> None:
             sys.exit()
 
     with open("/dev/tty", "wt", encoding="utf-8") as f:
-        print("Creating new tepm key for ecr", file=f)
+        print("Creating new temp key for ecr", file=f)
 
     client = boto3.client("ecr")
     res = client.get_authorization_token()
