@@ -1,7 +1,8 @@
 import sys
 import datetime
-
 import base64
+
+import requests.exceptions
 import docker
 import boto3
 import pyapikey
@@ -12,11 +13,15 @@ KEY = "ecr_password"
 def handle_data(user: str, password: str, proxyEndpoint: str) -> None:
     """ really do something with the data """
     client = docker.Client()
-    client.login(
-        username=user,
-        password=password,
-        registry=proxyEndpoint,
-    )
+    try:
+        client.login(
+            username=user,
+            password=password,
+            registry=proxyEndpoint,
+        )
+    except requests.exceptions.ConnectionError:
+        print(f"ConnectionError for {user} {password} {proxyEndpoint}", file=sys.stderr)
+        sys.exit(1)
 
 
 def run() -> None:
