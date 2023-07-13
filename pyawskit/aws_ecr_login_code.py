@@ -3,7 +3,7 @@ import os.path
 import datetime
 import base64
 import subprocess
-from urllib.parse import urlparse, ParseResult
+from urllib.parse import urlparse
 import json
 
 # import requests.exceptions
@@ -38,13 +38,13 @@ def handle_data(user: str, password: str, proxyEndpoint: str) -> None:
         ])
 
 
-def strip_scheme(url):
+def strip_scheme(url: str) -> str:
     """ strip scheme from url
     References:
     - https://stackoverflow.com/questions/21687408/how-to-remove-scheme-from-url-in-python
     """
-    parsed_result = urlparse(url)
-    return ParseResult('', *parsed_result[1:]).geturl()
+    schemaless = urlparse(url)._replace(scheme='').geturl()
+    return schemaless[2:]
 
 
 def is_logged_in(proxyEndpoint: str) -> bool:
@@ -52,14 +52,12 @@ def is_logged_in(proxyEndpoint: str) -> bool:
     References:
     - https://stackoverflow.com/questions/36022892/how-to-know-if-docker-is-already-logged-in-to-a-docker-registry-server
     """
-    config_file = os.path.expandvars("~/.docker/config.json")
+    config_file = os.path.expanduser("~/.docker/config.json")
     if os.path.isfile(config_file):
         with open(config_file, "r") as stream:
             data = json.load(stream)
-            print("in 1")
             if "auths" not in data:
                 return False
-            print(proxyEndpoint)
             return strip_scheme(proxyEndpoint) in data["auths"]
     else:
         return False
