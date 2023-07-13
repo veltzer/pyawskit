@@ -1,9 +1,10 @@
 import sys
 import datetime
 import base64
+import subprocess
 
-import requests.exceptions
-import docker
+# import requests.exceptions
+# import docker
 import boto3
 import pyapikey
 
@@ -11,7 +12,8 @@ KEY = "ecr_password"
 
 
 def handle_data(user: str, password: str, proxyEndpoint: str) -> None:
-    """ really do something with the data """
+    """ really do something with the data
+    It seems that the docker-py is broken as far as auth goes so we use the command line instead.
     client = docker.Client()
     try:
         client.login(
@@ -22,6 +24,14 @@ def handle_data(user: str, password: str, proxyEndpoint: str) -> None:
     except requests.exceptions.ConnectionError:
         print(f"ConnectionError for {user} {password} {proxyEndpoint}", file=sys.stderr)
         sys.exit(1)
+    """
+    subprocess.check_call([
+        "docker",
+        "login",
+        "--username", user,
+        "--password", password,
+        proxyEndpoint,
+    ])
 
 
 def run() -> None:
