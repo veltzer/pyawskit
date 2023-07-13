@@ -1,7 +1,10 @@
 import sys
+import os.path
 import datetime
 import base64
 import subprocess
+from urllib.parse import urlparse, ParseResult
+import json
 
 # import requests.exceptions
 # import docker
@@ -25,11 +28,46 @@ def handle_data(user: str, password: str, proxyEndpoint: str) -> None:
         print(f"ConnectionError for {user} {password} {proxyEndpoint}", file=sys.stderr)
         sys.exit(1)
     """
+    if not is_logged_in(proxyEndpoint):
+        subprocess.check_call([
+            "docker",
+            "login",
+            "--username", user,
+            "--password", password,
+            proxyEndpoint,
+        ])
+
+
+def strip_scheme(url):
+    """ strip scheme from url
+    References:
+    - https://stackoverflow.com/questions/21687408/how-to-remove-scheme-from-url-in-python
+    """
+    parsed_result = urlparse(url)
+    return ParseResult('', *parsed_result[1:]).geturl()
+
+
+def is_logged_in(proxyEndpoint: str) -> bool:
+    """ return if you are currently logged in to a specific server
+    References:
+    - https://stackoverflow.com/questions/36022892/how-to-know-if-docker-is-already-logged-in-to-a-docker-registry-server
+    """
+    config_file = os.path.expandvars("~/.docker/config.json")
+    if os.path.isfile(config_file):
+        with open(config_file, "r") as stream:
+            data = json.load(stream)
+            if "auths" not in data:
+                return False
+            return strip_scheme(proxyEndpoint) in data["auths"]
+    else:
+        return False
+
+
+def logout(proxyEndpoint: str) -> None:
+    """ logout of docker """
     subprocess.check_call([
         "docker",
         "login",
-        "--username", user,
-        "--password", password,
         proxyEndpoint,
     ])
 
