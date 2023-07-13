@@ -56,8 +56,10 @@ def is_logged_in(proxyEndpoint: str) -> bool:
     if os.path.isfile(config_file):
         with open(config_file, "r") as stream:
             data = json.load(stream)
+            print("in 1")
             if "auths" not in data:
                 return False
+            print(proxyEndpoint)
             return strip_scheme(proxyEndpoint) in data["auths"]
     else:
         return False
