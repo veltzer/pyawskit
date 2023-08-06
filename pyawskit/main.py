@@ -50,7 +50,7 @@ def aws_codeartifact_pip_env_config() -> None:
 
 
 @register_endpoint(
-    description="docker login to aws acr",
+    description="docker login to aws ecr",
 )
 def aws_ecr_login() -> None:
     pyawskit.aws_ecr_login_code.run()
