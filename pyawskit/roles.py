@@ -9,4 +9,5 @@ def duplicate_role():
     response = client.get_role(
         RoleName=ConfigDuplicateRole.from_role,
     )
+    assert response["ResponseMetadata"]["HTTPStatusCode"] == 200
     print(response)
