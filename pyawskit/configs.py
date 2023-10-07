@@ -47,3 +47,8 @@ class ConfigAwsCodeartifactPip(Config):
     env_pip_domain = ParamCreator.create_str(help_string="env pip domain")
     env_pip_domain_owner = ParamCreator.create_str(help_string="env pip domain owner")
     env_pip_repository = ParamCreator.create_str(help_string="env pip repository")
+
+
+class ConfigDuplicateRole(Config):
+    from_role = ParamCreator.create_str(help_string="from role")
+    to_role = ParamCreator.create_str(help_string="to role")

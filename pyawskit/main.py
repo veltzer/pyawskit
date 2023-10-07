@@ -262,6 +262,13 @@ def show_disks() -> None:
     print(pyawskit.common.get_disks())
 
 
+@register_endpoint(
+    description="Duplicate a role",
+)
+def role_duplicate() -> None:
+    pyawskit.roles.duplicate_role()
+
+
 @register_main(
     main_description=DESCRIPTION,
     app_name=APP_NAME,
