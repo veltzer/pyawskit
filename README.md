@@ -6,7 +6,7 @@ project website: https://veltzer.github.io/pyawskit
 
 author: Mark Veltzer
 
-version: 0.1.82
+version: 0.1.83
 
 ![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)
 
