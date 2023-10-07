@@ -78,13 +78,13 @@ def get_disks() -> List[str]:
     r = requests.get(url, timeout=5)
     disks = []
     for line in r.content.decode().split("\n"):
-        if not line.startswith('ephemeral'):
+        if not line.startswith("ephemeral"):
             continue
         ephemeral_url = f"http://169.254.169.254/latest/meta-data/block-device-mapping/{line}"
         r = requests.get(ephemeral_url, timeout=5)
         assert r.status_code == 200
         content = r.content.decode()
-        assert content.startswith('sd')
+        assert content.startswith("sd")
         assert len(content) == 3
         letter = content[2]
         device = f"/dev/xvd{letter}"
@@ -116,8 +116,8 @@ def reread_partition_table() -> None:
 
 
 def all_regions() -> List[str]:
-    client = boto3.client('ec2')
-    regions = [region['RegionName'] for region in client.describe_regions()['Regions']]
+    client = boto3.client("ec2")
+    regions = [region["RegionName"] for region in client.describe_regions()["Regions"]]
     return regions
 
 
@@ -168,7 +168,7 @@ def update_file(
     # look for servers matching the query, in all regions
     instances = []
     for region in all_regions():
-        ec2 = boto3.resource('ec2', region_name=region)
+        ec2 = boto3.resource("ec2", region_name=region)
         if do_all:
             instances.extend(list(ec2.instances.all()))
         else:
@@ -263,7 +263,7 @@ def check_root() -> None:
     check that we are running as root
     """
     if not os.geteuid() == 0:
-        sys.exit('script must be run as root')
+        sys.exit("script must be run as root")
 
 
 def touch(filename: str) -> None:

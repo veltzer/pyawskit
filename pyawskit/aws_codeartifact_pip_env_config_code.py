@@ -36,7 +36,7 @@ def run() -> None:
     with open("/dev/tty", "wt", encoding="utf-8") as f:
         print("Creating new temp key for codeartifact pip", file=f)
 
-    client = boto3.client('codeartifact')
+    client = boto3.client("codeartifact")
     res = client.get_authorization_token(
         domain=env_pip_domain,
         domainOwner=env_pip_domain_owner,

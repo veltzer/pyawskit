@@ -30,7 +30,7 @@ def create_new_device(logger, disks):
 
 
 def check_unmounted(logger, disks):
-    logger.info(f"checking if any of the disks are mounted [{'.'.join(disks)}]")
+    logger.info(f"checking if any of the disks are mounted [{disks}]")
     manager = pymount.mgr.Manager()
     for disk in disks:
         if manager.is_mounted(disk):
@@ -82,7 +82,7 @@ def unify_disks() -> None:
     https://gist.github.com/joemiller/6049831
 
     NOTES:
-    - python has no support for 'mount' and 'umount' system
+    - python has no support for "mount" and "umount" system
     calls. the result is that we use the command line tools
     to do mounting and un mounting.
     References:

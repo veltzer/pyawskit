@@ -27,8 +27,8 @@ def copyfileobj(source, destination, buffer_size=1024 * 1024):
 
 
 def gzip_file(file_in: str, file_out: str) -> None:
-    with open(file_in, 'rb') as f_in:
-        f_out = pypipegzip.pypipegzip.zipopen(file_out, 'wb')
+    with open(file_in, "rb") as f_in:
+        f_out = pypipegzip.pypipegzip.zipopen(file_out, "wb")
         shutil.copyfileobj(f_in, f_out)
         f_out.close()
 
@@ -56,7 +56,7 @@ def object_exists(s3_connection, check_bucket_name: str, object_name: str) -> bo
         # s3_connection.Object(check_bucket_name, object_name).load()
         s3_connection.head_object(Bucket=check_bucket_name, Key=object_name)
     except botocore.exceptions.ClientError as e:
-        if e.response['Error']['Code'] == "404":
+        if e.response["Error"]["Code"] == "404":
             return False
         raise
     return True
@@ -73,7 +73,7 @@ def object_exists_bucket(bucket_obj, object_name: str) -> bool:
     try:
         bucket_obj.Object(object_name).load()
     except botocore.exceptions.ClientError as e:
-        if e.response['Error']['Code'] == "404":
+        if e.response["Error"]["Code"] == "404":
             return False
         raise
     return True
@@ -85,7 +85,7 @@ def catch_all(the_function):
         try:
             return the_function(*args, **kwargs)
         except Exception as e:
-            print('got exception', e)
+            print("got exception", e)
             sys.exit(1)
     return new_function
 
@@ -95,26 +95,26 @@ def compress_one_file(_list: List[Any]) -> Any:
 
 
 def process_one_file(basename, full_name, compressed_basename, full_compressed_name, bucket_name):
-    s3 = boto3.resource('s3')
+    s3 = boto3.resource("s3")
     bucket = s3.Bucket(bucket_name)
 
-    print('downloading', full_name, basename)
+    print("downloading", full_name, basename)
     bucket.download_file(full_name, basename)
 
-    print('zipping', basename, compressed_basename)
+    print("zipping", basename, compressed_basename)
     gzip_file_process(basename, compressed_basename)
 
-    print('upload', compressed_basename, full_compressed_name)
-    with open(compressed_basename, 'rb') as file_handle:
+    print("upload", compressed_basename, full_compressed_name)
+    with open(compressed_basename, "rb") as file_handle:
         new_object_summary = s3.ObjectSummary(bucket_name, full_compressed_name)
         new_object_summary.put(Body=file_handle)
         del new_object_summary
 
-    print('removing', basename, compressed_basename)
+    print("removing", basename, compressed_basename)
     os.unlink(basename)
     os.unlink(compressed_basename)
 
 
 def print_exception(e):
-    print('exception happened', e)
+    print("exception happened", e)
     sys.exit(1)

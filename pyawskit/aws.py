@@ -58,7 +58,7 @@ def request_spot_instances(client, pd: ProcessData):
 
 @log_func_name
 def wait_using_waiter(client, pd: ProcessData, request_ids: List[str]):
-    waiter = client.get_waiter('spot_instance_request_fulfilled')
+    waiter = client.get_waiter("spot_instance_request_fulfilled")
     ret = waiter.wait(
         DryRun=pd.p_dry_run,
         SpotInstanceRequestIds=request_ids,
@@ -77,10 +77,10 @@ def poll_requests_till_done(client, pd: ProcessData, request_ids: List[str]):
 
 @log_func_name
 def poll_instances_till_done(ec2, pd: ProcessData, request_ids: List[str]):
-    instances = ec2.instances.filter(Filters=[{'Name': 'spot-instance-request-id', 'Values': request_ids}])
+    instances = ec2.instances.filter(Filters=[{"Name": "spot-instance-request-id", "Values": request_ids}])
     while len(list(instances)) < pd.p_count:
         sleep(1)
-        instances = ec2.instances.filter(Filters=[{'Name': 'spot-instance-request-id', 'Values': request_ids}])
+        instances = ec2.instances.filter(Filters=[{"Name": "spot-instance-request-id", "Values": request_ids}])
     return instances
 
 
@@ -108,8 +108,8 @@ def attach_disks(ec2, instance_ids: List[str], disks: List[Dict[str, str]]):
             response = attach_disk(
                 ec2=ec2,
                 instance_id=p_instance_id,
-                volume_id=disk['volume_id'],
-                device=disk['device'],
+                volume_id=disk["volume_id"],
+                device=disk["device"],
             )
             responses.append(response)
     return responses

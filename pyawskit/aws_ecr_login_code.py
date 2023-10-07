@@ -43,7 +43,7 @@ def strip_scheme(url: str) -> str:
     References:
     - https://stackoverflow.com/questions/21687408/how-to-remove-scheme-from-url-in-python
     """
-    schemaless = urlparse(url)._replace(scheme='').geturl()
+    schemaless = urlparse(url)._replace(scheme="").geturl()
     return schemaless[2:]
 
 

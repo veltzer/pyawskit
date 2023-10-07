@@ -59,17 +59,17 @@ def aws_ecr_login() -> None:
 def compress_s3_folder() -> None:
     """
     This script accepts three parameters: bucket, in-folder, out-folder
-    It reads every file in in-folder, gzip it, and then writes it with the suffix '.gz'
+    It reads every file in in-folder, gzip it, and then writes it with the suffix ".gz"
     to the out folder.
 
     The credentials for this are NOT stored in this script
     but rather are in ~/.aws/credentials.
     """
-    bucket_name = 'bucket_name'
-    folder_in = 'flipkart/'
-    folder_out = 'flipkart_gz'
+    bucket_name = "bucket_name"
+    folder_in = "flipkart/"
+    folder_out = "flipkart_gz"
     do_progress = False
-    s3 = boto3.resource('s3')
+    s3 = boto3.resource("s3")
     bucket = s3.Bucket(bucket_name)
     gen = bucket.objects.filter(Prefix=folder_in)
     if do_progress:
@@ -79,10 +79,10 @@ def compress_s3_folder() -> None:
         print(f"doing [{object_summary.key}]")
         full_name = object_summary.key
         basename = os.path.basename(full_name)
-        compressed_basename = basename + '.gz'
+        compressed_basename = basename + ".gz"
         full_compressed_name = os.path.join(folder_out, compressed_basename)
         if object_exists(s3, bucket_name, full_compressed_name):
-            print('object exists, skipping')
+            print("object exists, skipping")
             continue
         jobs.append([basename, full_name, compressed_basename, full_compressed_name, bucket_name])
     with multiprocessing.Pool(processes=multiprocessing.cpu_count()) as pool:
@@ -189,11 +189,11 @@ def launch_machine() -> None:
     """
     pd = ProcessData(name=ConfigName.name)
 
-    client = boto3.client('ec2', region_name=pd.p_region)
-    ec2 = boto3.resource('ec2', region_name=pd.p_region)
+    client = boto3.client("ec2", region_name=pd.p_region)
+    ec2 = boto3.resource("ec2", region_name=pd.p_region)
 
     r_request_spot_instances = request_spot_instances(client, pd)
-    request_ids = [r['SpotInstanceRequestId'] for r in r_request_spot_instances['SpotInstanceRequests']]
+    request_ids = [r["SpotInstanceRequestId"] for r in r_request_spot_instances["SpotInstanceRequests"]]
     tag_resources(client, request_ids, pd.p_launch_config[pd.p_name]["spot_request_tags"])
     # other way of waiting...
     # wait_using_waiter(client, pd, request_ids)
@@ -279,5 +279,5 @@ def main():
     config_arg_parse_and_launch()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

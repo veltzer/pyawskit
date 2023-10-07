@@ -12,7 +12,7 @@
 	I think it already does support this. try this out.
 - make pyawskit_generate_ssh_config have a parameters that controls
 	whether it adds the hosts in all regions (currently this
-	is it's behaviour) or just in the default region or maybe
+	is its behaviour) or just in the default region or maybe
 	some list of regions (in ~/.pyawskit/region_groups.json).
 - add the ability to specify the size of the root hard drive of the machines
 	you are launching.
