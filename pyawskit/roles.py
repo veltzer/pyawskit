@@ -22,7 +22,18 @@ def role_duplicate():
 
 def role_delete():
     client = boto3.client("iam")
-    response = client.get_role(
-        RoleName=ConfigRoleDelete.role,
+    role_name = ConfigRoleDelete.role
+    attached_policies = client.list_attached_role_policies(RoleName=role_name)['AttachedPolicies']
+    instance_profiles = client.list_instance_profiles_for_role(RoleName=role_name)['InstanceProfiles']
+    # Detach policies and instance profiles
+    for policy in attached_policies:
+        client.detach_role_policy(RoleName=role_name, PolicyArn=policy['PolicyArn'])
+
+    for profile in instance_profiles:
+        client.remove_role_from_instance_profile(InstanceProfileName=profile['InstanceProfileName'], RoleName=role_name)
+
+    # Delete the IAM role
+    response = client.delete_role(
+        RoleName=role_name,
     )
     assert response["ResponseMetadata"]["HTTPStatusCode"] == 200
