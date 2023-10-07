@@ -13,10 +13,11 @@ from pylogconf.core import setup
 from pytconf import register_main, config_arg_parse_and_launch, register_endpoint
 
 import pyawskit.common
+import pyawskit.roles
 from pyawskit.aws import ProcessData, request_spot_instances, tag_resources, poll_instances_till_done, wait_for_ssh, \
     attach_disks
 from pyawskit.common import update_etc_hosts, update_ssh_config, update_file, do_hush_login, wait_net_service
-from pyawskit.configs import ConfigFilter, ConfigName, ConfigAwsCodeartifactNpm, ConfigAwsCodeartifactPip
+from pyawskit.configs import ConfigFilter, ConfigName, ConfigAwsCodeartifactNpm, ConfigAwsCodeartifactPip, ConfigDuplicateRole
 
 from pyawskit.static import APP_NAME, VERSION_STR, DESCRIPTION
 from pyawskit.utils import object_exists, compress_one_file, print_exception
@@ -264,6 +265,9 @@ def show_disks() -> None:
 
 @register_endpoint(
     description="Duplicate a role",
+    configs=[
+        ConfigDuplicateRole,
+    ],
 )
 def role_duplicate() -> None:
     pyawskit.roles.duplicate_role()
