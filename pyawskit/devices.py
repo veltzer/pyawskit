@@ -3,6 +3,7 @@ import pymount.mgr
 
 
 from pyawskit.configs import ConfigWork
+import pyawskit.common
 
 
 def create_new_device(logger, disks):
@@ -50,3 +51,22 @@ def check_unmounted(logger, disks):
         logger.info(f"unmount of [{ConfigWork.device_file}] was ok")
     else:
         logger.info(f"device [{ConfigWork.device_file}] is not mounted, good...")
+
+
+def mount_disks() -> None:
+    """
+    This script mounts all the local disks as individuals
+
+    TODO:
+    - make this run in parallel on multiple cores and enable the user to choose (via
+    command line option) whether to run this multi-core or not.
+    """
+    pyawskit.common.check_root()
+    # TODO: ask the user for yes/no confirmation since we are brutally
+    # erasing all of the local disks...
+    disks = pyawskit.common.get_disks()
+    for disk in disks:
+        folder = f"/mnt/{disk}"
+        pyawskit.common.erase_partition_table(disk=disk)
+        pyawskit.common.format_device(disk=disk)
+        pyawskit.common.mount_disk(disk=disk, folder=folder)

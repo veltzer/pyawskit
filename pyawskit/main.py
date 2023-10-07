@@ -212,25 +212,6 @@ def launch_machine() -> None:
     attach_disks(ec2, instance_ids, pd.p_launch_config[pd.p_name]["disks_to_attach"])
 
 
-def mount_dists() -> None:
-    """
-    This script mounts all the local disks as individuals
-
-    TODO:
-    - make this run in parallel on multiple cores and enable the user to choose (via
-    command line option) whether to run this multi-core or not.
-    """
-    pyawskit.common.check_root()
-    # TODO: ask the user for yes/no confirmation since we are brutally
-    # erasing all of the local disks...
-    disks = pyawskit.common.get_disks()
-    for disk in disks:
-        folder = f"/mnt/{disk}"
-        pyawskit.common.erase_partition_table(disk=disk)
-        pyawskit.common.format_device(disk=disk)
-        pyawskit.common.mount_disk(disk=disk, folder=folder)
-
-
 @register_endpoint(
     description="Prepares your account on a new AWS machine",
 )
