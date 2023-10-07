@@ -49,6 +49,10 @@ class ConfigAwsCodeartifactPip(Config):
     env_pip_repository = ParamCreator.create_str(help_string="env pip repository")
 
 
-class ConfigDuplicateRole(Config):
-    from_role = ParamCreator.create_str(help_string="from role")
-    to_role = ParamCreator.create_str(help_string="to role")
+class ConfigRoleDuplicate(Config):
+    from_role = ParamCreator.create_str(help_string="from role name")
+    to_role = ParamCreator.create_str(help_string="to role name")
+
+
+class ConfigRoleDelete(Config):
+    role = ParamCreator.create_str(help_string="role name")
