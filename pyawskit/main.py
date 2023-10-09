@@ -17,7 +17,8 @@ import pyawskit.roles
 from pyawskit.aws import ProcessData, request_spot_instances, tag_resources, poll_instances_till_done, wait_for_ssh, \
     attach_disks
 from pyawskit.common import update_etc_hosts, update_ssh_config, update_file, do_hush_login, wait_net_service
-from pyawskit.configs import ConfigFilter, ConfigName, ConfigAwsCodeartifactNpm, ConfigAwsCodeartifactPip, ConfigRoleDuplicate, ConfigRoleDelete
+from pyawskit.configs import ConfigFilter, ConfigName, ConfigAwsCodeartifactNpm, ConfigAwsCodeartifactPip
+from pyawskit.configs import ConfigRoleDuplicate, ConfigRole
 
 from pyawskit.static import APP_NAME, VERSION_STR, DESCRIPTION
 from pyawskit.utils import object_exists, compress_one_file, print_exception
@@ -276,11 +277,21 @@ def role_duplicate() -> None:
 @register_endpoint(
     description="Delete a role",
     configs=[
-        ConfigRoleDelete,
+        ConfigRole,
     ],
 )
 def role_delete() -> None:
     pyawskit.roles.role_delete()
+
+
+@register_endpoint(
+    description="Get a role",
+    configs=[
+        ConfigRole,
+    ],
+)
+def role_get() -> None:
+    pyawskit.roles.role_get()
 
 
 @register_main(

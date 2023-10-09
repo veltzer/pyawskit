@@ -54,5 +54,5 @@ class ConfigRoleDuplicate(Config):
     to_role = ParamCreator.create_str(help_string="to role name")
 
 
-class ConfigRoleDelete(Config):
+class ConfigRole(Config):
     role = ParamCreator.create_str(help_string="role name")
