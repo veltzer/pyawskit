@@ -22,6 +22,7 @@ from pyawskit.configs import ConfigRoleDuplicate, ConfigRole
 
 from pyawskit.static import APP_NAME, VERSION_STR, DESCRIPTION
 from pyawskit.utils import object_exists, compress_one_file, print_exception
+import pyawskit.inet
 
 import pyawskit.aws_codeartifact_npm_env_config_code
 import pyawskit.aws_codeartifact_pip_env_config_code
@@ -292,6 +293,18 @@ def role_delete() -> None:
 )
 def role_get() -> None:
     pyawskit.roles.role_get()
+
+
+@register_endpoint(
+    description="Check if you have an internet connection",
+    configs=[
+    ],
+)
+def check_inet() -> None:
+    if pyawskit.inet.check_inet():
+        print("The Internet is connected.")
+    else:
+        print("The Internet is not connected.")
 
 
 @register_main(
