@@ -9,7 +9,7 @@ def get_readme():
 setuptools.setup(
     # the first three fields are a must according to the documentation
     name="pyawskit",
-    version="0.1.85",
+    version="0.1.86",
     packages=[
         "pyawskit",
     ],
