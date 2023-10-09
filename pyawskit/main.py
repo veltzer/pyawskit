@@ -300,11 +300,20 @@ def role_get() -> None:
     configs=[
     ],
 )
-def check_inet() -> None:
-    if pyawskit.inet.check_inet():
+def inet_check() -> None:
+    if pyawskit.inet.check():
         print("The Internet is connected.")
     else:
         print("The Internet is not connected.")
+
+
+@register_endpoint(
+    description="Get your public IP address",
+    configs=[
+    ],
+)
+def inet_my_ip() -> None:
+    print(pyawskit.inet.my_ip())
 
 
 @register_main(
