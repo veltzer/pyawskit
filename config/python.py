@@ -3,6 +3,7 @@ console_scripts = [
 ]
 dev_requires = [
     "pypitools",
+    "types-tqdm",
 ]
 make_requires = [
     "pymakehelper",
