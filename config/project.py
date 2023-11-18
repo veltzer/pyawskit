@@ -4,7 +4,7 @@ keywords = [
     "aws",
     "utils",
     "python",
-    "API",
+    "api",
     "command",
     "line",
 ]
