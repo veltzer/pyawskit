@@ -25,7 +25,7 @@ setuptools.setup(
         "aws",
         "utils",
         "python",
-        "API",
+        "api",
         "command",
         "line",
     ],
