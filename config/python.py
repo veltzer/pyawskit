@@ -4,12 +4,6 @@ console_scripts = [
 dev_requires = [
     "pypitools",
 ]
-make_requires = [
-    "pymakehelper",
-    "pydmt",
-    "pyclassifiers",
-    "types-tqdm",
-]
 config_requires = [
     "pyclassifiers",
 ]
@@ -28,6 +22,12 @@ install_requires = [
     "furl",
     "docker-py",
 ]
+make_requires = [
+    "pymakehelper",
+    "pydmt",
+    "pyclassifiers",
+    "types-tqdm",
+]
 test_requires = [
     "pylint",
     "pytest",
@@ -37,3 +37,4 @@ test_requires = [
     "mypy",
     "types-requests",
 ]
+requires = config_requires + install_requires + make_requires + test_requires
