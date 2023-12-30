@@ -1,13 +1,16 @@
-console_scripts = [
+from typing import List
+
+
+console_scripts: List[str] = [
     "pyawskit=pyawskit.main:main",
 ]
-dev_requires = [
+dev_requires: List[str] = [
     "pypitools",
 ]
-config_requires = [
+config_requires: List[str] = [
     "pyclassifiers",
 ]
-install_requires = [
+install_requires: List[str] = [
     "pylogconf",
     "pyfakeuse",
     "pypipegzip",
@@ -22,13 +25,13 @@ install_requires = [
     "furl",
     "docker-py",
 ]
-make_requires = [
+make_requires: List[str] = [
     "pymakehelper",
     "pydmt",
     "pyclassifiers",
     "types-tqdm",
 ]
-test_requires = [
+test_requires: List[str] = [
     "pylint",
     "pytest",
     "pytest-cov",
