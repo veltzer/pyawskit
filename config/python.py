@@ -27,7 +27,7 @@ install_requires: List[str] = [
     "furl",
     "docker-py",
 ]
-make_requires: List[str] = [
+build_requires: List[str] = [
     "pymakehelper",
     "pydmt",
     "types-tqdm",
@@ -41,4 +41,4 @@ test_requires: List[str] = [
     "mypy",
     "types-requests",
 ]
-requires = config_requires + install_requires + make_requires + test_requires
+requires = config_requires + install_requires + build_requires + test_requires
