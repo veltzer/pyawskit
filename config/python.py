@@ -30,7 +30,6 @@ install_requires: List[str] = [
 make_requires: List[str] = [
     "pymakehelper",
     "pydmt",
-    "pyclassifiers",
     "types-tqdm",
 ]
 test_requires: List[str] = [
