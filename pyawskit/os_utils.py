@@ -31,6 +31,7 @@ def detect_os() -> None:
     first find out if we are on ubuntu or amazon linux
     :return:
     """
+    os_type = None
     lsb_release = shutil.which("lsb_release")
     if lsb_release is not None:
         if subprocess.check_output([lsb_release, "--id", "-s"]).decode().rstrip() == "Ubuntu":
