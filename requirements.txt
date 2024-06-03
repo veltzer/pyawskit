@@ -2,8 +2,8 @@ alabaster==0.7.16
 astroid==3.2.2
 attrs==23.2.0
 Babel==2.15.0
-boto3==1.34.117
-botocore==1.34.117
+boto3==1.34.118
+botocore==1.34.118
 certifi==2024.6.2
 charset-normalizer==3.3.2
 coverage==7.5.3
