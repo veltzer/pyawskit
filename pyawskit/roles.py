@@ -1,3 +1,5 @@
+""" roles.py """
+
 import json
 import boto3
 from pyawskit.configs import ConfigRoleDuplicate, ConfigRole

@@ -1,3 +1,5 @@
+""" main.py """
+
 import multiprocessing
 import subprocess
 import sys

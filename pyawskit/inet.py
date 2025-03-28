@@ -1,3 +1,5 @@
+""" inet.py """
+
 import urllib.request
 import requests
 

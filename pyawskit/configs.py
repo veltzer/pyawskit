@@ -1,3 +1,5 @@
+""" configs.py """
+
 from pytconf import Config, ParamCreator
 
 
