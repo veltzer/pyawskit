@@ -92,7 +92,7 @@ def catch_all(the_function):
     return new_function
 
 
-def compress_one_file(_list: List[Any]) -> Any:
+def compress_one_file(_list: list[Any]) -> Any:
     pass
 
 

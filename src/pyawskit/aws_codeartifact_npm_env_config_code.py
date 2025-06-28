@@ -41,12 +41,12 @@ def handle_data(url: str, short_url: str, password: str, replace: bool) -> None:
         # filename = os.path.join(os.path.dirname(os.path.dirname(__file__)), ".npmrc")
         filename = os.path.join(os.getcwd(), ".npmrc")
         if not os.path.isfile(filename) or replace:
-            with open("/dev/tty", "wt", encoding="utf-8") as stream:
+            with open("/dev/tty", "w", encoding="utf-8") as stream:
                 print(f"Writing new file [{filename}]...", file=stream)
             dirname = os.path.dirname(filename)
             if not os.path.isdir(dirname):
                 os.makedirs(dirname)
-            with open(filename, "wt", encoding="utf-8") as stream:
+            with open(filename, "w", encoding="utf-8") as stream:
                 stream.write(f"{short_url}:_authToken={password}\n")
                 stream.write(f"registry={url}\n")
 
@@ -67,7 +67,7 @@ def run() -> None:
             handle_data(url=d_url, short_url=d_short_url, password=d_password, replace=False)
             sys.exit()
 
-    with open("/dev/tty", "wt", encoding="utf-8") as f:
+    with open("/dev/tty", "w", encoding="utf-8") as f:
         print("Creating new temp key for codeartifact npm", file=f)
 
     client = boto3.client("codeartifact")

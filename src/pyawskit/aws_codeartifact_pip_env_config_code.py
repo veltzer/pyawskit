@@ -33,7 +33,7 @@ def run() -> None:
             handle_data(url=d_url)
             sys.exit()
 
-    with open("/dev/tty", "wt", encoding="utf-8") as f:
+    with open("/dev/tty", "w", encoding="utf-8") as f:
         print("Creating new temp key for codeartifact pip", file=f)
 
     client = boto3.client("codeartifact")

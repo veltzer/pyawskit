@@ -1,18 +1,12 @@
-""" python depedencies for this project """
-from typing import List
+""" python deps for this project """
 
-
-console_scripts: List[str] = [
+console_scripts: list[str] = [
     "pyawskit=pyawskit.main:main",
 ]
-dev_requires: List[str] = [
-    "pypitools",
-    "black",
-]
-config_requires: List[str] = [
+config_requires: list[str] = [
     "pyclassifiers",
 ]
-install_requires: List[str] = [
+install_requires: list[str] = [
     "pylogconf",
     "pyfakeuse",
     "pypipegzip",
@@ -27,17 +21,15 @@ install_requires: List[str] = [
     "furl",
     "docker-py",
 ]
-build_requires: List[str] = [
+build_requires: list[str] = [
     "pymakehelper",
     "pydmt",
     "types-tqdm",
 ]
-test_requires: List[str] = [
+test_requires: list[str] = [
     "pylint",
     "pytest",
     "pytest-cov",
-    "pyflakes",
-    "flake8",
     "mypy",
     "types-requests",
 ]

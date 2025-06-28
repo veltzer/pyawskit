@@ -2,7 +2,8 @@
 
 import logging
 from time import sleep
-from typing import List, Callable, Dict
+from typing import List, Dict
+from collections.abc import Callable
 
 from pyawskit.common import load_json_config, wait_net_service
 
@@ -59,7 +60,7 @@ def request_spot_instances(client, pd: ProcessData):
 
 
 @log_func_name
-def wait_using_waiter(client, pd: ProcessData, request_ids: List[str]):
+def wait_using_waiter(client, pd: ProcessData, request_ids: list[str]):
     waiter = client.get_waiter("spot_instance_request_fulfilled")
     ret = waiter.wait(
         DryRun=pd.p_dry_run,
@@ -69,7 +70,7 @@ def wait_using_waiter(client, pd: ProcessData, request_ids: List[str]):
 
 
 @log_func_name
-def poll_requests_till_done(client, pd: ProcessData, request_ids: List[str]):
+def poll_requests_till_done(client, pd: ProcessData, request_ids: list[str]):
     response = client.describe_spot_instance_requests(
         DryRun=pd.p_dry_run,
         SpotInstanceRequestIds=request_ids,
@@ -78,7 +79,7 @@ def poll_requests_till_done(client, pd: ProcessData, request_ids: List[str]):
 
 
 @log_func_name
-def poll_instances_till_done(ec2, pd: ProcessData, request_ids: List[str]):
+def poll_instances_till_done(ec2, pd: ProcessData, request_ids: list[str]):
     instances = ec2.instances.filter(Filters=[{"Name": "spot-instance-request-id", "Values": request_ids}])
     while len(list(instances)) < pd.p_count:
         sleep(1)
@@ -87,7 +88,7 @@ def poll_instances_till_done(ec2, pd: ProcessData, request_ids: List[str]):
 
 
 @log_func_name
-def tag_resources(client, resource_ids: List[str], tags: object):
+def tag_resources(client, resource_ids: list[str], tags: object):
     response = client.create_tags(
         Resources=resource_ids,
         Tags=tags,
@@ -96,7 +97,7 @@ def tag_resources(client, resource_ids: List[str], tags: object):
 
 
 @log_func_name
-def attach_disks(ec2, instance_ids: List[str], disks: List[Dict[str, str]]):
+def attach_disks(ec2, instance_ids: list[str], disks: list[dict[str, str]]):
     """
     This function attaches a list of disks to the instances in the list
     :param ec2:

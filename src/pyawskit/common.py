@@ -25,7 +25,7 @@ def load_json_config(
         ".pyawskit",
         name + ".json",
     )
-    with open(path, "rt") as input_handle:
+    with open(path) as input_handle:
         obj = json.load(input_handle)
     return obj
 
@@ -58,12 +58,12 @@ def wait_net_service(
 
             s.connect((server, port))
 
-        except socket.timeout:
+        except TimeoutError:
             # this exception occurs only if timeout is set
             if timeout:
                 return False
 
-        except socket.error as err:
+        except OSError as err:
             # catch timeout exception from underlying network library
             # this one is different from socket.timeout
             if err.errno != errno.ETIMEDOUT:
@@ -73,7 +73,7 @@ def wait_net_service(
             return True
 
 
-def get_disks() -> List[str]:
+def get_disks() -> list[str]:
     # another option is to take the output of lsblk(1)
     # which is not amazon specific and has nice format of data.
     url = "http://169.254.169.254/latest/meta-data/block-device-mapping"
@@ -117,13 +117,13 @@ def reread_partition_table() -> None:
     ])
 
 
-def all_regions() -> List[str]:
+def all_regions() -> list[str]:
     client = boto3.client("ec2")
     regions = [region["RegionName"] for region in client.describe_regions()["Regions"]]
     return regions
 
 
-def format_device(disk: str, label: Optional[str] = None) -> None:
+def format_device(disk: str, label: str | None = None) -> None:
     logger = logging.getLogger(__name__)
     logger.info(f"formatting the new device [{disk}]")
     args = [
@@ -212,7 +212,7 @@ def update_file(
         added += 1
 
     # print the final lines to the config file
-    with open(config_file, "wt") as file_handle:
+    with open(config_file, "w") as file_handle:
         file_handle.writelines(lines)
     logger.info(f"Added {added} instance(s)")
     logger.info(f"Written {config_file}")
@@ -252,7 +252,7 @@ def update_etc_hosts(all_hosts: bool):
     update_file(filename="/etc/hosts", pattern=etc_hosts_pattern, do_all=all_hosts)
 
 
-def run_devnull(args: List[str]) -> None:
+def run_devnull(args: list[str]) -> None:
     subprocess.check_call(
         args,
         stdout=subprocess.DEVNULL,

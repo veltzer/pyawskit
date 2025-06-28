@@ -56,7 +56,7 @@ def is_logged_in(proxyEndpoint: str) -> bool:
     """
     config_file = os.path.expanduser("~/.docker/config.json")
     if os.path.isfile(config_file):
-        with open(config_file, "r") as stream:
+        with open(config_file) as stream:
             data = json.load(stream)
             if "auths" not in data:
                 return False
@@ -91,7 +91,7 @@ def run() -> None:
             )
             sys.exit()
 
-    with open("/dev/tty", "wt", encoding="utf-8") as f:
+    with open("/dev/tty", "w", encoding="utf-8") as f:
         print("Creating new temp key for ecr", file=f)
 
     client = boto3.client("ecr")

@@ -136,7 +136,7 @@ def unify_disks() -> None:
     # removed writing /etc/mdadm because it was causing problems
     if ConfigWork.write_etc_mdadm:
         logger.info(f"writing the details of the new device in [{ConfigWork.mdadm_config_file}]")
-        with open(ConfigWork.mdadm_config_file, "at") as mdadm_handle:
+        with open(ConfigWork.mdadm_config_file, "a") as mdadm_handle:
             subprocess.check_call([
                 ConfigWork.mdadm_binary,
                 "--detail",
@@ -170,6 +170,6 @@ def unify_disks() -> None:
             logger.info("found the line to add. not doing anything...")
         else:
             logger.info("adding line to [%s]", ConfigWork.fstab_filename)
-            with open(ConfigWork.fstab_filename, "at") as file_handle:
+            with open(ConfigWork.fstab_filename, "a") as file_handle:
                 file_handle.write(line_to_add + "\n")
     # create ubuntu folder and chown it to ubuntu

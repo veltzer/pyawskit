@@ -65,7 +65,7 @@ def install_packages() -> None:
     install necessary package per platform
     :return:
     """
-    list_of_packages: Dict[OSType, List[str]] = {
+    list_of_packages: dict[OSType, list[str]] = {
         OSType.ubuntu: [
             # python
             "python-pip",
