@@ -16,6 +16,7 @@ pytconf
 pytest
 pytest-cov
 requests
+ruff
 sultan
 tqdm
 types-requests

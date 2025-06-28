@@ -9,7 +9,6 @@ import stat
 import subprocess
 import sys
 import time
-from typing import List, Optional
 
 import boto3
 import requests

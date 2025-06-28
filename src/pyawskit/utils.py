@@ -5,7 +5,7 @@ import shutil
 import subprocess
 import sys
 
-from typing import Any, List
+from typing import Any
 
 import boto3
 # noinspection PyPackageRequirements

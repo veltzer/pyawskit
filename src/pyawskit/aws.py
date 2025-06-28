@@ -2,7 +2,6 @@
 
 import logging
 from time import sleep
-from typing import List, Dict
 from collections.abc import Callable
 
 from pyawskit.common import load_json_config, wait_net_service

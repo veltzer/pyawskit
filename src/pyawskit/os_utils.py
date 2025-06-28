@@ -6,8 +6,6 @@ import sys
 import shutil
 import os.path
 
-from typing import List, Dict
-
 from pyawskit.common import run_devnull
 
 
