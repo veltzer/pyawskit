@@ -22,15 +22,17 @@ install_requires: list[str] = [
     "docker-py",
 ]
 build_requires: list[str] = [
-    "pymakehelper",
     "pydmt",
-    "types-tqdm",
+    "pymakehelper",
 ]
 test_requires: list[str] = [
     "pylint",
     "pytest",
     "pytest-cov",
     "mypy",
+    "ruff",
+    # types
+    "types-tqdm",
     "types-requests",
 ]
 requires = config_requires + install_requires + build_requires + test_requires
