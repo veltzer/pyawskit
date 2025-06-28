@@ -1,8 +1,8 @@
 """ python deps for this project """
 
-console_scripts: list[str] = [
-    "pyawskit=pyawskit.main:main",
-]
+scripts: dict[str,str] = {
+    "pyawskit": "pyawskit.main:main",
+}
 config_requires: list[str] = [
     "pyclassifiers",
 ]
