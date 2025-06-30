@@ -60,10 +60,9 @@ platformdirs==4.3.8
 pluggy==1.6.0
 ptyprocess==0.7.0
 pyapikey==0.0.12
-pyclassifiers==0.0.19
 pycmdtools==0.0.85
 pycparser==2.22
-pydmt==0.3.23
+pydmt==0.3.24
 pyfakeuse==0.0.9
 Pygments==2.19.2
 pylint==3.3.7
@@ -112,7 +111,7 @@ ujson==5.10.0
 Unidecode==1.4.0
 urllib3==2.5.0
 userpath==1.9.2
-uv==0.7.16
+uv==0.7.17
 venv-run==0.2.0
 virtualenv==20.31.2
 webencodings==0.5.1
