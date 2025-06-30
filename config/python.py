@@ -1,11 +1,10 @@
 """ python deps for this project """
 
+import config.shared
+
 scripts: dict[str,str] = {
     "pyawskit": "pyawskit.main:main",
 }
-config_requires: list[str] = [
-    "pyclassifiers",
-]
 install_requires: list[str] = [
     "pylogconf",
     "pyfakeuse",
@@ -21,19 +20,10 @@ install_requires: list[str] = [
     "furl",
     "docker-py",
 ]
-build_requires: list[str] = [
-    "hatch",
-    "pydmt",
-    "pymakehelper",
-    "pycmdtools",
-]
-test_requires: list[str] = [
-    "pylint",
-    "pytest",
-    "mypy",
-    "ruff",
-    # types
+build_requires: list[str] = config.shared.PBUILD
+test_requires: list[str] = config.shared.PTEST
+types_requires: list[str] = [
     "types-tqdm",
     "types-requests",
 ]
-requires = config_requires + install_requires + build_requires + test_requires
+requires = install_requires + build_requires + test_requires + types_requires
