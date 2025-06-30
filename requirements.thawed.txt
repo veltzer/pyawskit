@@ -5,6 +5,7 @@ furl
 hatch
 mypy
 pyapikey
+pyclassifiers
 pycmdtools
 pydmt
 pyfakeuse
