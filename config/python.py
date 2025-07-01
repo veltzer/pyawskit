@@ -2,9 +2,6 @@
 
 import config.shared
 
-scripts: dict[str,str] = {
-    "pyawskit": "pyawskit.main:main",
-}
 install_requires: list[str] = [
     "pylogconf",
     "pyfakeuse",
@@ -27,3 +24,7 @@ types_requires: list[str] = [
     "types-requests",
 ]
 requires = install_requires + build_requires + test_requires + types_requires
+
+scripts: dict[str,str] = {
+    "pyawskit": "pyawskit.main:main",
+}
