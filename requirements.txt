@@ -4,8 +4,8 @@ astroid==3.3.10
 attrs==25.3.0
 babel==2.17.0
 beautifulsoup4==4.13.4
-boto3==1.39.1
-botocore==1.39.1
+boto3==1.39.3
+botocore==1.39.3
 certifi==2025.6.15
 cffi==1.17.1
 charset-normalizer==3.4.2
@@ -82,7 +82,7 @@ requests==2.32.4
 rich==14.0.0
 roman-numerals-py==3.1.0
 rpds-py==0.26.0
-ruff==0.12.1
+ruff==0.12.2
 s3transfer==0.13.0
 secretstorage==3.3.3
 shellingham==1.5.4
@@ -106,13 +106,13 @@ tqdm==4.67.1
 trove-classifiers==2025.5.9.12
 types-requests==2.32.4.20250611
 types-tqdm==4.67.0.20250516
-typing-extensions==4.14.0
+typing-extensions==4.14.1
 tzdata==2025.2
 ujson==5.10.0
 unidecode==1.4.0
 urllib3==2.5.0
 userpath==1.9.2
-uv==0.7.18
+uv==0.7.19
 venv-run==0.2.0
 virtualenv==20.31.2
 webencodings==0.5.1
