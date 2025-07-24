@@ -6,7 +6,7 @@ babel==2.17.0
 beautifulsoup4==4.13.4
 boto3==1.39.0
 botocore==1.39.0
-certifi==2025.6.15
+certifi==2025.7.14
 cffi==1.17.1
 charset-normalizer==3.4.2
 click==8.2.1
@@ -19,7 +19,7 @@ docutils==0.21.2
 filelock==3.18.0
 furl==2.1.4
 gitdb==4.0.12
-gitpython==3.1.44
+gitpython==3.1.45
 h11==0.16.0
 hatch==1.14.1
 hatchling==1.27.0
@@ -37,7 +37,7 @@ jaraco-functools==4.2.1
 jeepney==0.9.0
 jinja2==3.1.6
 jmespath==1.0.1
-jsonschema==4.24.0
+jsonschema==4.25.0
 jsonschema-specifications==2025.4.1
 keyring==25.6.0
 logging-tree==1.10
@@ -63,7 +63,7 @@ pyapikey==0.0.12
 pyclassifiers==0.0.20
 pycmdtools==0.0.85
 pycparser==2.22
-pydmt==0.3.26
+pydmt==0.3.27
 pyfakeuse==0.0.9
 pygments==2.19.2
 pylint==3.3.7
@@ -106,7 +106,7 @@ tqdm==4.67.1
 trove-classifiers==2025.5.9.12
 types-requests==2.32.4.20250611
 types-tqdm==4.67.0.20250516
-typing-extensions==4.14.0
+typing-extensions==4.14.1
 tzdata==2025.2
 ujson==5.10.0
 unidecode==1.4.0
