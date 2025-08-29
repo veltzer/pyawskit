@@ -2,7 +2,6 @@
 boto3
 docker-py
 furl
-hatch
 mypy
 pyapikey
 pyclassifiers
