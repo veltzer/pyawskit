@@ -1,34 +1,34 @@
 """ main.py """
 
 import multiprocessing
+import os
 import subprocess
 import sys
-import os
-
-from sultan import Sultan
-
 
 import boto3
 import tqdm
-
 from pylogconf.core import setup
-from pytconf import register_main, config_arg_parse_and_launch, register_endpoint
-
-import pyawskit.common
-import pyawskit.roles
-from pyawskit.aws import ProcessData, request_spot_instances, tag_resources, poll_instances_till_done, wait_for_ssh, \
-    attach_disks
-from pyawskit.common import update_etc_hosts, update_ssh_config, update_file, do_hush_login, wait_net_service
-from pyawskit.configs import ConfigFilter, ConfigName, ConfigAwsCodeartifactNpm, ConfigAwsCodeartifactPip
-from pyawskit.configs import ConfigRoleDuplicate, ConfigRole
-
-from pyawskit.static import APP_NAME, VERSION_STR, DESCRIPTION
-from pyawskit.utils import object_exists, compress_one_file, print_exception
-import pyawskit.inet
+from pytconf import config_arg_parse_and_launch, register_endpoint, register_main
+from sultan import Sultan
 
 import pyawskit.aws_codeartifact_npm_env_config_code
 import pyawskit.aws_codeartifact_pip_env_config_code
 import pyawskit.aws_ecr_login_code
+import pyawskit.common
+import pyawskit.inet
+import pyawskit.roles
+from pyawskit.aws import ProcessData, attach_disks, poll_instances_till_done, request_spot_instances, tag_resources, wait_for_ssh
+from pyawskit.common import do_hush_login, update_etc_hosts, update_file, update_ssh_config, wait_net_service
+from pyawskit.configs import (
+    ConfigAwsCodeartifactNpm,
+    ConfigAwsCodeartifactPip,
+    ConfigFilter,
+    ConfigName,
+    ConfigRole,
+    ConfigRoleDuplicate,
+)
+from pyawskit.static import APP_NAME, DESCRIPTION, VERSION_STR
+from pyawskit.utils import compress_one_file, object_exists, print_exception
 
 
 @register_endpoint(
@@ -135,7 +135,7 @@ def generate_etc_hosts() -> None:
     Notice that you must hold all of your .pem files in ~/.aws/keys
     """
     file_etc_hosts = "/etc/hosts"
-    if not os.geteuid() == 0 and not os.access(file_etc_hosts, os.W_OK):
+    if os.geteuid() != 0 and not os.access(file_etc_hosts, os.W_OK):
         sys.exit(f"script must be run as root or {file_etc_hosts} must be writable")
     update_etc_hosts(all_hosts=not ConfigFilter.filter)
 

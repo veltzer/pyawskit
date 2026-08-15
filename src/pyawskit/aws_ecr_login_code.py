@@ -1,12 +1,12 @@
 """ aws_ecr_login_code.py """
 
-import sys
-import os.path
-import datetime
 import base64
-import subprocess
-from urllib.parse import urlparse
+import datetime
 import json
+import os.path
+import subprocess
+import sys
+from urllib.parse import urlparse
 
 # import requests.exceptions
 # import docker
@@ -79,7 +79,8 @@ def run() -> None:
     if temp_store.has(KEY):
         data = temp_store.get(KEY)
         expiration = data["expiration"]
-        now = datetime.datetime.now()
+        # naive UTC: stored expirations are AWS UTC times with tzinfo stripped
+        now = datetime.datetime.now(datetime.UTC).replace(tzinfo=None)
         if expiration > now:
             d_user = data["user"]
             d_password = data["password"]

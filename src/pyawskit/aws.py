@@ -1,8 +1,8 @@
 """ aws.py """
 
 import logging
-from time import sleep
 from collections.abc import Callable
+from time import sleep
 
 from pyawskit.common import load_json_config, wait_net_service
 

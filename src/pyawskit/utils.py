@@ -4,12 +4,13 @@ import os.path
 import shutil
 import subprocess
 import sys
-
 from typing import Any
 
 import boto3
+
 # noinspection PyPackageRequirements
 import botocore
+
 # noinspection PyPackageRequirements
 import botocore.exceptions
 import pypipegzip
@@ -86,7 +87,7 @@ def catch_all(the_function):
         # pylint: disable=broad-except
         try:
             return the_function(*args, **kwargs)
-        except Exception as e:
+        except Exception as e:  # noqa: BLE001 - catching everything is this decorator's purpose
             print("got exception", e)
             sys.exit(1)
     return new_function

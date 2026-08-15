@@ -3,11 +3,11 @@
 import logging
 import os
 import subprocess
+
 import pymount.mgr
 
-
-from pyawskit.configs import ConfigWork
 import pyawskit.common
+from pyawskit.configs import ConfigWork
 
 
 def create_new_device(logger, disks):
@@ -104,7 +104,7 @@ def unify_disks() -> None:
     disks = pyawskit.common.get_disks()
     assert len(disks) > 0, "found no disks"
 
-    logger.info(f"got {len(disks)} disks {str(disks)}")
+    logger.info(f"got {len(disks)} disks {disks!s}")
 
     check_unmounted(logger, disks)
 

@@ -1,10 +1,10 @@
 """ os_utils.py """
 
 import enum
+import os.path
+import shutil
 import subprocess
 import sys
-import shutil
-import os.path
 
 from pyawskit.common import run_devnull
 
@@ -33,9 +33,9 @@ def detect_os() -> None:
     """
     os_type = None
     lsb_release = shutil.which("lsb_release")
-    if lsb_release is not None:
-        if subprocess.check_output([lsb_release, "--id", "-s"]).decode().rstrip() == "Ubuntu":
-            os_data[OS_TYPE] = OSType.ubuntu
+    if lsb_release is not None and \
+            subprocess.check_output([lsb_release, "--id", "-s"]).decode().rstrip() == "Ubuntu":
+        os_data[OS_TYPE] = OSType.ubuntu
     if os.path.isfile("/etc/issue"):
         with open("/etc/issue") as f:
             d = f.read()

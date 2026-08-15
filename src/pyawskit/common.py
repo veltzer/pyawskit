@@ -102,7 +102,7 @@ def erase_partition_table(disk: str) -> None:
     subprocess.check_call([
         "/bin/dd",
         "if=/dev/zero",
-        f"of={disk}"
+        f"of={disk}",
         "bs=4096",
         "count=1024",
     ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
@@ -263,7 +263,7 @@ def check_root() -> None:
     """
     check that we are running as root
     """
-    if not os.geteuid() == 0:
+    if os.geteuid() != 0:
         sys.exit("script must be run as root")
 
 

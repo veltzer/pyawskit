@@ -2,14 +2,14 @@
 This script outputs the url for pip to be used when logging in to aws codeartifact.
 """
 
-import sys
 import datetime
+import sys
+
 import boto3
-from furl import furl
 import pyapikey
+from furl import furl
 
 from pyawskit.configs import ConfigAwsCodeartifactPip
-
 
 KEY = "codeartifact_pip_config"
 
@@ -27,7 +27,8 @@ def run() -> None:
     if temp_store.has(KEY):
         data = temp_store.get(KEY)
         expiration = data["expiration"]
-        now = datetime.datetime.now()
+        # naive UTC: stored expirations are AWS UTC times with tzinfo stripped
+        now = datetime.datetime.now(datetime.UTC).replace(tzinfo=None)
         if expiration > now:
             d_url = data["url"]
             handle_data(url=d_url)

@@ -8,13 +8,14 @@ Here is an example response:
         --domain-owner "$ENV_DOMAIN_OWNER"
 """
 
+import datetime
 import os
 import os.path
 import sys
-import datetime
+
 import boto3
-from furl import furl
 import pyapikey
+from furl import furl
 
 from pyawskit.configs import ConfigAwsCodeartifactNpm
 
@@ -59,7 +60,8 @@ def run() -> None:
     if temp_store.has(KEY):
         data = temp_store.get(KEY)
         expiration = data["expiration"]
-        now = datetime.datetime.now()
+        # naive UTC: stored expirations are AWS UTC times with tzinfo stripped
+        now = datetime.datetime.now(datetime.UTC).replace(tzinfo=None)
         if expiration > now:
             d_url = data["url"]
             d_short_url = data["short_url"]
