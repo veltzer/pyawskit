@@ -14,7 +14,7 @@ class OSType(enum.Enum):
     aml = 2
 
 
-os_data = {}
+os_data: dict[str, OSType] = {}
 OS_TYPE = "OS_TYPE"
 
 
