@@ -26,4 +26,6 @@ pip = [
     "pyapikey",
     "furl",
     "docker-py",
+    "types-requests",
+    "types-tqdm",
 ]
