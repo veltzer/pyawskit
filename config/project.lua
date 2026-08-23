@@ -8,3 +8,4 @@ KEYWORDS = {
     "command",
     "line",
 }
+PYPI = true
