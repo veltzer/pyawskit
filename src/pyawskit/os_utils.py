@@ -45,7 +45,7 @@ def detect_os() -> None:
         sys.exit("could not detect the os running")
 
 
-def is_os_type(t) -> bool:
+def is_os_type(t: OSType) -> bool:
     return os_data["OS_TYPE"] == t
 
 
