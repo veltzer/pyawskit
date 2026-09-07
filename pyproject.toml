@@ -120,6 +120,7 @@ dev = [
     "pylint",
     "pytest",
     "ruff",
+    "sphinx",
     "types-requests",
     "types-tqdm",
 ]
