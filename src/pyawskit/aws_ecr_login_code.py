@@ -6,6 +6,7 @@ import json
 import os.path
 import subprocess
 import sys
+from typing import Any
 from urllib.parse import urlparse
 
 # import requests.exceptions
@@ -60,7 +61,8 @@ def is_logged_in(proxyEndpoint: str) -> bool:
             data = json.load(stream)
             if "auths" not in data:
                 return False
-            return strip_scheme(proxyEndpoint) in data["auths"]
+            auths: dict[str, Any] = data["auths"]
+            return strip_scheme(proxyEndpoint) in auths
     else:
         return False
 

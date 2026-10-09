@@ -86,17 +86,18 @@ exclude = [
     "*.md",
 ]
 
-[tool.mypy]
-python_version = "3.14"
-warn_return_any = true
-warn_unused_configs = true
-mypy_path = "src:python:scripts"
-explicit_package_bases = true
-namespace_packages = true
-
-# Third-party libraries without type stubs; `foo.*` also matches `foo` itself.
-[[tool.mypy.overrides]]
-module = [
+[tool.pyrefly]
+# Type checking (rsconstruct's pyrefly processor). preset = "legacy" is
+# pyrefly's mypy-compatible behavior; "." on the search path is mypy's
+# implicit current directory.
+preset = "legacy"
+python-version = "3.14"
+search-path = [
+    "src",
+    ".",
+]
+# Third-party libraries without type information.
+ignore-missing-imports = [
     "boto3.*",
     "botocore.*",
     "furl.*",
@@ -108,7 +109,10 @@ module = [
     "sultan.*",
     "tqdm.*",
 ]
-ignore_missing_imports = true
+
+[tool.pyrefly.errors]
+no-any-return = "error"
+
 [tool.hatch.envs.default]
 installer = "uv"
 
@@ -117,7 +121,7 @@ prerelease = "disallow"
 
 [dependency-groups]
 dev = [
-    "mypy",
+    "pyrefly",
     "pytest",
     "ruff",
     "sphinx",
