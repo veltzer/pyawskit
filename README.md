@@ -5,7 +5,7 @@
 
 description: Pyawskit is your AWS Swiss Army Knife
 
-project website: https://veltzer.github.io/pyawskit
+project website: <https://veltzer.github.io/pyawskit>
 
 author: Mark Veltzer
 
