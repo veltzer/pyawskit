@@ -2,7 +2,7 @@
 This script outputs the url for pip to be used when logging in to aws codeartifact.
 """
 
-import datetime
+import datetime as dt
 import sys
 
 import boto3
@@ -28,7 +28,7 @@ def run() -> None:
         data = temp_store.get(KEY)
         expiration = data["expiration"]
         # naive UTC: stored expirations are AWS UTC times with tzinfo stripped
-        now = datetime.datetime.now(datetime.UTC).replace(tzinfo=None)
+        now = dt.datetime.now(dt.UTC).replace(tzinfo=None)
         if expiration > now:
             d_url = data["url"]
             handle_data(url=d_url)

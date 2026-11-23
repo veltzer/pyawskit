@@ -120,7 +120,7 @@ def all_regions() -> list[str]:
 
 def format_device(disk: str, label: str | None = None) -> None:
     logger = logging.getLogger(__name__)
-    logger.info(f"formatting the new device [{disk}]")
+    logger.info("formatting the new device [%s]", disk)
     args = [
         "/sbin/mkfs.ext4",
         disk,
@@ -155,11 +155,11 @@ def update_file(
 
     filter_file = os.path.expanduser("~/.pyawskit/aws_filter.json")
     if os.path.isfile(filter_file):
-        logger.info(f"reading [{filter_file}]...")
+        logger.info("reading [%s]...", filter_file)
         with open(filter_file) as file_handle:
             filters = json.loads(file_handle.read())
     else:
-        logger.info(f"no filter file [{filter_file}] exists...")
+        logger.info("no filter file [%s] exists...", filter_file)
         filters = []
 
     # look for servers matching the query, in all regions
@@ -171,7 +171,7 @@ def update_file(
         else:
             instances.extend(list(ec2.instances.filter(Filters=filters)))
     num_of_instances = len(instances)
-    logger.info(f"Found {num_of_instances} instance(s)")
+    logger.info("Found %s instance(s)", num_of_instances)
     # assert num_of_instances > 0
 
     # add the comment line
@@ -189,7 +189,7 @@ def update_file(
             continue
         host = tags_dict["Name"]
         if host == "" or " " in host:
-            logger.info(f"Name [{host}] for host is bad. Try non empty names without spaces...")
+            logger.info("Name [%s] for host is bad. Try non empty names without spaces...", host)
             continue
         # public_ip = instance.public_dns_name
         # if public_ip == "":
@@ -209,8 +209,8 @@ def update_file(
     # print the final lines to the config file
     with open(config_file, "w") as file_handle:
         file_handle.writelines(lines)
-    logger.info(f"Added {added} instance(s)")
-    logger.info(f"Written {config_file}")
+    logger.info("Added %s instance(s)", added)
+    logger.info("Written %s", config_file)
 
 
 def mount_disk(disk: str, folder: str) -> None:

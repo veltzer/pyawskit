@@ -1,7 +1,7 @@
 """ aws_ecr_login_code.py """
 
 import base64
-import datetime
+import datetime as dt
 import json
 import os.path
 import subprocess
@@ -82,7 +82,7 @@ def run() -> None:
         data = temp_store.get(KEY)
         expiration = data["expiration"]
         # naive UTC: stored expirations are AWS UTC times with tzinfo stripped
-        now = datetime.datetime.now(datetime.UTC).replace(tzinfo=None)
+        now = dt.datetime.now(dt.UTC).replace(tzinfo=None)
         if expiration > now:
             d_user = data["user"]
             d_password = data["password"]

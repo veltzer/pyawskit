@@ -32,29 +32,29 @@ def create_new_device(logger, disks):
 
 
 def check_unmounted(logger, disks):
-    logger.info(f"checking if any of the disks are mounted [{disks}]")
+    logger.info("checking if any of the disks are mounted [%s]", disks)
     manager = pymount.mgr.Manager()
     for disk in disks:
         if manager.is_mounted(disk):
             mount_point = manager.get_mount_point(disk)
-            logger.info(f"unmounting device [{ConfigWork.device_file}] from [{mount_point}]")
+            logger.info("unmounting device [%s] from [%s]", ConfigWork.device_file, mount_point)
             subprocess.check_call([
                 "/bin/umount",
                 mount_point,
             ])
         else:
-            logger.info(f"device [{ConfigWork.device_file}] is not mounted, good")
-    logger.info(f"checking if the md device is mounted...[{ConfigWork.device_file}]")
+            logger.info("device [%s] is not mounted, good", ConfigWork.device_file)
+    logger.info("checking if the md device is mounted...[%s]", ConfigWork.device_file)
     if manager.is_mounted(ConfigWork.device_file):
         mount_point = manager.get_mount_point(ConfigWork.device_file)
-        logger.info(f"unmounting device [{ConfigWork.device_file}] from [{mount_point}]")
+        logger.info("unmounting device [%s] from [%s]", ConfigWork.device_file, mount_point)
         subprocess.check_call([
             "/bin/umount",
             mount_point,
         ])
-        logger.info(f"unmount of [{ConfigWork.device_file}] was ok")
+        logger.info("unmount of [%s] was ok", ConfigWork.device_file)
     else:
-        logger.info(f"device [{ConfigWork.device_file}] is not mounted, good...")
+        logger.info("device [%s] is not mounted, good...", ConfigWork.device_file)
 
 
 def mount_disks() -> None:
@@ -104,21 +104,21 @@ def unify_disks() -> None:
     disks = pyawskit.common.get_disks()
     assert len(disks) > 0, "found no disks"
 
-    logger.info(f"got {len(disks)} disks {disks!s}")
+    logger.info("got %s disks %s", len(disks), disks)
 
     check_unmounted(logger, disks)
 
-    logger.info(f"checking if device exists [{ConfigWork.device_file}]")
+    logger.info("checking if device exists [%s]", ConfigWork.device_file)
     if os.path.exists(ConfigWork.device_file):
-        logger.info(f"stopping md on the current device [{ConfigWork.device_file}]")
+        logger.info("stopping md on the current device [%s]", ConfigWork.device_file)
         subprocess.check_call([
             ConfigWork.mdadm_binary,
             "--stop",
             ConfigWork.device_file,
         ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-        logger.info(f"stopped md on [{ConfigWork.device_file}] successfully...")
+        logger.info("stopped md on [%s] successfully...", ConfigWork.device_file)
     else:
-        logger.info(f"no md [{ConfigWork.device_file}], good")
+        logger.info("no md [%s], good", ConfigWork.device_file)
 
     for disk in disks:
         pyawskit.common.erase_partition_table(disk)
@@ -135,7 +135,7 @@ def unify_disks() -> None:
 
     # removed writing /etc/mdadm because it was causing problems
     if ConfigWork.write_etc_mdadm:
-        logger.info(f"writing the details of the new device in [{ConfigWork.mdadm_config_file}]")
+        logger.info("writing the details of the new device in [%s]", ConfigWork.mdadm_config_file)
         with open(ConfigWork.mdadm_config_file, "a") as mdadm_handle:
             subprocess.check_call([
                 ConfigWork.mdadm_binary,
@@ -149,7 +149,7 @@ def unify_disks() -> None:
     pyawskit.common.mount_disk(disk=ConfigWork.device_file, folder=ConfigWork.mount_point)
 
     if ConfigWork.add_line_to_fstab:
-        logger.info(f"checking if need to add line to [{ConfigWork.fstab_filename}] for mount on reboot...")
+        logger.info("checking if need to add line to [%s] for mount on reboot...", ConfigWork.fstab_filename)
         line_to_add = " ".join([
             # ConfigWork.device_file,
             f"LABEL={ConfigWork.name_of_raid_device}",

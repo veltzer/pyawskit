@@ -8,7 +8,7 @@ Here is an example response:
         --domain-owner "$ENV_DOMAIN_OWNER"
 """
 
-import datetime
+import datetime as dt
 import os
 import os.path
 import sys
@@ -58,7 +58,7 @@ def run() -> None:
         data = temp_store.get(KEY)
         expiration = data["expiration"]
         # naive UTC: stored expirations are AWS UTC times with tzinfo stripped
-        now = datetime.datetime.now(datetime.UTC).replace(tzinfo=None)
+        now = dt.datetime.now(dt.UTC).replace(tzinfo=None)
         if expiration > now:
             d_url = data["url"]
             d_short_url = data["short_url"]

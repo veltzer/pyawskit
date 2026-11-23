@@ -84,12 +84,11 @@ def object_exists_bucket(bucket_obj, object_name: str) -> bool:
 
 def catch_all(the_function):
     def new_function(*args, **kwargs):
-        # pylint: disable=broad-except
         try:
             return the_function(*args, **kwargs)
-        except Exception as e:  # noqa: BLE001 - catching everything is this decorator's purpose
+        except Exception as e:
             print("got exception", e)
-            sys.exit(1)
+            raise SystemExit(1) from e
     return new_function
 
 
