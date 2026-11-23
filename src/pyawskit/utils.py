@@ -13,7 +13,7 @@ import botocore
 
 # noinspection PyPackageRequirements
 import botocore.exceptions
-import pypipegzip
+import pypipegzip.pypipegzip
 
 
 def copyfileobj(source, destination, buffer_size=1024 * 1024):

@@ -161,9 +161,8 @@ def unify_disks() -> None:
         ])
         found_line_to_add = False
         with open(ConfigWork.fstab_filename) as file_handle:
-            for line in file_handle:
-                line = line.rstrip()
-                if line == line_to_add:
+            for raw_line in file_handle:
+                if raw_line.rstrip() == line_to_add:
                     found_line_to_add = True
                     break
         if found_line_to_add:

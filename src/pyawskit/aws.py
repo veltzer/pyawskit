@@ -48,33 +48,30 @@ class ProcessData:
 
 @log_func_name
 def request_spot_instances(client, pd: ProcessData):
-    r_request_spot_instances = client.request_spot_instances(
+    return client.request_spot_instances(
         DryRun=pd.p_dry_run,
         SpotPrice=str(pd.p_price),
         InstanceCount=pd.p_count,
         LaunchSpecification=pd.p_config["launch_config"],
         Type=pd.p_type,
     )
-    return r_request_spot_instances
 
 
 @log_func_name
 def wait_using_waiter(client, pd: ProcessData, request_ids: list[str]):
     waiter = client.get_waiter("spot_instance_request_fulfilled")
-    ret = waiter.wait(
+    return waiter.wait(
         DryRun=pd.p_dry_run,
         SpotInstanceRequestIds=request_ids,
     )
-    return ret
 
 
 @log_func_name
 def poll_requests_till_done(client, pd: ProcessData, request_ids: list[str]):
-    response = client.describe_spot_instance_requests(
+    return client.describe_spot_instance_requests(
         DryRun=pd.p_dry_run,
         SpotInstanceRequestIds=request_ids,
     )
-    return response
 
 
 @log_func_name
@@ -88,11 +85,10 @@ def poll_instances_till_done(ec2, pd: ProcessData, request_ids: list[str]):
 
 @log_func_name
 def tag_resources(client, resource_ids: list[str], tags: object):
-    response = client.create_tags(
+    return client.create_tags(
         Resources=resource_ids,
         Tags=tags,
     )
-    return response
 
 
 @log_func_name
@@ -129,8 +125,7 @@ def wait_for_ssh(instances):
 @log_func_name
 def attach_disk(ec2, instance_id: str, volume_id: str, device: str):
     volume = ec2.Volume(volume_id)
-    response = volume.attach_to_instance(
+    return volume.attach_to_instance(
         InstanceId=instance_id,
         Device=device,
     )
-    return response

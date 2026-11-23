@@ -14,7 +14,7 @@ from pyawskit.configs import ConfigAwsCodeartifactPip
 KEY = "codeartifact_pip_config"
 
 
-def handle_data(url: str) -> None:
+def handle_data(url: str | furl) -> None:
     """ really do something with the data """
     print(f"export PIP_INDEX_URL=\"{url}\"")
 
@@ -51,8 +51,8 @@ def run() -> None:
         repository=env_pip_repository,
         format="pypi",
     )
-    data_repositoryEndpoint = res["repositoryEndpoint"]
-    d_url = furl(data_repositoryEndpoint)
+    data_repository_endpoint = res["repositoryEndpoint"]
+    d_url = furl(data_repository_endpoint)
     d_url.username = "aws"
     d_url.password = password
     d_url.path.add("simple/")

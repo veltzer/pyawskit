@@ -17,7 +17,7 @@ import pyapikey
 KEY = "ecr_password"
 
 
-def handle_data(user: str, password: str, proxyEndpoint: str) -> None:
+def handle_data(user: str, password: str, proxy_endpoint: str) -> None:
     """ really do something with the data
     It seems that the docker-py is broken as far as auth goes so we use the command line instead.
     client = docker.Client()
@@ -25,19 +25,19 @@ def handle_data(user: str, password: str, proxyEndpoint: str) -> None:
         client.login(
             username=user,
             password=password,
-            registry=proxyEndpoint,
+            registry=proxy_endpoint,
         )
     except requests.exceptions.ConnectionError:
-        print(f"ConnectionError for {user} {password} {proxyEndpoint}", file=sys.stderr)
+        print(f"ConnectionError for {user} {password} {proxy_endpoint}", file=sys.stderr)
         sys.exit(1)
     """
-    if not is_logged_in(proxyEndpoint):
+    if not is_logged_in(proxy_endpoint):
         subprocess.check_call([
             "docker",
             "login",
             "--username", user,
             "--password", password,
-            proxyEndpoint,
+            proxy_endpoint,
         ])
 
 
@@ -50,7 +50,7 @@ def strip_scheme(url: str) -> str:
     return schemaless[2:]
 
 
-def is_logged_in(proxyEndpoint: str) -> bool:
+def is_logged_in(proxy_endpoint: str) -> bool:
     """ return if you are currently logged in to a specific server
     References:
     - https://stackoverflow.com/questions/36022892/how-to-know-if-docker-is-already-logged-in-to-a-docker-registry-server
@@ -62,17 +62,17 @@ def is_logged_in(proxyEndpoint: str) -> bool:
             if "auths" not in data:
                 return False
             auths: dict[str, Any] = data["auths"]
-            return strip_scheme(proxyEndpoint) in auths
+            return strip_scheme(proxy_endpoint) in auths
     else:
         return False
 
 
-def logout(proxyEndpoint: str) -> None:
+def logout(proxy_endpoint: str) -> None:
     """ logout of docker """
     subprocess.check_call([
         "docker",
         "login",
-        proxyEndpoint,
+        proxy_endpoint,
     ])
 
 
@@ -86,11 +86,11 @@ def run() -> None:
         if expiration > now:
             d_user = data["user"]
             d_password = data["password"]
-            d_proxyEndpoint = data["proxyEndpoint"]
+            d_proxy_endpoint = data["proxyEndpoint"]
             handle_data(
                 user=d_user,
                 password=d_password,
-                proxyEndpoint=d_proxyEndpoint,
+                proxy_endpoint=d_proxy_endpoint,
             )
             sys.exit()
 
@@ -99,25 +99,25 @@ def run() -> None:
 
     client = boto3.client("ecr")
     res = client.get_authorization_token()
-    authorizationData = res["authorizationData"][0]
-    d_authorizationToken = authorizationData["authorizationToken"]
-    d_expiresAt = authorizationData["expiresAt"]
-    d_proxyEndpoint = authorizationData["proxyEndpoint"]
+    authorization_data = res["authorizationData"][0]
+    d_authorization_token = authorization_data["authorizationToken"]
+    d_expires_at = authorization_data["expiresAt"]
+    d_proxy_endpoint = authorization_data["proxyEndpoint"]
 
     # decode the password
-    base64decode = base64.b64decode(d_authorizationToken).decode("ASCII")
+    base64decode = base64.b64decode(d_authorization_token).decode("ASCII")
     (d_user, d_password) = base64decode.split(":")
     handle_data(
         user=d_user,
         password=d_password,
-        proxyEndpoint=d_proxyEndpoint,
+        proxy_endpoint=d_proxy_endpoint,
     )
 
     # save the token
     data = {}
     data["user"] = d_user
     data["password"] = d_password
-    data["proxyEndpoint"] = d_proxyEndpoint
-    data["expiration"] = d_expiresAt.replace(tzinfo=None)
+    data["proxyEndpoint"] = d_proxy_endpoint
+    data["expiration"] = d_expires_at.replace(tzinfo=None)
     temp_store.set(KEY, data)
     temp_store.save()

@@ -28,10 +28,7 @@ WRITE_FILE = True
 def handle_data(url: str, short_url: str, password: str, replace: bool) -> None:
     """ really handle the data """
     if USE_ENV:
-        url = furl(url)
-        url.username = USERNAME  # type: ignore
-        url.password = password  # type: ignore
-        url.path.add("simple/")  # type: ignore
+        url = str(furl(url).set(username=USERNAME, password=password).add(path="simple/"))
         print(f"export CODEARTIFACT_AUTH_TOKEN={password}")
         print(f"export npm_config_registry=\"{url}\"")
         print(f"export npm_config_{url}:always_auth=true")
@@ -87,8 +84,7 @@ def run() -> None:
         format="npm",
     )
     d_url = res["repositoryEndpoint"]
-    if d_url.startswith("https:"):
-        d_short_url = d_url[6:]
+    d_short_url = d_url.removeprefix("https:")
 
     data = {}
     data["url"] = d_url

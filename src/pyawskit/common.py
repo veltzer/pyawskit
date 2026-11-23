@@ -25,8 +25,7 @@ def load_json_config(
         name + ".json",
     )
     with open(path) as input_handle:
-        obj = json.load(input_handle)
-    return obj
+        return json.load(input_handle)
 
 
 def wait_net_service(
@@ -42,14 +41,12 @@ def wait_net_service(
         :param timeout
     """
     s = socket.socket()
-    end: float
-    if timeout:
-        # time module is needed to calc timeout shared between two exceptions
-        end = time.time() + timeout
+    # time module is needed to calc timeout shared between two exceptions
+    end: float | None = time.time() + timeout if timeout else None
 
     while True:
         try:
-            if timeout:
+            if end is not None:
                 next_timeout = end - time.time()
                 if next_timeout < 0:
                     return False
@@ -118,8 +115,7 @@ def reread_partition_table() -> None:
 
 def all_regions() -> list[str]:
     client = boto3.client("ec2")
-    regions = [region["RegionName"] for region in client.describe_regions()["Regions"]]
-    return regions
+    return [region["RegionName"] for region in client.describe_regions()["Regions"]]
 
 
 def format_device(disk: str, label: str | None = None) -> None:
