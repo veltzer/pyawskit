@@ -376,11 +376,11 @@ wheels = [
 
 [[package]]
 name = "pyapikey"
-version = "0.0.13"
+version = "0.0.14"
 source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/fa/08/b9db63065e1cd182e3da0f8c1d8900196bfefba9d87bbceaf3c29fafa6ec/pyapikey-0.0.13.tar.gz", hash = "sha256:7c35fb3471fb070129d0f854c55ab3a007d670b85eea131c91db647ad344691b", size = 3984, upload-time = "2025-08-30T03:53:21.755Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/56/03/48a2a49378b3ec00d6af93efc431228d3504da661075590f535944ae6dbc/pyapikey-0.0.14.tar.gz", hash = "sha256:f1900b34fbfa936487158fa941cd9e58e985191af894f6b9d897e9cec0db3e32", size = 5674, upload-time = "2026-11-26T17:04:18.025Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/bc/6d/f5c35748d77a1a80a6ed502543f0eebe04067c80a9f7192ef32801db0c91/pyapikey-0.0.13-py3-none-any.whl", hash = "sha256:593b3fcd292a045971dd9962d9de01e55a4d99fc78e45fa71268958ca6c1a934", size = 3856, upload-time = "2025-08-30T03:53:20.76Z" },
+    { url = "https://files.pythonhosted.org/packages/72/d4/b7747b489f98f2a015f05076679b48a4a72d00fd27f6ba1f7ec7a5c76427/pyapikey-0.0.14-py3-none-any.whl", hash = "sha256:082a87de85218754102383736cfbf24eea916ef750681acb846c69112166e0be", size = 4099, upload-time = "2026-11-26T17:04:16.636Z" },
 ]
 
 [[package]]
@@ -462,16 +462,16 @@ wheels = [
 
 [[package]]
 name = "pylogconf"
-version = "0.0.38"
+version = "0.0.39"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "logging-tree" },
     { name = "pyfakeuse" },
     { name = "pyyaml" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/2c/37/8ead85d08c8124f659ebf7ea3efe7a973a371f2aa9831299aaded8679b3a/pylogconf-0.0.38.tar.gz", hash = "sha256:75108ff8daee387213d441d7cde44fd50819c904a48ff060ccec2a79f3d2024b", size = 4964, upload-time = "2024-10-12T12:02:38.451Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/a4/71/25ba4e0da7831f59f56833285b48a8d42c48c73063f56307db82c03228bc/pylogconf-0.0.39.tar.gz", hash = "sha256:1a5bde419b0a0cc56f6431ce7599287f02550a250df30896185e8e89edd4a39c", size = 7158, upload-time = "2026-11-26T17:04:03.43Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/2c/59/f828383d74308ffa726e36b196067576ddd0412e5e67886800ec236e72f8/pylogconf-0.0.38-py3-none-any.whl", hash = "sha256:d55113b4ada574173a99f56ff54272e2d66558b5d3002319d1ae2ebd14ca8320", size = 5255, upload-time = "2024-10-12T12:02:37.47Z" },
+    { url = "https://files.pythonhosted.org/packages/f0/7f/16e0b78c4efc49fa11e42023ea924a1abd1aa4c3cd40c24efd5f0561183f/pylogconf-0.0.39-py3-none-any.whl", hash = "sha256:07d9838a9157a321b479247213785d14e937853e6442f10bf9f56bf22e2e686a", size = 5596, upload-time = "2026-11-26T17:04:02.191Z" },
 ]
 
 [[package]]
@@ -485,11 +485,11 @@ wheels = [
 
 [[package]]
 name = "pypipegzip"
-version = "0.0.24"
+version = "0.0.25"
 source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/42/cc/5755295a400b56512b3e17633fac7f68de423755211ed7b85e07a6fa00b6/pypipegzip-0.0.24.tar.gz", hash = "sha256:ef923c80e57617490aef3a3c65222665bab92a435c839dc386e1b39bbf49f2d5", size = 3114, upload-time = "2024-10-12T11:55:37.672Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/89/35/0e20ad7a3c1265346c29c951693a061764caf8501d6d23b2cd224cb349de/pypipegzip-0.0.25.tar.gz", hash = "sha256:5c91585f66fc67dd362441567ce937a51ca2e6f4159b2d0b6510e4176f8cf32b", size = 5399, upload-time = "2026-11-26T17:04:22.776Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/af/bd/cf71d41e279876244ef0a09aa3bcf732822b731f01acf7e93a41c9444ea2/pypipegzip-0.0.24-py3-none-any.whl", hash = "sha256:4f530f14803c11e3799d257b0a951b1f17100bb14662e01047c88a68ff05a392", size = 3531, upload-time = "2024-10-12T11:55:36.431Z" },
+    { url = "https://files.pythonhosted.org/packages/e7/c2/c9ce38ac3b49bd8cc873687cef72cb232751ee2ea8d1798ac4250678b611/pypipegzip-0.0.25-py3-none-any.whl", hash = "sha256:dfe6e54708519cbaa4c35820223be6417d833375dbfcdd5842614006c2f85a4b", size = 3846, upload-time = "2026-11-26T17:04:21.749Z" },
 ]
 
 [[package]]
@@ -514,16 +514,16 @@ wheels = [
 
 [[package]]
 name = "pytconf"
-version = "0.1.26"
+version = "0.1.27"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "pyyaml" },
     { name = "termcolor" },
     { name = "yattag" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/5b/66/2184f81a8567260c687e5f775bfad28692e52aed66a1b4fb0776436ca18a/pytconf-0.1.26.tar.gz", hash = "sha256:00148f65ba185459f9da66927bb8e412131d3f3ccc560e9a2cfe44124d9e4b9b", size = 13986, upload-time = "2026-11-23T09:42:54.253Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/85/48/05d240858e8cb061594c6db652eafeb037417a582ccf37aaaeff14b360a3/pytconf-0.1.27.tar.gz", hash = "sha256:328fcf80d972a4b2af28b4d9b8e9f14e6fac197a03086f5e01cbc2f8f8ba46f3", size = 14101, upload-time = "2026-11-26T17:03:58.786Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/3a/b8/65c1ed61eff7ae4ccacac4bd01c8cea247efc15a75da0e670ac414353c1f/pytconf-0.1.26-py3-none-any.whl", hash = "sha256:2796dc2dfb314a8b01d945807a87141b2fb98fdd723b8b50b0f2f0cd8b9fb7a1", size = 15254, upload-time = "2026-11-23T09:42:52.837Z" },
+    { url = "https://files.pythonhosted.org/packages/c4/d7/8b57baddc57b321d5fa8c9763ae33519cdf170a0fd5a264fe47e56c76b46/pytconf-0.1.27-py3-none-any.whl", hash = "sha256:90a0c545ab925b839edba8bb55835c637e33d648d80f6b6e33553dde42cfebe9", size = 15313, upload-time = "2026-11-26T17:03:57.549Z" },
 ]
 
 [[package]]

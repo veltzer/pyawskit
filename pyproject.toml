@@ -98,19 +98,6 @@ search-path = [
     "src",
     ".",
 ]
-# Third-party libraries without type information.
-ignore-missing-imports = [
-    "boto3.*",
-    "botocore.*",
-    "furl.*",
-    "pyapikey.*",
-    "pylogconf.*",
-    "pymount.*",
-    "pypipegzip.*",
-    "pytconf.*",
-    "sultan.*",
-    "tqdm.*",
-]
 
 [tool.pyrefly.errors]
 no-any-return = "error"
