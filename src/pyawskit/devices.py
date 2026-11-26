@@ -66,8 +66,7 @@ def mount_disks() -> None:
     command line option) whether to run this multi-core or not.
     """
     pyawskit.common.check_root()
-    # TODO: ask the user for yes/no confirmation since we are brutally
-    # erasing all of the local disks...
+    # no confirmation is asked before all the local disks are erased (doc/TOFIX.md)
     disks = pyawskit.common.get_disks()
     for disk in disks:
         folder = f"/mnt/{disk}"

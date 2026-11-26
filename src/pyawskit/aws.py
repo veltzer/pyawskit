@@ -1,10 +1,13 @@
 """ aws.py """
 
 import logging
-from collections.abc import Callable
 from time import sleep
+from typing import TYPE_CHECKING
 
 from pyawskit.common import load_json_config, wait_net_service
+
+if TYPE_CHECKING:
+    from collections.abc import Callable
 
 # http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-requests.html
 aws_spot_instance_types = {

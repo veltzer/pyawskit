@@ -207,7 +207,7 @@ def launch_machine() -> None:
     tag_resources(client, instance_ids, pd.p_launch_config[pd.p_name]["instance_tags"])
     wait_for_ssh(instances)
 
-    # TODO: we just need to add the instances we created
+    # this rewrites every host, not only the instances just created (doc/TOFIX.md)
     update_ssh_config(all_hosts=False)
 
     attach_disks(ec2, instance_ids, pd.p_launch_config[pd.p_name]["disks_to_attach"])
