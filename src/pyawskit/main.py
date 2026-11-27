@@ -119,7 +119,6 @@ def copy_to_machine() -> None:
     ]
     args.extend(map(os.path.expanduser, folders_to_copy))
     args.append(f"{machine_name}:~")
-    # subprocess.check_call(args, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     subprocess.check_call(args)
 
 
@@ -200,8 +199,6 @@ def launch_machine() -> None:
     r_request_spot_instances = request_spot_instances(client, pd)
     request_ids = [r["SpotInstanceRequestId"] for r in r_request_spot_instances["SpotInstanceRequests"]]
     tag_resources(client, request_ids, pd.p_launch_config[pd.p_name]["spot_request_tags"])
-    # other way of waiting...
-    # wait_using_waiter(client, pd, request_ids)
     instances = poll_instances_till_done(ec2, pd, request_ids)
     instance_ids = [i.id for i in instances]
     tag_resources(client, instance_ids, pd.p_launch_config[pd.p_name]["instance_tags"])

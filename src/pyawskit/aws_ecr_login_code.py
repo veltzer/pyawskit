@@ -9,8 +9,6 @@ import sys
 from typing import Any
 from urllib.parse import urlparse
 
-# import requests.exceptions
-# import docker
 import boto3
 import pyapikey
 

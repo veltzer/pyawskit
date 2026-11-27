@@ -192,10 +192,6 @@ def update_file(
         if host == "" or " " in host:
             logger.info("Name [%s] for host is bad. Try non empty names without spaces...", host)
             continue
-        # public_ip = instance.public_dns_name
-        # if public_ip == "":
-        #    continue
-        # logger.info(dir(instance))
         private_ip = instance.private_ip_address
         if private_ip == "":
             continue

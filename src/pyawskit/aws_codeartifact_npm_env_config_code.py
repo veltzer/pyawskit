@@ -36,7 +36,6 @@ def handle_data(url: str, short_url: str, password: str, *, replace: bool) -> No
         print(f"export npm_config_{url}:_authToken={password}")
         print(f"export npm_config__authToken=\"{password}\"")
     if WRITE_FILE:
-        # filename = os.path.join(os.path.dirname(os.path.dirname(__file__)), ".npmrc")
         filename = os.path.join(os.getcwd(), ".npmrc")
         if not os.path.isfile(filename) or replace:
             with open("/dev/tty", "w", encoding="utf-8") as stream:
