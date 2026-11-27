@@ -9,6 +9,7 @@ import stat
 import subprocess
 import sys
 import time
+from typing import Any
 
 import boto3
 import requests
@@ -142,6 +143,7 @@ def update_file(
     logger = logging.getLogger(__name__)
 
     config_file = os.path.expanduser(filename)
+    lines: list[str]
     if os.path.isfile(config_file):
         with open(config_file) as file_handle:
             lines = file_handle.readlines()
@@ -158,13 +160,14 @@ def update_file(
     if os.path.isfile(filter_file):
         logger.info("reading [%s]...", filter_file)
         with open(filter_file) as file_handle:
-            filters = json.loads(file_handle.read())
+            filters: list[dict[str, Any]] = json.loads(file_handle.read())
     else:
         logger.info("no filter file [%s] exists...", filter_file)
         filters = []
 
     # look for servers matching the query, in all regions
-    instances = []
+    # boto3 builds its resource classes at run time: they have no static type
+    instances: list[Any] = []
     for region in all_regions():
         ec2 = boto3.resource("ec2", region_name=region)
         if do_all:
