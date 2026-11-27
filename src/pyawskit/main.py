@@ -151,7 +151,7 @@ def generate_ssh_config() -> None:
     This script will update ~/.aws/config file with the names of your machines.
     Notice that you must hold all of your .pem files in ~/.aws/keys
     """
-    update_ssh_config(not ConfigFilter.filter)
+    update_ssh_config(all_hosts=not ConfigFilter.filter)
 
 
 @register_endpoint(

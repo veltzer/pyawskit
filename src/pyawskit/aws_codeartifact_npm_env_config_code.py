@@ -25,7 +25,7 @@ USE_ENV = False
 WRITE_FILE = True
 
 
-def handle_data(url: str, short_url: str, password: str, replace: bool) -> None:
+def handle_data(url: str, short_url: str, password: str, *, replace: bool) -> None:
     """ really handle the data """
     if USE_ENV:
         url = str(furl(url).set(username=USERNAME, password=password).add(path="simple/"))
