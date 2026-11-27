@@ -2,7 +2,7 @@
 
 import logging
 from time import sleep
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from pyawskit.common import load_json_config, wait_net_service
 
@@ -25,7 +25,7 @@ aws_spot_instance_types = {
 }
 
 
-def log_func_name(func: Callable):
+def log_func_name(func: Callable[..., Any]):
 
     def inner(*kw, **tw):
         logger = logging.getLogger(__name__)
