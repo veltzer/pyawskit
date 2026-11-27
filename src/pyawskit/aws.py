@@ -27,7 +27,7 @@ aws_spot_instance_types = {
 
 def log_func_name(func: Callable[..., Any]):
 
-    def inner(*kw, **tw):
+    def inner(*kw: Any, **tw: Any):
         logger = logging.getLogger(__name__)
         logger.info(func.__name__)
         return func(*kw, **tw)
@@ -35,7 +35,7 @@ def log_func_name(func: Callable[..., Any]):
 
 
 class ProcessData:
-    def __init__(self, name: str):
+    def __init__(self, name: str) -> None:
         self.p_name: str = name
         self.p_launch_config = load_json_config("launch_config")
         self.p_config = self.p_launch_config[self.p_name]
@@ -50,7 +50,7 @@ class ProcessData:
 
 
 @log_func_name
-def request_spot_instances(client, pd: ProcessData):
+def request_spot_instances(client: Any, pd: ProcessData):
     return client.request_spot_instances(
         DryRun=pd.p_dry_run,
         SpotPrice=str(pd.p_price),
@@ -61,7 +61,7 @@ def request_spot_instances(client, pd: ProcessData):
 
 
 @log_func_name
-def wait_using_waiter(client, pd: ProcessData, request_ids: list[str]):
+def wait_using_waiter(client: Any, pd: ProcessData, request_ids: list[str]):
     waiter = client.get_waiter("spot_instance_request_fulfilled")
     return waiter.wait(
         DryRun=pd.p_dry_run,
@@ -70,7 +70,7 @@ def wait_using_waiter(client, pd: ProcessData, request_ids: list[str]):
 
 
 @log_func_name
-def poll_requests_till_done(client, pd: ProcessData, request_ids: list[str]):
+def poll_requests_till_done(client: Any, pd: ProcessData, request_ids: list[str]):
     return client.describe_spot_instance_requests(
         DryRun=pd.p_dry_run,
         SpotInstanceRequestIds=request_ids,
@@ -78,7 +78,7 @@ def poll_requests_till_done(client, pd: ProcessData, request_ids: list[str]):
 
 
 @log_func_name
-def poll_instances_till_done(ec2, pd: ProcessData, request_ids: list[str]):
+def poll_instances_till_done(ec2: Any, pd: ProcessData, request_ids: list[str]):
     instances = ec2.instances.filter(Filters=[{"Name": "spot-instance-request-id", "Values": request_ids}])
     while len(list(instances)) < pd.p_count:
         sleep(1)
@@ -87,7 +87,7 @@ def poll_instances_till_done(ec2, pd: ProcessData, request_ids: list[str]):
 
 
 @log_func_name
-def tag_resources(client, resource_ids: list[str], tags: object):
+def tag_resources(client: Any, resource_ids: list[str], tags: object):
     return client.create_tags(
         Resources=resource_ids,
         Tags=tags,
@@ -95,7 +95,7 @@ def tag_resources(client, resource_ids: list[str], tags: object):
 
 
 @log_func_name
-def attach_disks(ec2, instance_ids: list[str], disks: list[dict[str, str]]):
+def attach_disks(ec2: Any, instance_ids: list[str], disks: list[dict[str, str]]):
     """
     This function attaches a list of disks to the instances in the list
     :param ec2:
@@ -117,7 +117,7 @@ def attach_disks(ec2, instance_ids: list[str], disks: list[dict[str, str]]):
 
 
 @log_func_name
-def wait_for_ssh(instances):
+def wait_for_ssh(instances: list[Any]) -> None:
     for instance in instances:
         wait_net_service(
             server=instance.private_ip_address,
@@ -126,7 +126,7 @@ def wait_for_ssh(instances):
 
 
 @log_func_name
-def attach_disk(ec2, instance_id: str, volume_id: str, device: str):
+def attach_disk(ec2: Any, instance_id: str, volume_id: str, device: str):
     volume = ec2.Volume(volume_id)
     return volume.attach_to_instance(
         InstanceId=instance_id,

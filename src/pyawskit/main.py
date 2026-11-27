@@ -213,7 +213,7 @@ def launch_machine() -> None:
 @register_endpoint(
     description="Prepares your account on a new AWS machine",
 )
-def prep_account():
+def prep_account() -> None:
     """
     These are the types of things it does:
     - copy ~/.aws ~/.ssh ~/.s3cfg ~/.gitconfig ~/.passwd-s3fs to it
@@ -320,7 +320,7 @@ def inet_my_ip() -> None:
     app_name=APP_NAME,
     version=VERSION_STR,
 )
-def main():
+def main() -> None:
     setup()
     config_arg_parse_and_launch()
 

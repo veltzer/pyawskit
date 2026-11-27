@@ -3,6 +3,7 @@
 import logging
 import os
 import subprocess
+from logging import Logger
 
 import pymount.mgr
 
@@ -10,7 +11,7 @@ import pyawskit.common
 from pyawskit.configs import ConfigWork
 
 
-def create_new_device(logger, disks):
+def create_new_device(logger: Logger, disks: list[str]) -> None:
     logger.info("creating the new md device...")
     if ConfigWork.start_stop_queue:
         subprocess.check_call([
@@ -31,7 +32,7 @@ def create_new_device(logger, disks):
     subprocess.check_call(args, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
 
-def check_unmounted(logger, disks):
+def check_unmounted(logger: Logger, disks: list[str]) -> None:
     logger.info("checking if any of the disks are mounted [%s]", disks)
     manager = pymount.mgr.Manager()
     for disk in disks:

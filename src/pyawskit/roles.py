@@ -7,7 +7,7 @@ import boto3
 from pyawskit.configs import ConfigRole, ConfigRoleDuplicate
 
 
-def role_duplicate():
+def role_duplicate() -> None:
     client = boto3.client("iam")
     from_role = ConfigRoleDuplicate.from_role
     to_role = ConfigRoleDuplicate.to_role
@@ -50,7 +50,7 @@ def role_duplicate():
         assert response3["ResponseMetadata"]["HTTPStatusCode"] == 200
 
 
-def role_delete():
+def role_delete() -> None:
     client = boto3.client("iam")
     role_name = ConfigRole.role
     attached_policies = client.list_attached_role_policies(RoleName=role_name)["AttachedPolicies"]
@@ -74,7 +74,7 @@ def role_delete():
     assert response["ResponseMetadata"]["HTTPStatusCode"] == 200
 
 
-def role_get():
+def role_get() -> None:
     client = boto3.client("iam")
     role_name = ConfigRole.role
     response = client.get_role(

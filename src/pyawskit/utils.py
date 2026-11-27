@@ -4,7 +4,7 @@ import os.path
 import shutil
 import subprocess
 import sys
-from typing import Any
+from typing import IO, TYPE_CHECKING, Any
 
 import boto3
 
@@ -15,8 +15,11 @@ import botocore
 import botocore.exceptions
 import pypipegzip.pypipegzip
 
+if TYPE_CHECKING:
+    from collections.abc import Callable
 
-def copyfileobj(source, destination, buffer_size=1024 * 1024):
+
+def copyfileobj(source: IO[bytes], destination: IO[bytes], buffer_size: int = 1024 * 1024) -> None:
     """
     Copy a file from source to destination. source and destination
     must be file-like objects, i.e. any object with a read or
@@ -43,7 +46,7 @@ def gzip_file_process(file_in: str, file_out: str) -> None:
     )
 
 
-def object_exists(s3_connection, check_bucket_name: str, object_name: str) -> bool:
+def object_exists(s3_connection: Any, check_bucket_name: str, object_name: str) -> bool:
     """
     It seems funny we have to write this method but it seems that this
     is the way to check if an s3 bucket has an object.
@@ -64,7 +67,7 @@ def object_exists(s3_connection, check_bucket_name: str, object_name: str) -> bo
     return True
 
 
-def object_exists_bucket(bucket_obj, object_name: str) -> bool:
+def object_exists_bucket(bucket_obj: Any, object_name: str) -> bool:
     """
     see the note above
 
@@ -81,8 +84,8 @@ def object_exists_bucket(bucket_obj, object_name: str) -> bool:
     return True
 
 
-def catch_all(the_function):
-    def new_function(*args, **kwargs):
+def catch_all(the_function: Callable[..., Any]):
+    def new_function(*args: Any, **kwargs: Any):
         try:
             return the_function(*args, **kwargs)
         except Exception as e:
@@ -95,7 +98,7 @@ def compress_one_file(_list: list[Any]) -> Any:
     pass
 
 
-def process_one_file(basename, full_name, compressed_basename, full_compressed_name, bucket_name):
+def process_one_file(basename: str, full_name: str, compressed_basename: str, full_compressed_name: str, bucket_name: str) -> None:
     s3 = boto3.resource("s3")
     bucket = s3.Bucket(bucket_name)
 
@@ -116,6 +119,6 @@ def process_one_file(basename, full_name, compressed_basename, full_compressed_n
     os.unlink(compressed_basename)
 
 
-def print_exception(e):
+def print_exception(e: BaseException):
     print("exception happened", e)
     sys.exit(1)

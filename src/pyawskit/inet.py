@@ -5,7 +5,7 @@ import urllib.request
 import requests
 
 
-def check():
+def check() -> bool:
     try:
         requests.get("https://google.com", timeout=5)
     except requests.ConnectionError:
