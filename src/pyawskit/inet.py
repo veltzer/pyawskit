@@ -8,9 +8,10 @@ import requests
 def check():
     try:
         requests.get("https://google.com", timeout=5)
-        return True
     except requests.ConnectionError:
         return False
+    else:
+        return True
 
 
 def my_ip():
